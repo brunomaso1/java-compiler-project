@@ -1,0 +1,118 @@
+package parser;
+
+import ast.*;
+import java.io.*;
+import java.util.*;
+import java_cup.runtime.Symbol;
+
+parser code {:
+
+	public void syntax_error(Symbol currentToken) {
+		report_error("Syntax error at [" + (currentToken.left+1) +"," + (currentToken.right+1) +"]!", null);
+	}
+
+	public static Symbol parse(Reader input) throws Exception {
+		return (new Parser(new Lexer(input))).parse();
+	}
+
+	public static Symbol parse(String input) throws Exception {
+		return parse(new StringReader(input));
+	}
+
+	public static void main(String[] args) throws Exception {
+		if (args.length < 1) {
+			System.out.println(parse(new InputStreamReader(System.in, "UTF8")).value);
+		} else for (int i = 0; i < args.length; ++i) {
+			System.out.println(parse(new InputStreamReader(new FileInputStream(args[i]), "UTF8")).value);
+		}
+	}
+
+:}
+
+non terminal Stmt stmt;
+non terminal AExp aexp;
+non terminal BExp bexp;
+terminal Double NUM;
+terminal String ID;
+terminal EXCLAMATION_MARK;
+terminal LEFT_PARENTHESIS;
+terminal RIGHT_PARENTHESIS;
+terminal ASTERISK;
+terminal FALSE;
+terminal THEN;
+terminal PLUS_SIGN;
+terminal HYPHEN_MINUS;
+terminal SEMICOLON;
+terminal LEFT_CURLY_BRACKET;
+terminal TRUE;
+terminal EQUALS_SIGN;
+terminal RIGHT_CURLY_BRACKET;
+terminal DOUBLE_AMPERSAND;
+terminal LESS_THAN_OR_EQUAL;
+non terminal List<Stmt> repeat$stmt;
+terminal DO;
+terminal SKIP;
+terminal WHILE;
+terminal ELSE;
+terminal IF;
+terminal DOUBLE_EQUALS_SIGN;
+
+precedence left DOUBLE_AMPERSAND;
+precedence left PLUS_SIGN, HYPHEN_MINUS;
+precedence left ASTERISK;
+precedence left EXCLAMATION_MARK;
+
+start with stmt;
+
+stmt ::=
+		ID:$1 EQUALS_SIGN:$2 aexp:$3 SEMICOLON:$4 
+		{: RESULT = new Assignment($1, $3); :}
+	|	SKIP:$1 SEMICOLON:$2 
+		{: RESULT = new Sequence(new Stmt[0]); :}
+	|	LEFT_CURLY_BRACKET:$1 repeat$stmt:$2 RIGHT_CURLY_BRACKET:$3 
+		{: RESULT = new Sequence($2.toArray(new Stmt[$2.size()])); :}
+	|	WHILE:$1 bexp:$2 DO:$3 stmt:$4 
+		{: RESULT = new WhileDo($2, $4); :}
+	|	IF:$1 bexp:$2 THEN:$3 stmt:$4 ELSE:$5 stmt:$6 
+		{: RESULT = new IfThenElse($2, $4, $6); :}
+;
+aexp ::=
+		NUM:$1 
+		{: RESULT = new Numeral($1); :}
+	|	ID:$1 
+		{: RESULT = new Variable($1); :}
+	|	aexp:$1 ASTERISK:$2 aexp:$3 
+		{: RESULT = new Multiplication($1, $3); :}
+	|	aexp:$1 PLUS_SIGN:$2 aexp:$3 
+		{: RESULT = new Addition($1, $3); :}
+	|	aexp:$1 HYPHEN_MINUS:$2 aexp:$3 
+		{: RESULT = new Subtraction($1, $3); :}
+	|	LEFT_PARENTHESIS:$1 aexp:$2 RIGHT_PARENTHESIS:$3 
+		{: RESULT = $2; :}
+;
+bexp ::=
+		TRUE:$1 
+		{: RESULT = new TruthValue(true); :}
+	|	FALSE:$1 
+		{: RESULT = new TruthValue(false); :}
+	|	aexp:$1 DOUBLE_EQUALS_SIGN:$2 aexp:$3 
+		{: RESULT = new CompareEqual($1, $3); :}
+	|	aexp:$1 LESS_THAN_OR_EQUAL:$2 aexp:$3 
+		{: RESULT = new CompareLessOrEqual($1, $3); :}
+	|	EXCLAMATION_MARK:$1 bexp:$2 
+		{: RESULT = new Negation($2); :}
+	|	bexp:$1 DOUBLE_AMPERSAND:$2 bexp:$3 
+		{: RESULT = new Conjunction($1, $3); :}
+	|	LEFT_PARENTHESIS:$1 bexp:$2 RIGHT_PARENTHESIS:$3 
+		{: RESULT = $2; :}
+;
+repeat$stmt ::=
+		
+		{: List<Stmt> $0;
+		$0 = new ArrayList<Stmt>();
+		RESULT = $0; :}
+	|	repeat$stmt:$1 stmt:$2 
+		{: List<Stmt> $0;
+		$1.add($2); $0 = $1;
+		RESULT = $0; :}
+;
