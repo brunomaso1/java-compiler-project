@@ -2,15 +2,19 @@ package ast;
 
 import java.util.*;
 import behaviour.*;
-import java.io.*;
 
-/** Representación de las comparaciones por menor o igual.
-*/
-public class CompareLessOrEqual extends BExp {
+/**
+ * Representacion de las comparaciones por menor o igual.
+ *
+ * @author Grupo_9
+ * @version 0.0.1
+ * @date 30 oct. 2016
+ */
+public class CompararMenorOIgual extends BExp {
 	public final AExp left;
 	public final AExp right;
 
-	public CompareLessOrEqual(AExp left, AExp right) {
+	public CompararMenorOIgual(AExp left, AExp right) {
 		this.left = left;
 		this.right = right;
 	}
@@ -31,6 +35,11 @@ public class CompareLessOrEqual extends BExp {
 		return Math.max(left.maxStackIL(), right.maxStackIL() + 1);
 	}
 
+	/**
+	 * FALTA ARREGLAR.
+	 * Esta haciendo unicamente la comparacion por menor, habria que implementar la comparacion
+	 * por menor o igual como la negacion de la comparacion como mayor.
+	 */
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
 		ctx = left.compileIL(ctx);
 		ctx = right.compileIL(ctx);
@@ -40,7 +49,7 @@ public class CompareLessOrEqual extends BExp {
 	}
 
 	@Override public String toString() {
-		return "CompareLessOrEqual("+ left +", "+ right +")";
+		return "CompararMenorOIgual("+ left +", "+ right +")";
 	}
 
 	@Override public int hashCode() {
@@ -53,15 +62,15 @@ public class CompareLessOrEqual extends BExp {
 	@Override public boolean equals(Object obj) {
 		if (this == obj) return true;
 		if (obj == null || getClass() != obj.getClass()) return false;
-		CompareLessOrEqual other = (CompareLessOrEqual)obj;
+		CompararMenorOIgual other = (CompararMenorOIgual)obj;
 		return (this.left == null ? other.left == null : this.left.equals(other.left))
 			&& (this.right == null ? other.right == null : this.right.equals(other.right));
 	}
 
-	public static CompareLessOrEqual generate(Random random, int min, int max) {
+	public static CompararMenorOIgual generate(Random random, int min, int max) {
 		AExp left; AExp right; 
 		left = AExp.generate(random, min-1, max-1);
 		right = AExp.generate(random, min-1, max-1);
-		return new CompareLessOrEqual(left, right);
+		return new CompararMenorOIgual(left, right);
 	}
 }

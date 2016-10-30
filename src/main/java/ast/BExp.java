@@ -34,10 +34,10 @@ public abstract class BExp {
 		//Terminals
 			case 0: return TruthValue.generate(random, min-1, max-1);
 		//Non terminals
-			case 1: return CompareEqual.generate(random, min-1, max-1);
-			case 2: return CompareLessOrEqual.generate(random, min-1, max-1);
+			case 1: return CompararIgual.generate(random, min-1, max-1);
+			case 2: return CompararMayorOIgual.generate(random, min-1, max-1);
 			case 3: return Negation.generate(random, min-1, max-1);
-			case 4: return Conjunction.generate(random, min-1, max-1);
+			case 4: return Conjuncion.generate(random, min-1, max-1);
 			default: throw new Error("Unexpected error at BExp.generate()!");
 		}
 	}

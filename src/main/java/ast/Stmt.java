@@ -33,7 +33,7 @@ public abstract class Stmt {
 		switch (i) {
 		//Terminals
 		//Non terminals
-			case 0: return Assignment.generate(random, min-1, max-1);
+			case 0: return Asignacion.generate(random, min-1, max-1);
 			case 1: return Sequence.generate(random, min-1, max-1);
 			case 2: return IfThenElse.generate(random, min-1, max-1);
 			case 3: return WhileDo.generate(random, min-1, max-1);
