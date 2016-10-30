@@ -1,10 +1,12 @@
 package ast;
 
 import java.util.*;
+import behaviour.*;
+import java.io.*;
 
 /** Representación de constantes numéricas o numerales.
 */
-public class Numeral extends Exp {
+public class Numeral extends AExp {
 	public final Double number;
 
 	public Numeral(Double number) {
@@ -13,6 +15,23 @@ public class Numeral extends Exp {
 
 	@Override public String unparse() {
 		return number.toString();
+	}
+
+	@Override public Double evaluate(State state) {
+		return number;
+	}
+
+	@Override public Set<String> freeVariables(Set<String> vars) {
+		return vars;
+	}
+
+	@Override public int maxStackIL() {
+		return 1;
+	}
+
+	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
+		ctx.codeIL.append("ldc.i4 " + this.number + "\n");
+		return ctx;
 	}
 
 	@Override public String toString() {
@@ -37,9 +56,5 @@ public class Numeral extends Exp {
 		number = Math.round(random.nextDouble() * 1000) / 100.0;
 		return new Numeral(number);
 	}
-
-	@Override
-	public Object evaluate(State state) {
-		return new Double(number);
-	}
+	
 }

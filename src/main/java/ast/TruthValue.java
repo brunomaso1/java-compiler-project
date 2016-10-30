@@ -1,10 +1,12 @@
 package ast;
 
 import java.util.*;
+import behaviour.*;
+import java.io.*;
 
 /** Representación de valores de verdad (cierto o falso).
 */
-public class TruthValue extends Exp {
+public class TruthValue extends BExp {
 	public final Boolean value;
 
 	public TruthValue(Boolean value) {
@@ -13,6 +15,29 @@ public class TruthValue extends Exp {
 
 	@Override public String unparse() {
 		return value ? "true" : "false";
+	}
+
+	@Override public Boolean evaluate(State state) {
+		return value;
+	}
+
+	@Override public Set<String> freeVariables(Set<String> vars) {
+		return vars;
+	}
+
+	@Override public int maxStackIL() {
+		return 1;
+	}
+
+	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
+		if(value){
+		ctx.codeIL.append("ldc.i4.1 \n");
+		return ctx;
+		}else{
+			ctx.codeIL.append("ldc.i4.0 \n");
+			return ctx;
+			
+		}
 	}
 
 	@Override public String toString() {
@@ -36,9 +61,5 @@ public class TruthValue extends Exp {
 		Boolean value; 
 		value = random.nextBoolean();
 		return new TruthValue(value);
-	}
-	
-	@Override public Object evaluate(State state){
-		return new Boolean(value);
 	}
 }

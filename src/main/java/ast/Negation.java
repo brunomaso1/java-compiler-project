@@ -1,18 +1,38 @@
 package ast;
 
 import java.util.*;
+import behaviour.*;
+import java.io.*;
 
 /** Representación de las negaciones de expresiones booleanas.
 */
-public class Negation extends Exp {
-	public final Exp condition;
+public class Negation extends BExp {
+	public final BExp condition;
 
-	public Negation(Exp condition) {
+	public Negation(BExp condition) {
 		this.condition = condition;
 	}
 
 	@Override public String unparse() {
 		return "(!"+ condition.unparse() +")";
+	}
+
+	@Override public Boolean evaluate(State state) {
+		return !condition.evaluate(state);
+	}
+
+	@Override public Set<String> freeVariables(Set<String> vars) {
+		return condition.freeVariables(vars);
+	}
+
+	@Override public int maxStackIL() {
+		return condition.maxStackIL();
+	}
+
+	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
+		ctx = condition.compileIL(ctx);
+		ctx.codeIL.append("neg \n");
+		return ctx;
 	}
 
 	@Override public String toString() {
@@ -33,18 +53,8 @@ public class Negation extends Exp {
 	}
 
 	public static Negation generate(Random random, int min, int max) {
-		Exp condition; 
-		condition = Exp.generate(random, min-1, max-1);
+		BExp condition; 
+		condition = BExp.generate(random, min-1, max-1);
 		return new Negation(condition);
-	}
-	
-	@Override
-	public Object evaluate(State state) {
-		if (condition.evaluate(state) instanceof Boolean)
-			return !((Boolean)condition.evaluate(state));
-		else {
-			System.out.print("Estas haciendo una negacion mal. Nuemro1 -> " + condition.evaluate(state));
-			return null;
-		}
 	}
 }

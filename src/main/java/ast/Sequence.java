@@ -1,6 +1,8 @@
 package ast;
 
 import java.util.*;
+import behaviour.*;
+import java.io.*;
 
 /** Representación de las secuencias de sentencias.
 */
@@ -13,10 +15,31 @@ public class Sequence extends Stmt {
 
 	@Override public String unparse() {
 		String result = "{ ";
-					for (Stmt statement : statements) {
-						result += statement.unparse() +" ";
-					}
+					for (Stmt statement : statements) result += statement.unparse() +" ";
 					return result +"}";
+	}
+
+	@Override public State evaluate(State state) {
+		for (Stmt statement : statements) state = statement.evaluate(state);
+					return state;
+	}
+
+	@Override public Set<String> freeVariables(Set<String> vars) {
+		for (Stmt statement : statements) vars = statement.freeVariables(vars);
+					return vars;
+	}
+
+	@Override public int maxStackIL() {
+		int result = 0;
+					for (Stmt statement : statements) result = Math.max(result, statement.maxStackIL());
+					return result;
+	}
+
+	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
+		for (Stmt stmt : statements) {
+			ctx = stmt.compileIL(ctx);
+		}
+		return ctx;
 	}
 
 	@Override public String toString() {
@@ -44,11 +67,4 @@ public class Sequence extends Stmt {
 		}
 		return new Sequence(statements);
 	}
-	
-	@Override public State evaluate(State state){
-		for (Stmt statement : statements) {
-			state = statement.evaluate(state);
-		}
-		return state;
-	}	
 }

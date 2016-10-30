@@ -1,10 +1,12 @@
 package ast;
 
 import java.util.*;
+import behaviour.*;
+import java.io.*;
 
 /** Representación de usos de variable en expresiones.
 */
-public class Variable extends Exp {
+public class Variable extends AExp {
 	public final String id;
 
 	public Variable(String id) {
@@ -13,6 +15,25 @@ public class Variable extends Exp {
 
 	@Override public String unparse() {
 		return id;
+	}
+
+	@Override public Double evaluate(State state) {
+		return state.get(id);
+	}
+
+	@Override public Set<String> freeVariables(Set<String> vars) {
+		vars.add(id); return vars;
+	}
+
+	@Override public int maxStackIL() {
+		return 1;
+	}
+
+	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
+		
+		Integer index = ctx.variables.indexOf(id);
+		ctx.codeIL.append("stloc." +  index + "\n");
+		return ctx;
 	}
 
 	@Override public String toString() {
@@ -37,11 +58,4 @@ public class Variable extends Exp {
 		id = ""+"abcdefghijklmnopqrstuvwxyz".charAt(random.nextInt(26));
 		return new Variable(id);
 	}
-
-	@Override
-	public Object evaluate(State state) {
-		return state.devolverValor(id);
-	}
-	
-	
 }
