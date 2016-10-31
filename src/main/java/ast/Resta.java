@@ -4,13 +4,18 @@ import java.util.*;
 import behaviour.*;
 import java.io.*;
 
-/** Representación de restas.
-*/
-public class Subtraction extends AExp {
+/**
+ * Representacion de las restas.
+ *
+ * @author Grupo_9
+ * @version 0.0.1
+ * @date 30 oct. 2016
+ */
+public class Resta extends AExp {
 	public final AExp left;
 	public final AExp right;
 
-	public Subtraction(AExp left, AExp right) {
+	public Resta(AExp left, AExp right) {
 		this.left = left;
 		this.right = right;
 	}
@@ -39,7 +44,7 @@ public class Subtraction extends AExp {
 	}
 
 	@Override public String toString() {
-		return "Subtraction("+ left +", "+ right +")";
+		return "Resta("+ left +", "+ right +")";
 	}
 
 	@Override public int hashCode() {
@@ -52,15 +57,15 @@ public class Subtraction extends AExp {
 	@Override public boolean equals(Object obj) {
 		if (this == obj) return true;
 		if (obj == null || getClass() != obj.getClass()) return false;
-		Subtraction other = (Subtraction)obj;
+		Resta other = (Resta)obj;
 		return (this.left == null ? other.left == null : this.left.equals(other.left))
 			&& (this.right == null ? other.right == null : this.right.equals(other.right));
 	}
 
-	public static Subtraction generate(Random random, int min, int max) {
+	public static Resta generate(Random random, int min, int max) {
 		AExp left; AExp right; 
 		left = AExp.generate(random, min-1, max-1);
 		right = AExp.generate(random, min-1, max-1);
-		return new Subtraction(left, right);
+		return new Resta(left, right);
 	}
 }

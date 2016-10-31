@@ -4,19 +4,24 @@ import java.util.*;
 import behaviour.*;
 import java.io.*;
 
-/** Representación de las secuencias de sentencias.
-*/
-public class Sequence extends Stmt {
+/**
+ * Representacion de las secuencias de instrucciones.
+ *
+ * @author Grupo_9
+ * @version 0.0.1
+ * @date 30 oct. 2016
+ */
+public class Sequencia extends Stmt {
 	public final Stmt[] statements;
 
-	public Sequence(Stmt[] statements) {
+	public Sequencia(Stmt[] statements) {
 		this.statements = statements;
 	}
 
 	@Override public String unparse() {
 		String result = "{ ";
-					for (Stmt statement : statements) result += statement.unparse() +" ";
-					return result +"}";
+		for (Stmt statement : statements) result += statement.unparse() +" ";
+		return result +"}";
 	}
 
 	@Override public State evaluate(State state) {
@@ -43,7 +48,7 @@ public class Sequence extends Stmt {
 	}
 
 	@Override public String toString() {
-		return "Sequence("+ Arrays.toString(statements) +")";
+		return "Sequencia("+ Arrays.toString(statements) +")";
 	}
 
 	@Override public int hashCode() {
@@ -55,16 +60,16 @@ public class Sequence extends Stmt {
 	@Override public boolean equals(Object obj) {
 		if (this == obj) return true;
 		if (obj == null || getClass() != obj.getClass()) return false;
-		Sequence other = (Sequence)obj;
+		Sequencia other = (Sequencia)obj;
 		return Arrays.equals(this.statements, other.statements);
 	}
 
-	public static Sequence generate(Random random, int min, int max) {
+	public static Sequencia generate(Random random, int min, int max) {
 		Stmt[] statements; 
 		statements = new Stmt[random.nextInt(Math.max(0, max)+1)];
 		for (int i = 0; i < statements.length; i++) {
 			statements[i] = Stmt.generate(random, min-1, max-1);
 		}
-		return new Sequence(statements);
+		return new Sequencia(statements);
 	}
 }

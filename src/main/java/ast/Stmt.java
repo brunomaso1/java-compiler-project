@@ -4,10 +4,13 @@ import java.util.*;
 import behaviour.*;
 import java.io.*;
 
-/** Categoría sintáctica de las sentencias (statements) de While, las 
-	construcciones del lenguaje que modifican (potencialmente) los 
-	valores de las variables en el estado del programa.
-*/
+/**
+ * Representacion de las sentencias.
+ *
+ * @author Grupo_9
+ * @version 0.0.1
+ * @date 30 oct. 2016
+ */
 public abstract class Stmt {
 
 	abstract public String unparse();
@@ -31,8 +34,8 @@ public abstract class Stmt {
 		final int NONTERMINAL_COUNT = 4;
 		int i = random.nextInt(TERMINAL_COUNT + NONTERMINAL_COUNT);
 		switch (i) {
-		//Terminals
-		//Non terminals
+		//Terminales
+		//No terminales
 			case 0: return Asignacion.generate(random, min-1, max-1);
 			case 1: return Sequence.generate(random, min-1, max-1);
 			case 2: return IfThenElse.generate(random, min-1, max-1);

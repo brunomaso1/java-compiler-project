@@ -4,12 +4,17 @@ import java.util.*;
 import behaviour.*;
 import java.io.*;
 
-/** Representación de las negaciones de expresiones booleanas.
-*/
-public class Negation extends BExp {
+/**
+ * Representacion de las negaciones.
+ *
+ * @author Grupo_9
+ * @version 0.0.1
+ * @date 30 oct. 2016
+ */
+public class Negacion extends BExp {
 	public final BExp condition;
 
-	public Negation(BExp condition) {
+	public Negacion(BExp condition) {
 		this.condition = condition;
 	}
 
@@ -36,7 +41,7 @@ public class Negation extends BExp {
 	}
 
 	@Override public String toString() {
-		return "Negation("+ condition +")";
+		return "Negacion("+ condition +")";
 	}
 
 	@Override public int hashCode() {
@@ -48,13 +53,13 @@ public class Negation extends BExp {
 	@Override public boolean equals(Object obj) {
 		if (this == obj) return true;
 		if (obj == null || getClass() != obj.getClass()) return false;
-		Negation other = (Negation)obj;
+		Negacion other = (Negacion)obj;
 		return (this.condition == null ? other.condition == null : this.condition.equals(other.condition));
 	}
 
-	public static Negation generate(Random random, int min, int max) {
+	public static Negacion generate(Random random, int min, int max) {
 		BExp condition; 
 		condition = BExp.generate(random, min-1, max-1);
-		return new Negation(condition);
+		return new Negacion(condition);
 	}
 }

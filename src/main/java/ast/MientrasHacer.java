@@ -4,19 +4,24 @@ import java.util.*;
 import behaviour.*;
 import java.io.*;
 
-/** Representación de las iteraciones while-do.
-*/
-public class WhileDo extends Stmt {
+/**
+ * Representacion de los bucles.
+ *
+ * @author Grupo_9
+ * @version 0.0.1
+ * @date 30 oct. 2016
+ */
+public class MientrasHacer extends Stmt {
 	public final BExp condition;
 	public final Stmt body;
 
-	public WhileDo(BExp condition, Stmt body) {
+	public MientrasHacer(BExp condition, Stmt body) {
 		this.condition = condition;
 		this.body = body;
 	}
 
 	@Override public String unparse() {
-		return "while "+ condition.unparse() +" do { "+ body.unparse() +" }";
+		return "Mientras "+ condition.unparse() +" hacer { "+ body.unparse() +" }";
 	}
 
 	@Override public State evaluate(State state) {
@@ -46,11 +51,10 @@ public class WhileDo extends Stmt {
 		ctx.codeIL.append("brtrue "+ etiqueta + "\n");
 		
 		return ctx;
-		
 	}
 
 	@Override public String toString() {
-		return "WhileDo("+ condition +", "+ body +")";
+		return "MientrasHacer("+ condition +", "+ body +")";
 	}
 
 	@Override public int hashCode() {
@@ -63,15 +67,15 @@ public class WhileDo extends Stmt {
 	@Override public boolean equals(Object obj) {
 		if (this == obj) return true;
 		if (obj == null || getClass() != obj.getClass()) return false;
-		WhileDo other = (WhileDo)obj;
+		MientrasHacer other = (MientrasHacer)obj;
 		return (this.condition == null ? other.condition == null : this.condition.equals(other.condition))
 			&& (this.body == null ? other.body == null : this.body.equals(other.body));
 	}
 
-	public static WhileDo generate(Random random, int min, int max) {
+	public static MientrasHacer generate(Random random, int min, int max) {
 		BExp condition; Stmt body; 
 		condition = BExp.generate(random, min-1, max-1);
 		body = Stmt.generate(random, min-1, max-1);
-		return new WhileDo(condition, body);
+		return new MientrasHacer(condition, body);
 	}
 }

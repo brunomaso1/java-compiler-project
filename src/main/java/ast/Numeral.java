@@ -4,8 +4,13 @@ import java.util.*;
 import behaviour.*;
 import java.io.*;
 
-/** Representación de constantes numéricas o numerales.
-*/
+/**
+ * Representacion de los numeros.
+ *
+ * @author Grupo_9
+ * @version 0.0.1
+ * @date 30 oct. 2016
+ */
 public class Numeral extends AExp {
 	public final Double number;
 

@@ -4,12 +4,17 @@ import java.util.*;
 import behaviour.*;
 import java.io.*;
 
-/** Representación de valores de verdad (cierto o falso).
-*/
-public class TruthValue extends BExp {
+/**
+ * Representacion de los valores de verdad.
+ *
+ * @author Grupo_9
+ * @version 0.0.1
+ * @date 30 oct. 2016
+ */
+public class ValorVerdad extends BExp {
 	public final Boolean value;
 
-	public TruthValue(Boolean value) {
+	public ValorVerdad(Boolean value) {
 		this.value = value;
 	}
 
@@ -41,7 +46,7 @@ public class TruthValue extends BExp {
 	}
 
 	@Override public String toString() {
-		return "TruthValue("+ value +")";
+		return "ValorVerdad("+ value +")";
 	}
 
 	@Override public int hashCode() {
@@ -53,13 +58,13 @@ public class TruthValue extends BExp {
 	@Override public boolean equals(Object obj) {
 		if (this == obj) return true;
 		if (obj == null || getClass() != obj.getClass()) return false;
-		TruthValue other = (TruthValue)obj;
+		ValorVerdad other = (ValorVerdad)obj;
 		return (this.value == null ? other.value == null : this.value.equals(other.value));
 	}
 
-	public static TruthValue generate(Random random, int min, int max) {
+	public static ValorVerdad generate(Random random, int min, int max) {
 		Boolean value; 
 		value = random.nextBoolean();
-		return new TruthValue(value);
+		return new ValorVerdad(value);
 	}
 }

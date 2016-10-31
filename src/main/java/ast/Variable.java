@@ -4,8 +4,13 @@ import java.util.*;
 import behaviour.*;
 import java.io.*;
 
-/** Representación de usos de variable en expresiones.
-*/
+/**
+ * Representacion de las variables.
+ *
+ * @author Grupo_9
+ * @version 0.0.1
+ * @date 30 oct. 2016
+ */
 public class Variable extends AExp {
 	public final String id;
 
