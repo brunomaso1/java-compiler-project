@@ -11,11 +11,11 @@ import java.io.*;
  * @version 0.0.1
  * @date 30 oct. 2016
  */
-public class SiEntonces extends Stmt {
-	public final BExp condition;
-	public final Stmt thenBody;
+public class SiEntonces extends Sentencia {
+	public final ExpresionVerdad condition;
+	public final Sentencia thenBody;
 
-	public SiEntonces(BExp condition, Stmt thenBody) {
+	public SiEntonces(ExpresionVerdad condition, Sentencia thenBody) {
 		this.condition = condition;
 		this.thenBody = thenBody;
 	}
@@ -29,7 +29,7 @@ public class SiEntonces extends Stmt {
 	 * Está como si se ejecutara un ifthenelse.
 	 */	
 	@Override public State evaluate(State state) {
-		return condition.evaluate(state) ? thenBody.evaluate(state) : elseBody.evaluate(state);
+		return condition.evaluate(state) ? thenBody.evaluate(state) : state ;
 	}
 
 	@Override public Set<String> freeVariables(Set<String> vars) {
@@ -51,11 +51,13 @@ public class SiEntonces extends Stmt {
 		ctx.codeIL.append("brsfalse " +etiqueta+ "\n");
 		
 		ctx = thenBody.compileIL(ctx);
-		String etiqueta2 = ctx.newLabel(); 
-		ctx.codeIL.append("br " + etiqueta2 + "\n");
-		ctx.codeIL.append(etiqueta + ":" + "\n");
-		ctx = elseBody.compileIL(ctx);
-		ctx.codeIL.append(etiqueta2 + ":nop" + "\n");
+		ctx.codeIL.append(etiqueta + ":nop" + "\n");
+		
+		//String etiqueta2 = ctx.newLabel(); 
+		//ctx.codeIL.append("br " + etiqueta2 + "\n");
+		//ctx.codeIL.append(etiqueta + ":" + "\n");
+		//ctx = elseBody.compileIL(ctx);
+		//ctx.codeIL.append(etiqueta2 + ":nop" + "\n");
 		
 		return ctx;
 	}
@@ -68,7 +70,6 @@ public class SiEntonces extends Stmt {
 		int result = 1;
 		result = result * 31 + (this.condition == null ? 0 : this.condition.hashCode());
 		result = result * 31 + (this.thenBody == null ? 0 : this.thenBody.hashCode());
-		result = result * 31 + (this.elseBody == null ? 0 : this.elseBody.hashCode());
 		return result;
 	}
 
@@ -77,16 +78,15 @@ public class SiEntonces extends Stmt {
 		if (obj == null || getClass() != obj.getClass()) return false;
 		SiEntonces other = (SiEntonces)obj;
 		return (this.condition == null ? other.condition == null : this.condition.equals(other.condition))
-			&& (this.thenBody == null ? other.thenBody == null : this.thenBody.equals(other.thenBody))
-			&& (this.elseBody == null ? other.elseBody == null : this.elseBody.equals(other.elseBody));
+			&& (this.thenBody == null ? other.thenBody == null : this.thenBody.equals(other.thenBody));
+			//&& (this.elseBody == null ? other.elseBody == null : this.elseBody.equals(other.elseBody));
 	}
 
 	public static SiEntonces generate(Random random, int min, int max) {
-		BExp condition; Stmt thenBody; Stmt elseBody; 
-		condition = BExp.generate(random, min-1, max-1);
-		thenBody = Stmt.generate(random, min-1, max-1);
-		elseBody = Stmt.generate(random, min-1, max-1);
-		return new SiEntonces(condition, thenBody, elseBody);
+		ExpresionVerdad condition; Sentencia thenBody;
+		condition = ExpresionVerdad.generate(random, min-1, max-1);
+		thenBody = Sentencia.generate(random, min-1, max-1);
+		return new SiEntonces(condition, thenBody);
 	}
 
 }

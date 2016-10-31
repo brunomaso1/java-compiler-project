@@ -11,11 +11,11 @@ import java.io.*;
  * @version 0.0.1
  * @date 30 oct. 2016
  */
-public class MientrasHacer extends Stmt {
-	public final BExp condition;
-	public final Stmt body;
+public class MientrasHacer extends Sentencia {
+	public final ExpresionVerdad condition;
+	public final Sentencia body;
 
-	public MientrasHacer(BExp condition, Stmt body) {
+	public MientrasHacer(ExpresionVerdad condition, Sentencia body) {
 		this.condition = condition;
 		this.body = body;
 	}
@@ -73,9 +73,9 @@ public class MientrasHacer extends Stmt {
 	}
 
 	public static MientrasHacer generate(Random random, int min, int max) {
-		BExp condition; Stmt body; 
-		condition = BExp.generate(random, min-1, max-1);
-		body = Stmt.generate(random, min-1, max-1);
+		ExpresionVerdad condition; Sentencia body; 
+		condition = ExpresionVerdad.generate(random, min-1, max-1);
+		body = Sentencia.generate(random, min-1, max-1);
 		return new MientrasHacer(condition, body);
 	}
 }

@@ -2,7 +2,7 @@ package behaviour;
 
 import java.util.*;
 
-import ast.Stmt;
+import ast.Sentencia;
 
 public class CompilationContextIL {
 	public final List<String> variables = new ArrayList<String>();
@@ -11,7 +11,7 @@ public class CompilationContextIL {
 	
 	private int currentLabel = 0;
 
-	public CompilationContextIL(Stmt prog) {
+	public CompilationContextIL(Sentencia prog) {
 		this(prog.freeVariables(new HashSet<String>()), prog.maxStackIL());
 	}
 	
@@ -30,7 +30,7 @@ public class CompilationContextIL {
 	/** Este método se utiliza para generar el código IL y obtener como un
 	 *  String.
 	 */
-	public static String compileIL(Stmt prog) {
+	public static String compileIL(Sentencia prog) {
 		CompilationContextIL ctx = new CompilationContextIL(prog);
 		ctx.codeIL.append("// variables = "+ ctx.variables +"\n");
 		ctx.codeIL.append("// maxStack =  "+ ctx.maxStack +"\n");

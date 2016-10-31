@@ -11,7 +11,7 @@ import java.io.*;
  * @version 0.0.1
  * @date 30 oct. 2016
  */
-public class ValorVerdad extends BExp {
+public class ValorVerdad extends ExpresionVerdad {
 	public final Boolean value;
 
 	public ValorVerdad(Boolean value) {

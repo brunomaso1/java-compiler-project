@@ -10,11 +10,11 @@ import behaviour.*;
  * @version 0.0.1
  * @date 30 oct. 2016
  */
-public class Asignacion extends Stmt {
+public class Asignacion extends Sentencia {
 	public final String id;
-	public final AExp expression;
+	public final ExpresionAritmetica expression;
 
-	public Asignacion(String id, AExp expression) {
+	public Asignacion(String id, ExpresionAritmetica expression) {
 		this.id = id;
 		this.expression = expression;
 	}
@@ -65,9 +65,9 @@ public class Asignacion extends Stmt {
 	}
 
 	public static Asignacion generate(Random random, int min, int max) {
-		String id; AExp expression; 
+		String id; ExpresionAritmetica expression; 
 		id = ""+"abcdefghijklmnopqrstuvwxyz".charAt(random.nextInt(26));
-		expression = AExp.generate(random, min-1, max-1);
+		expression = ExpresionAritmetica.generate(random, min-1, max-1);
 		return new Asignacion(id, expression);
 	}
 }

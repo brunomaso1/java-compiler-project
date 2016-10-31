@@ -11,11 +11,11 @@ import java.io.*;
  * @version 0.0.1
  * @date 30 oct. 2016
  */
-public class Resta extends AExp {
-	public final AExp left;
-	public final AExp right;
+public class Resta extends ExpresionAritmetica {
+	public final ExpresionAritmetica left;
+	public final ExpresionAritmetica right;
 
-	public Resta(AExp left, AExp right) {
+	public Resta(ExpresionAritmetica left, ExpresionAritmetica right) {
 		this.left = left;
 		this.right = right;
 	}
@@ -63,9 +63,9 @@ public class Resta extends AExp {
 	}
 
 	public static Resta generate(Random random, int min, int max) {
-		AExp left; AExp right; 
-		left = AExp.generate(random, min-1, max-1);
-		right = AExp.generate(random, min-1, max-1);
+		ExpresionAritmetica left; ExpresionAritmetica right; 
+		left = ExpresionAritmetica.generate(random, min-1, max-1);
+		right = ExpresionAritmetica.generate(random, min-1, max-1);
 		return new Resta(left, right);
 	}
 }

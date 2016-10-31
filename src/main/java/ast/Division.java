@@ -10,11 +10,11 @@ import behaviour.*;
  * @version 0.0.1
  * @date 30 oct. 2016
  */
-public class Division extends AExp {
-	public final AExp left;
-	public final AExp right;
+public class Division extends ExpresionAritmetica {
+	public final ExpresionAritmetica left;
+	public final ExpresionAritmetica right;
 
-	public Division(AExp left, AExp right) {
+	public Division(ExpresionAritmetica left, ExpresionAritmetica right) {
 		this.left = left;
 		this.right = right;
 	}
@@ -62,9 +62,9 @@ public class Division extends AExp {
 	}
 
 	public static Division generate(Random random, int min, int max) {
-		AExp left; AExp right; 
-		left = AExp.generate(random, min-1, max-1);
-		right = AExp.generate(random, min-1, max-1);
+		ExpresionAritmetica left; ExpresionAritmetica right; 
+		left = ExpresionAritmetica.generate(random, min-1, max-1);
+		right = ExpresionAritmetica.generate(random, min-1, max-1);
 		return new Division(left, right);
 	}
 	

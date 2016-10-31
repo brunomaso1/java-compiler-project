@@ -40,52 +40,60 @@ import java.io.*;
 %}
 
 %%
-"!"
-	{ return new Symbol(EXCLAMATION_MARK, yyline, yycolumn, yytext()); }
-"&&"
-	{ return new Symbol(DOUBLE_AMPERSAND, yyline, yycolumn, yytext()); }
+"no"
+	{ return new Symbol(SIGNO_NO, yyline, yycolumn, yytext()); }
+"<>"
+	{ return new Symbol(SIGNO_DISTINTO, yyline, yycolumn, yytext()); }
+"y"
+	{ return new Symbol(SIGNO_Y, yyline, yycolumn, yytext()); }
 "("
-	{ return new Symbol(LEFT_PARENTHESIS, yyline, yycolumn, yytext()); }
+	{ return new Symbol(PARENTESIS_IZQUIERDO, yyline, yycolumn, yytext()); }
 ")"
-	{ return new Symbol(RIGHT_PARENTHESIS, yyline, yycolumn, yytext()); }
+	{ return new Symbol(PARENTESIS_DERECHO, yyline, yycolumn, yytext()); }
 "*"
-	{ return new Symbol(ASTERISK, yyline, yycolumn, yytext()); }
+	{ return new Symbol(SIGNO_MULT, yyline, yycolumn, yytext()); }
 "+"
-	{ return new Symbol(PLUS_SIGN, yyline, yycolumn, yytext()); }
+	{ return new Symbol(SIGNO_MAS, yyline, yycolumn, yytext()); }
 "-"
-	{ return new Symbol(HYPHEN_MINUS, yyline, yycolumn, yytext()); }
-";"
-	{ return new Symbol(SEMICOLON, yyline, yycolumn, yytext()); }
+	{ return new Symbol(SIGNO_MENOS, yyline, yycolumn, yytext()); }
+"."
+	{ return new Symbol(PUNTO, yyline, yycolumn, yytext()); }
 "<="
-	{ return new Symbol(LESS_THAN_OR_EQUAL, yyline, yycolumn, yytext()); }
+	{ return new Symbol(SIGNO_MENOR_IGUAL, yyline, yycolumn, yytext()); }
+">="
+	{ return new Symbol(SIGNO_MAYOR_IGUAL, yyline, yycolumn, yytext()); }	
 "="
-	{ return new Symbol(EQUALS_SIGN, yyline, yycolumn, yytext()); }
-"=="
-	{ return new Symbol(DOUBLE_EQUALS_SIGN, yyline, yycolumn, yytext()); }
-"do"
-	{ return new Symbol(DO, yyline, yycolumn, yytext()); }
-"else"
-	{ return new Symbol(ELSE, yyline, yycolumn, yytext()); }
-"false"
-	{ return new Symbol(FALSE, yyline, yycolumn, yytext()); }
-"if"
-	{ return new Symbol(IF, yyline, yycolumn, yytext()); }
-"skip"
-	{ return new Symbol(SKIP, yyline, yycolumn, yytext()); }
-"then"
-	{ return new Symbol(THEN, yyline, yycolumn, yytext()); }
-"true"
-	{ return new Symbol(TRUE, yyline, yycolumn, yytext()); }
-"while"
-	{ return new Symbol(WHILE, yyline, yycolumn, yytext()); }
+	{ return new Symbol(SIGNO_IGUAL, yyline, yycolumn, yytext()); }
+"poner"
+	{ return new Symbol(PONER, yyline, yycolumn, yytext()); }
+"en"
+	{ return new Symbol(EN, yyline, yycolumn, yytext()); }
+//"=="
+//	{ return new Symbol(DOUBLE_EQUALS_SIGN, yyline, yycolumn, yytext()); }
+"hacer"
+	{ return new Symbol(HACER, yyline, yycolumn, yytext()); }
+"sino"
+	{ return new Symbol(SINO, yyline, yycolumn, yytext()); }
+"falso"
+	{ return new Symbol(FALSO, yyline, yycolumn, yytext()); }
+"si"
+	{ return new Symbol(SI, yyline, yycolumn, yytext()); }
+"nada"
+	{ return new Symbol(NADA, yyline, yycolumn, yytext()); }
+"entonces"
+	{ return new Symbol(ENTONCES, yyline, yycolumn, yytext()); }
+"verdadero"
+	{ return new Symbol(VERDADERO, yyline, yycolumn, yytext()); }
+"mientras"
+	{ return new Symbol(MIENTRAS, yyline, yycolumn, yytext()); }
 "{"
-	{ return new Symbol(LEFT_CURLY_BRACKET, yyline, yycolumn, yytext()); }
+	{ return new Symbol(PARENTESIS_CURVO_IZQUIERDO, yyline, yycolumn, yytext()); }
 "}"
-	{ return new Symbol(RIGHT_CURLY_BRACKET, yyline, yycolumn, yytext()); }
+	{ return new Symbol(PARENTESIS_CURVO_DERECHO, yyline, yycolumn, yytext()); }
 [0-9]+
 	{ String $1 = yytext(); Double $0 = Double.parseDouble($1);
 	  return new Symbol(NUM, yyline, yycolumn, $0); }
-[a-zA-Z_][a-zA-Z0-9_]*
+[$][a-zA-Z0-9_]*
 	{ String $1 = yytext(); String $0;
 	  $0 = $1;
 	  return new Symbol(ID, yyline, yycolumn, $0); }

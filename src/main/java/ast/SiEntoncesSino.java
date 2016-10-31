@@ -11,12 +11,12 @@ import java.io.*;
  * @version 0.0.1
  * @date 30 oct. 2016
  */
-public class SiEntoncesSino extends Stmt {
-	public final BExp condition;
-	public final Stmt thenBody;
-	public final Stmt elseBody;
+public class SiEntoncesSino extends Sentencia {
+	public final ExpresionVerdad condition;
+	public final Sentencia thenBody;
+	public final Sentencia elseBody;
 
-	public SiEntoncesSino(BExp condition, Stmt thenBody, Stmt elseBody) {
+	public SiEntoncesSino(ExpresionVerdad condition, Sentencia thenBody, Sentencia elseBody) {
 		this.condition = condition;
 		this.thenBody = thenBody;
 		this.elseBody = elseBody;
@@ -76,10 +76,10 @@ public class SiEntoncesSino extends Stmt {
 	}
 
 	public static SiEntoncesSino generate(Random random, int min, int max) {
-		BExp condition; Stmt thenBody; Stmt elseBody; 
-		condition = BExp.generate(random, min-1, max-1);
-		thenBody = Stmt.generate(random, min-1, max-1);
-		elseBody = Stmt.generate(random, min-1, max-1);
+		ExpresionVerdad condition; Sentencia thenBody; Sentencia elseBody; 
+		condition = ExpresionVerdad.generate(random, min-1, max-1);
+		thenBody = Sentencia.generate(random, min-1, max-1);
+		elseBody = Sentencia.generate(random, min-1, max-1);
 		return new SiEntoncesSino(condition, thenBody, elseBody);
 	}
 

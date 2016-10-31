@@ -1,5 +1,5 @@
-// variables = [a]
+// variables = [$y]
 // maxStack =  1
-ldc.i4 2.0
+ldc.i4 8.0
 stloc.0
 ret

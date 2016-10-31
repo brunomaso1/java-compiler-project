@@ -11,7 +11,7 @@ import java.io.*;
  * @version 0.0.1
  * @date 30 oct. 2016
  */
-public class Numeral extends AExp {
+public class Numeral extends ExpresionAritmetica {
 	public final Double number;
 
 	public Numeral(Double number) {

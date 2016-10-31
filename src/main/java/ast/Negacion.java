@@ -11,10 +11,10 @@ import java.io.*;
  * @version 0.0.1
  * @date 30 oct. 2016
  */
-public class Negacion extends BExp {
-	public final BExp condition;
+public class Negacion extends ExpresionVerdad {
+	public final ExpresionVerdad condition;
 
-	public Negacion(BExp condition) {
+	public Negacion(ExpresionVerdad condition) {
 		this.condition = condition;
 	}
 
@@ -58,8 +58,8 @@ public class Negacion extends BExp {
 	}
 
 	public static Negacion generate(Random random, int min, int max) {
-		BExp condition; 
-		condition = BExp.generate(random, min-1, max-1);
+		ExpresionVerdad condition; 
+		condition = ExpresionVerdad.generate(random, min-1, max-1);
 		return new Negacion(condition);
 	}
 }

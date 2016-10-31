@@ -10,11 +10,11 @@ import behaviour.*;
  * @version 0.0.1
  * @date 30 oct. 2016
  */
-public class Disyuncion extends BExp {
-	public final BExp left;
-	public final BExp right;
+public class Disyuncion extends ExpresionVerdad {
+	public final ExpresionVerdad left;
+	public final ExpresionVerdad right;
 
-	public Disyuncion(BExp left, BExp right) {
+	public Disyuncion(ExpresionVerdad left, ExpresionVerdad right) {
 		this.left = left;
 		this.right = right;
 	}
@@ -62,9 +62,9 @@ public class Disyuncion extends BExp {
 	}
 
 	public static Disyuncion generate(Random random, int min, int max) {
-		BExp left; BExp right; 
-		left = BExp.generate(random, min-1, max-1);
-		right = BExp.generate(random, min-1, max-1);
+		ExpresionVerdad left; ExpresionVerdad right; 
+		left = ExpresionVerdad.generate(random, min-1, max-1);
+		right = ExpresionVerdad.generate(random, min-1, max-1);
 		return new Disyuncion(left, right);
 	}
 }

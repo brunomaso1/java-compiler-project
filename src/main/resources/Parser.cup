@@ -29,90 +29,98 @@ parser code {:
 
 :}
 
-non terminal Stmt stmt;
-non terminal AExp aexp;
-non terminal BExp bexp;
+non terminal Sentencia stmt;
+non terminal ExpresionAritmetica aexp;
+non terminal ExpresionVerdad bexp;
 terminal Double NUM;
 terminal String ID;
-terminal EXCLAMATION_MARK;
-terminal LEFT_PARENTHESIS;
-terminal RIGHT_PARENTHESIS;
-terminal ASTERISK;
-terminal FALSE;
-terminal THEN;
-terminal PLUS_SIGN;
-terminal HYPHEN_MINUS;
-terminal SEMICOLON;
-terminal LEFT_CURLY_BRACKET;
-terminal TRUE;
-terminal EQUALS_SIGN;
-terminal RIGHT_CURLY_BRACKET;
-terminal DOUBLE_AMPERSAND;
-terminal LESS_THAN_OR_EQUAL;
-non terminal List<Stmt> repeat$stmt;
-terminal DO;
-terminal SKIP;
-terminal WHILE;
-terminal ELSE;
-terminal IF;
-terminal DOUBLE_EQUALS_SIGN;
+terminal SIGNO_NO;
+terminal PARENTESIS_IZQUIERDO;
+terminal PARENTESIS_DERECHO;
+terminal SIGNO_MULT;
+terminal FALSO;
+terminal ENTONCES;
+terminal SIGNO_MAS;
+terminal SIGNO_MENOS;
+terminal PUNTO;
+terminal PARENTESIS_CURVO_IZQUIERDO;
+terminal VERDADERO;
+terminal SIGNO_IGUAL;
+terminal PARENTESIS_CURVO_DERECHO;
+terminal SIGNO_Y;
+terminal SIGNO_MENOR_IGUAL;
+non terminal List<Sentencia> repeat$stmt;
+terminal HACER;
+terminal NADA;
+terminal MIENTRAS;
+terminal SINO;
+terminal SI;
+terminal SIGNO_DISTINTO;
+terminal PONER;
+terminal EN;
+terminal SIGNO_MAYOR_IGUAL;
 
-precedence left DOUBLE_AMPERSAND;
-precedence left PLUS_SIGN, HYPHEN_MINUS;
-precedence left ASTERISK;
-precedence left EXCLAMATION_MARK;
+precedence left SIGNO_Y;
+precedence left SIGNO_MAS, SIGNO_MENOS;
+precedence left SIGNO_MULT;
+precedence left SIGNO_DISTINTO;
+precedence left SINO;
 
 start with stmt;
 
 stmt ::=
-		ID:$1 EQUALS_SIGN:$2 aexp:$3 SEMICOLON:$4 
-		{: RESULT = new Assignment($1, $3); :}
-	|	SKIP:$1 SEMICOLON:$2 
-		{: RESULT = new Sequence(new Stmt[0]); :}
-	|	LEFT_CURLY_BRACKET:$1 repeat$stmt:$2 RIGHT_CURLY_BRACKET:$3 
-		{: RESULT = new Sequence($2.toArray(new Stmt[$2.size()])); :}
-	|	WHILE:$1 bexp:$2 DO:$3 stmt:$4 
-		{: RESULT = new WhileDo($2, $4); :}
-	|	IF:$1 bexp:$2 THEN:$3 stmt:$4 ELSE:$5 stmt:$6 
-		{: RESULT = new IfThenElse($2, $4, $6); :}
+		PONER:$1 aexp:$2 EN:$3 ID:$4 PUNTO:$5 
+		{: RESULT = new Asignacion($4, $2); :}
+	|	NADA:$1 PUNTO:$2 
+		{: RESULT = new Secuencia(new Sentencia[0]); :}
+	|	PARENTESIS_CURVO_IZQUIERDO:$1 repeat$stmt:$2 PARENTESIS_CURVO_DERECHO:$3 
+		{: RESULT = new Secuencia($2.toArray(new Sentencia[$2.size()])); :}
+	|	MIENTRAS:$1 bexp:$2 HACER:$3 stmt:$4 
+		{: RESULT = new MientrasHacer($2, $4); :}
+	|	SI:$1 bexp:$2 ENTONCES:$3 stmt:$4 SINO:$5 stmt:$6 
+		{: RESULT = new SiEntoncesSino($2, $4, $6); :}
+	|	SI:$1 bexp:$2 ENTONCES:$3 stmt:$4
+		{: RESULT = new SiEntonces($2, $4); :}
 ;
 aexp ::=
 		NUM:$1 
 		{: RESULT = new Numeral($1); :}
 	|	ID:$1 
 		{: RESULT = new Variable($1); :}
-	|	aexp:$1 ASTERISK:$2 aexp:$3 
-		{: RESULT = new Multiplication($1, $3); :}
-	|	aexp:$1 PLUS_SIGN:$2 aexp:$3 
-		{: RESULT = new Addition($1, $3); :}
-	|	aexp:$1 HYPHEN_MINUS:$2 aexp:$3 
-		{: RESULT = new Subtraction($1, $3); :}
-	|	LEFT_PARENTHESIS:$1 aexp:$2 RIGHT_PARENTHESIS:$3 
+	|	aexp:$1 SIGNO_MULT:$2 aexp:$3 
+		{: RESULT = new Multiplicacion($1, $3); :}
+	|	aexp:$1 SIGNO_MAS:$2 aexp:$3 
+		{: RESULT = new Suma($1, $3); :}
+	|	aexp:$1 SIGNO_MENOS:$2 aexp:$3 
+		{: RESULT = new Resta($1, $3); :}
+	|	PARENTESIS_IZQUIERDO:$1 aexp:$2 PARENTESIS_DERECHO:$3 
 		{: RESULT = $2; :}
 ;
 bexp ::=
-		TRUE:$1 
-		{: RESULT = new TruthValue(true); :}
-	|	FALSE:$1 
-		{: RESULT = new TruthValue(false); :}
-	|	aexp:$1 DOUBLE_EQUALS_SIGN:$2 aexp:$3 
-		{: RESULT = new CompareEqual($1, $3); :}
-	|	aexp:$1 LESS_THAN_OR_EQUAL:$2 aexp:$3 
-		{: RESULT = new CompareLessOrEqual($1, $3); :}
-	|	EXCLAMATION_MARK:$1 bexp:$2 
-		{: RESULT = new Negation($2); :}
-	|	bexp:$1 DOUBLE_AMPERSAND:$2 bexp:$3 
-		{: RESULT = new Conjunction($1, $3); :}
-	|	LEFT_PARENTHESIS:$1 bexp:$2 RIGHT_PARENTHESIS:$3 
+		VERDADERO:$1 
+		{: RESULT = new ValorVerdad(true); :}
+	|	FALSO:$1 
+		{: RESULT = new ValorVerdad(false); :}
+	|	aexp:$1 SIGNO_IGUAL:$2 aexp:$3 
+		{: RESULT = new CompararIgual($1, $3); :}
+	|	aexp:$1 SIGNO_MENOR_IGUAL:$2 aexp:$3 
+		{: RESULT = new CompararMenorOIgual($1, $3); :}
+	|	aexp:$1 SIGNO_MAYOR_IGUAL:$2 aexp:$3 
+		{: RESULT = new CompararMayorOIgual($1, $3); :}
+	|	SIGNO_NO:$1 bexp:$2 
+		{: RESULT = new Negacion($2); :}
+	|	bexp:$1 SIGNO_Y:$2 bexp:$3 
+		{: RESULT = new Conjuncion($1, $3); :}
+	|	PARENTESIS_IZQUIERDO:$1 bexp:$2 PARENTESIS_DERECHO:$3 
 		{: RESULT = $2; :}
 ;
 repeat$stmt ::=
 		
-		{: List<Stmt> $0;
-		$0 = new ArrayList<Stmt>();
+		{: List<Sentencia> $0;
+		$0 = new ArrayList<Sentencia>();
 		RESULT = $0; :}
 	|	repeat$stmt:$1 stmt:$2 
-		{: List<Stmt> $0;
+		{: List<Sentencia> $0;
 		$1.add($2); $0 = $1;
 		RESULT = $0; :}
 ;

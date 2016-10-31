@@ -10,11 +10,11 @@ import behaviour.*;
  * @version 0.0.1
  * @date 30 oct. 2016
  */
-public class CompararMenorOIgual extends BExp {
-	public final AExp left;
-	public final AExp right;
+public class CompararMenorOIgual extends ExpresionVerdad {
+	public final ExpresionAritmetica left;
+	public final ExpresionAritmetica right;
 
-	public CompararMenorOIgual(AExp left, AExp right) {
+	public CompararMenorOIgual(ExpresionAritmetica left, ExpresionAritmetica right) {
 		this.left = left;
 		this.right = right;
 	}
@@ -68,9 +68,9 @@ public class CompararMenorOIgual extends BExp {
 	}
 
 	public static CompararMenorOIgual generate(Random random, int min, int max) {
-		AExp left; AExp right; 
-		left = AExp.generate(random, min-1, max-1);
-		right = AExp.generate(random, min-1, max-1);
+		ExpresionAritmetica left; ExpresionAritmetica right; 
+		left = ExpresionAritmetica.generate(random, min-1, max-1);
+		right = ExpresionAritmetica.generate(random, min-1, max-1);
 		return new CompararMenorOIgual(left, right);
 	}
 }

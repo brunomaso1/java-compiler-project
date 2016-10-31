@@ -16,7 +16,7 @@ public class Main {
 			source.append(line).append("\n");
 		} 
 		
-		Stmt prog = (Stmt)(Parser.parse(source.toString()).value);
+		Sentencia prog = (Sentencia)(Parser.parse(source.toString()).value);
 		String il = CompilationContextIL.compileIL(prog);
 		
 		System.out.println(il);
