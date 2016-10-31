@@ -35,4 +35,5 @@ Falta implementar el lexer entero.
 	<li>Falta implementar la optimizacion del AST</li>
 	<li>Falta arreglar (faltan lexemas) los lexemas en el archivo <a href="Propuesta_de_proyecto.md"> Propuesta de proyecto </a></li>
 	<li>Falta hacer el diseño del parser en el archivo <a href="Propuesta_de_proyecto.md"> Propuesta de proyecto </a></li>
+	<li>Falta arreglar el archivo <a href="Propuesta_de_proyecto.md"> Propuesta de proyecto </a></li>
 </ul>
