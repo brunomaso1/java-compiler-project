@@ -1,7 +1,9 @@
 package ast;
 
 import java.util.*;
+
 import behaviour.*;
+
 import java.io.*;
 
 /**
@@ -36,13 +38,16 @@ public class ValorVerdad extends ExpresionVerdad {
 
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
 		if(value){
-		ctx.codeIL.append("ldc.i4.1 \n");
-		return ctx;
+			ctx.codeIL.append("ldc.i4.1 \n");
+			return ctx;
 		}else{
 			ctx.codeIL.append("ldc.i4.0 \n");
-			return ctx;
-			
+			return ctx;			
 		}
+	}
+	
+	@Override public ExpresionVerdad optimization(State state){
+		return this;
 	}
 
 	@Override public String toString() {

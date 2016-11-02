@@ -1,7 +1,9 @@
 package ast;
 
 import java.util.*;
+
 import behaviour.*;
+
 import java.io.*;
 
 /**
@@ -35,10 +37,18 @@ public class Variable extends ExpresionAritmetica {
 	}
 
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
-		
+		if(!ctx.variables.contains(id)){
+			ctx.variables.add(id);
+		}	
 		Integer index = ctx.variables.indexOf(id);
-		ctx.codeIL.append("stloc." +  index + "\n");
+		ctx.codeIL.append("ldloc " +  index + "\n");
 		return ctx;
+	}
+	
+	@Override public ExpresionAritmetica optimization(State state){		
+		if(state.get(id) != null)
+			return new Numeral(state.get(id));
+		return this;
 	}
 
 	@Override public String toString() {

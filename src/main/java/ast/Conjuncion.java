@@ -1,6 +1,7 @@
 package ast;
 
 import java.util.*;
+
 import behaviour.*;
 
 /**
@@ -41,7 +42,34 @@ public class Conjuncion extends ExpresionVerdad {
 		ctx.codeIL.append("and \n");
 		return ctx;
 	}
+	
+	@Override public ExpresionVerdad optimization(State state){
+		ExpresionVerdad opt1 = left.optimization(state);
+		ExpresionVerdad opt2 = right.optimization(state);
+		
+		//NUM a == NUM b
+		if(opt1 instanceof ValorVerdad && opt2 instanceof ValorVerdad){
+			if( ((ValorVerdad)opt1).value && ((ValorVerdad)opt2).value)
+				return new ValorVerdad(true);
+			else
+				return new ValorVerdad(false);
+		}
 
+		//True & BExp b --> b
+		if(opt1 instanceof ValorVerdad && ((ValorVerdad)opt1).value)
+			return opt2;
+		//BExp b & True --> b
+		if(opt2 instanceof ValorVerdad && ((ValorVerdad)opt2).value)
+			return opt1;
+		//False & BExp b --> False
+		if(opt1 instanceof ValorVerdad && !((ValorVerdad)opt1).value)
+			return new ValorVerdad(false);
+		//BExp b & False --> False
+		if(opt2 instanceof ValorVerdad && !((ValorVerdad)opt2).value)
+			return new ValorVerdad(false);
+		
+		return new Conjuncion(opt1, opt2);
+	}
 	@Override public String toString() {
 		return "Conjuncion("+ left +", "+ right +")";
 	}

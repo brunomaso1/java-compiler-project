@@ -1,7 +1,9 @@
 package ast;
 
 import java.util.*;
+
 import behaviour.*;
+
 import java.io.*;
 
 /**
@@ -26,7 +28,7 @@ public class SiEntonces extends Sentencia {
 
 	/**
 	 * FALTA ARREGLAR.
-	 * Está como si se ejecutara un ifthenelse.
+	 * Está como si se ejecutara un ifthen.
 	 */	
 	@Override public State evaluate(State state) {
 		return condition.evaluate(state) ? thenBody.evaluate(state) : state ;
@@ -53,13 +55,21 @@ public class SiEntonces extends Sentencia {
 		ctx = thenBody.compileIL(ctx);
 		ctx.codeIL.append(etiqueta + ":nop" + "\n");
 		
-		//String etiqueta2 = ctx.newLabel(); 
-		//ctx.codeIL.append("br " + etiqueta2 + "\n");
-		//ctx.codeIL.append(etiqueta + ":" + "\n");
-		//ctx = elseBody.compileIL(ctx);
-		//ctx.codeIL.append(etiqueta2 + ":nop" + "\n");
-		
 		return ctx;
+	}
+	
+	@Override public Sentencia optimization(State state) {
+		ExpresionVerdad bExpCondition = condition.optimization(state);
+		
+		if(bExpCondition instanceof ValorVerdad){
+			if(((ValorVerdad)bExpCondition).value){
+				return thenBody.optimization(state);
+			}
+		}
+		
+		Sentencia stmtThenBodyOpt = thenBody.optimization(state);
+		
+		return new SiEntonces(bExpCondition, stmtThenBodyOpt);
 	}
 
 	@Override public String toString() {

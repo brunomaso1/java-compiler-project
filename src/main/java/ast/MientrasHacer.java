@@ -1,7 +1,9 @@
 package ast;
 
 import java.util.*;
+
 import behaviour.*;
+
 import java.io.*;
 
 /**
@@ -43,14 +45,27 @@ public class MientrasHacer extends Sentencia {
 		String etiqueta = ctx.newLabel();
 		String etiqueta2 = ctx.newLabel();
 		
-		ctx.codeIL.append("br " +etiqueta2+ "\n");
+		ctx.codeIL.append("br.s " +etiqueta2+ "\n");
 		ctx.codeIL.append(etiqueta+ ": " +"\n");
 		ctx = body.compileIL(ctx);
 		ctx.codeIL.append(etiqueta2+ ": " +"\n");
 		ctx = condition.compileIL(ctx);
-		ctx.codeIL.append("brtrue "+ etiqueta + "\n");
-		
+		ctx.codeIL.append("brtrue.s "+ etiqueta + "\n");
+		ctx.codeIL.append("nop "+ "\n");
 		return ctx;
+	}
+	
+	@Override public Sentencia optimization(State state) {
+		
+		ExpresionVerdad bExpCondition = condition.optimization(state);
+		if(bExpCondition instanceof ValorVerdad && !((ValorVerdad)bExpCondition).value)
+			return Sentencia.skip;
+		
+		State newStateVacio = new State();
+		bExpCondition = condition.optimization(newStateVacio);
+		Sentencia stmtBodyOpt = body.optimization(newStateVacio);
+		state.variables.clear();//Porque no sabemos cuales constantes se invalidaron dentro del cuerpo del while.
+		return new MientrasHacer(bExpCondition, stmtBodyOpt);
 	}
 
 	@Override public String toString() {

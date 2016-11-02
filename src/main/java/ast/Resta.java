@@ -1,7 +1,9 @@
 package ast;
 
 import java.util.*;
+
 import behaviour.*;
+
 import java.io.*;
 
 /**
@@ -43,6 +45,25 @@ public class Resta extends ExpresionAritmetica {
 		return ctx;
 	}
 
+	@Override public ExpresionAritmetica optimization(State state){
+		ExpresionAritmetica opt1 = left.optimization(state);
+		ExpresionAritmetica opt2 = right.optimization(state);
+		
+		if(opt1 instanceof Numeral && opt2 instanceof Numeral)
+		{
+			//a - 0 = a
+			if(((Numeral)opt2).number == 0)
+				return opt1;
+			//a + a = 0
+			if( ((Numeral)opt1).number == ((Numeral)opt2).number )
+				return new Numeral(0.0);
+			
+			return new Numeral( ((Numeral)opt1).number - ((Numeral)opt2).number );
+		}else{
+			return new Resta(opt1, opt2);
+		}
+	}
+	
 	@Override public String toString() {
 		return "Resta("+ left +", "+ right +")";
 	}

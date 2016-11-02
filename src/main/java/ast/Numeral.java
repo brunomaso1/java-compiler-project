@@ -1,7 +1,9 @@
 package ast;
 
 import java.util.*;
+
 import behaviour.*;
+
 import java.io.*;
 
 /**
@@ -38,7 +40,11 @@ public class Numeral extends ExpresionAritmetica {
 		ctx.codeIL.append("ldc.i4 " + this.number + "\n");
 		return ctx;
 	}
-
+	
+	@Override public ExpresionAritmetica optimization(State state){
+		return this;
+	}
+	
 	@Override public String toString() {
 		return "Numeral("+ number +")";
 	}

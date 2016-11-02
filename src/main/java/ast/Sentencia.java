@@ -1,8 +1,9 @@
 package ast;
 
 import java.util.*;
+
 import behaviour.*;
-import java.io.*;
+
 
 /**
  * Representacion de las sentencias.
@@ -12,7 +13,9 @@ import java.io.*;
  * @date 30 oct. 2016
  */
 public abstract class Sentencia {
-
+	
+	public static final Sentencia skip = new Secuencia(new Sentencia[0]);
+	
 	abstract public String unparse();
 
 	abstract public State evaluate(State state);
@@ -23,6 +26,8 @@ public abstract class Sentencia {
 
 	abstract public CompilationContextIL compileIL(CompilationContextIL ctx);
 
+	abstract public Sentencia optimization(State state);
+	
 	@Override public abstract String toString();
 
 	@Override public abstract int hashCode();

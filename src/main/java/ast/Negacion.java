@@ -1,7 +1,9 @@
 package ast;
 
 import java.util.*;
+
 import behaviour.*;
+
 import java.io.*;
 
 /**
@@ -38,6 +40,15 @@ public class Negacion extends ExpresionVerdad {
 		ctx = condition.compileIL(ctx);
 		ctx.codeIL.append("neg \n");
 		return ctx;
+	}
+	
+	@Override
+	public ExpresionVerdad optimization(State state) {
+		ExpresionVerdad exp = condition.optimization(state);
+		
+		if(exp instanceof ValorVerdad)
+			return new ValorVerdad( ! ((ValorVerdad)exp).value );
+		return this;
 	}
 
 	@Override public String toString() {

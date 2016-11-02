@@ -1,7 +1,9 @@
 package ast;
 
 import java.util.*;
+
 import behaviour.*;
+
 import java.io.*;
 
 /**
@@ -36,8 +38,8 @@ public class Secuencia extends Sentencia {
 
 	@Override public int maxStackIL() {
 		int result = 0;
-					for (Sentencia statement : statements) result = Math.max(result, statement.maxStackIL());
-					return result;
+		for (Sentencia statement : statements) result = Math.max(result, statement.maxStackIL());
+		return result;
 	}
 
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
@@ -46,6 +48,24 @@ public class Secuencia extends Sentencia {
 		}
 		return ctx;
 	}
+
+	@Override public Sentencia optimization(State state){
+		ArrayList<Sentencia> newStatements = new ArrayList<Sentencia>();
+		
+		for (Sentencia stmt : statements) {
+			Sentencia stmOpt = (Sentencia)stmt.optimization(state);
+			if(stmOpt instanceof Secuencia){
+				if(((Secuencia)stmOpt).statements.length > 0)
+					newStatements.add(stmOpt);
+			}else{
+				newStatements.add(stmOpt);
+			}
+		}
+		
+		Sentencia [] a = new Sentencia[newStatements.size()];
+		return new Secuencia(newStatements.toArray(a));
+	}
+
 
 	@Override public String toString() {
 		return "Sequencia("+ Arrays.toString(statements) +")";

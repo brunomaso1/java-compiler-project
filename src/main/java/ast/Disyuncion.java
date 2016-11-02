@@ -1,6 +1,7 @@
 package ast;
 
 import java.util.*;
+
 import behaviour.*;
 
 /**
@@ -40,6 +41,27 @@ public class Disyuncion extends ExpresionVerdad {
 		ctx = right.compileIL(ctx);
 		ctx.codeIL.append("or \n");
 		return ctx;
+	}
+	
+	@Override public ExpresionVerdad optimization(State state){
+		ExpresionVerdad opt1 = left.optimization(state);
+		ExpresionVerdad opt2 = right.optimization(state);
+		
+		//NUM a or NUM b
+		if(opt1 instanceof ValorVerdad){
+			if( ((ValorVerdad)opt1).value)
+				return new ValorVerdad(true);
+			else
+				return new ValorVerdad(false);
+		}
+		if(opt2 instanceof ValorVerdad){
+			if( ((ValorVerdad)opt2).value)
+				return new ValorVerdad(true);
+			else
+				return new ValorVerdad(false);
+		}
+
+		return new Disyuncion(opt1, opt2);
 	}
 
 	@Override public String toString() {

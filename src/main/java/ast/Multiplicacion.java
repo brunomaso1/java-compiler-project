@@ -1,7 +1,9 @@
 package ast;
 
 import java.util.*;
+
 import behaviour.*;
+
 import java.io.*;
 
 /**
@@ -42,7 +44,32 @@ public class Multiplicacion extends ExpresionAritmetica {
 		ctx.codeIL.append("mul \n");
 		return ctx;
 	}
-
+	
+	@Override public ExpresionAritmetica optimization(State state){
+		ExpresionAritmetica opt1 = left.optimization(state);
+		ExpresionAritmetica opt2 = right.optimization(state);
+		
+		if(opt1 instanceof Numeral && opt2 instanceof Numeral)
+		{
+			//0 * a = 0
+			if(((Numeral)opt1).number == 0)
+				return opt1;
+			//a * 0 = 0
+			if(((Numeral)opt2).number == 0)
+				return opt2;
+			//1 * a = a
+			if(((Numeral)opt1).number == 1)
+				return opt2;
+			//a * 1 = a
+			if(((Numeral)opt2).number == 1)
+				return opt1;
+			//Si no entra en los otros casos, devolvemos un Numeral(opt1 * opt2)
+			return new Numeral( ((Numeral)opt1).number * ((Numeral)opt2).number );
+		}else{
+			return new Multiplicacion(opt1, opt2);
+		}
+	}
+	
 	@Override public String toString() {
 		return "Multiplicacion("+ left +", "+ right +")";
 	}

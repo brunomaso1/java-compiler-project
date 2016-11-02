@@ -1,7 +1,9 @@
 package ast;
 
 import java.util.*;
+
 import behaviour.*;
+
 import java.io.*;
 
 /**
@@ -42,16 +44,46 @@ public class SiEntoncesSino extends Sentencia {
 		ctx = condition.compileIL(ctx);
 		
 		String etiqueta = ctx.newLabel();
-		ctx.codeIL.append("brsfalse " +etiqueta+ "\n");
+		ctx.codeIL.append("brsfalse.s " +etiqueta+ "\n");
 		
 		ctx = thenBody.compileIL(ctx);
 		String etiqueta2 = ctx.newLabel(); 
-		ctx.codeIL.append("br " + etiqueta2 + "\n");
+		ctx.codeIL.append("br.s " + etiqueta2 + "\n");
 		ctx.codeIL.append(etiqueta + ":" + "\n");
 		ctx = elseBody.compileIL(ctx);
 		ctx.codeIL.append(etiqueta2 + ":nop" + "\n");
 		
-		return ctx;
+		return ctx;	
+	
+	}
+	
+	@Override public Sentencia optimization(State state) {
+		ExpresionVerdad bExpCondition = condition.optimization(state);
+		
+		if(bExpCondition instanceof ValorVerdad){
+			if(((ValorVerdad)bExpCondition).value){
+				return thenBody.optimization(state);
+			}else{
+				return elseBody.optimization(state);
+			}
+		}
+		
+		State stateForThenBody = null, stateForElseBody = null;
+		
+		try {
+			stateForThenBody = state.clone();
+			stateForElseBody = state.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		
+		Sentencia stmtThenBodyOpt = thenBody.optimization(stateForThenBody);
+		Sentencia stmtElseBodyOpt = elseBody.optimization(stateForElseBody);
+		
+		//Propagamos las constantes validas al inicio de la sentencia y solo aquellas 
+		//constantes generadas en ambos cuerpos con el mismo valor.
+		state = State.intersect(stateForThenBody, stateForElseBody);
+		return new SiEntoncesSino(bExpCondition, stmtThenBodyOpt, stmtElseBodyOpt);
 	}
 
 	@Override public String toString() {

@@ -1,7 +1,9 @@
 package ast;
 
 import java.util.*;
+
 import behaviour.*;
+
 import java.io.*;
 
 /** Categoría sintáctica de las expresiones aritméticas de While, las 
@@ -18,6 +20,8 @@ public abstract class ExpresionAritmetica {
 	abstract public int maxStackIL();
 
 	abstract public CompilationContextIL compileIL(CompilationContextIL ctx);
+	
+	abstract public ExpresionAritmetica optimization(State state);
 
 	@Override public abstract String toString();
 

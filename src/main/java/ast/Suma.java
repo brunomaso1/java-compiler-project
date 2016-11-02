@@ -1,8 +1,8 @@
 package ast;
 
 import java.util.*;
+
 import behaviour.*;
-import java.io.*;
 
 /**
  * Representacion de las sumas.
@@ -41,6 +41,27 @@ public class Suma extends ExpresionAritmetica {
 		ctx = right.compileIL(ctx);
 		ctx.codeIL.append("add \n");
 		return ctx;
+	}
+	
+	@Override public ExpresionAritmetica optimization(State state){
+		ExpresionAritmetica opt1 = left.optimization(state);
+		ExpresionAritmetica opt2 = right.optimization(state);
+		
+		if(opt1 instanceof Numeral && opt2 instanceof Numeral)
+		{
+			//El resultado es lo mismo que devolver un numeral de la suma de ambos operandos, pero 
+			//de esta forma estamos evitando hacer LA OPERACION DE LA SUMA.
+			//0 + a = a
+			if(((Numeral)opt1).number == 0)
+				return opt2;
+			//a + 0 = a
+			if(((Numeral)opt2).number == 0)
+				return opt1;
+			//Si no entra en los otros casos, devolvemos un Numeral(opt1 + opt2)
+			return new Numeral( ((Numeral)opt1).number + ((Numeral)opt2).number );
+		}else{
+			return new Suma(opt1, opt2);
+		}
 	}
 
 	@Override public String toString() {

@@ -1,6 +1,7 @@
 package ast;
 
 import java.util.*;
+
 import behaviour.*;
 
 /**
@@ -41,10 +42,18 @@ public class Asignacion extends Sentencia {
 		ctx= expression.compileIL(ctx);
 
 		Integer index = ctx.variables.indexOf(id);
-		ctx.codeIL.append("stloc." + index + "\n");
+		ctx.codeIL.append("stloc " + index + "\n");
 		return ctx;
 	}
-
+	
+	@Override public Sentencia optimization(State state){				
+		ExpresionAritmetica expr = expression.optimization(state);
+		if(expr instanceof Numeral){
+			state.set(id, ((Numeral)expr).number);
+		}
+		return new Asignacion(id, expr);
+	}
+	
 	@Override public String toString() {
 		return "Asignacion("+ id +", "+ expression +")";
 	}

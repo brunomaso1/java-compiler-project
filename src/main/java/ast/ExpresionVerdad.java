@@ -1,7 +1,9 @@
 package ast;
 
 import java.util.*;
+
 import behaviour.*;
+
 import java.io.*;
 
 /** Categoría sintáctica de las expresiones booleanas de While, las 
@@ -19,6 +21,8 @@ public abstract class ExpresionVerdad {
 
 	abstract public CompilationContextIL compileIL(CompilationContextIL ctx);
 
+	abstract public ExpresionVerdad optimization(State state);
+	
 	@Override public abstract String toString();
 
 	@Override public abstract int hashCode();
@@ -27,7 +31,7 @@ public abstract class ExpresionVerdad {
 
 	public static ExpresionVerdad generate(Random random, int min, int max) {
 		final int TERMINAL_COUNT = 1;
-		final int NONTERMINAL_COUNT = 4;
+		final int NONTERMINAL_COUNT = 6;
 		int i = min > 0 ? random.nextInt(NONTERMINAL_COUNT) + TERMINAL_COUNT
 			: random.nextInt(max > 0 ? NONTERMINAL_COUNT + TERMINAL_COUNT: TERMINAL_COUNT);
 		switch (i) {
@@ -35,9 +39,10 @@ public abstract class ExpresionVerdad {
 			case 0: return ValorVerdad.generate(random, min-1, max-1);
 		//Non terminals
 			case 1: return CompararIgual.generate(random, min-1, max-1);
-			case 2: return CompararMayorOIgual.generate(random, min-1, max-1);
-			case 3: return Negacion.generate(random, min-1, max-1);
-			case 4: return Conjuncion.generate(random, min-1, max-1);
+			case 2: return CompararMenorOIgual.generate(random, min-1, max-1);
+			case 3: return CompararMayorOIgual.generate(random, min-1, max-1);
+			case 4: return Negacion.generate(random, min-1, max-1);
+			case 5: return Conjuncion.generate(random, min-1, max-1);
 			default: throw new Error("Unexpected error at BExp.generate()!");
 		}
 	}
