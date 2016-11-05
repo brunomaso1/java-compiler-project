@@ -4,23 +4,23 @@ import java.util.*;
 
 public class State {
 	public final Map<String, Double> variables = new HashMap<String, Double>();
-	public final Map<String, Double> parametros = new HashMap<String, Double>();
+	//public final Map<String, Double> parametros = new HashMap<String, Double>();
 	
 	public Double get(String id) {
 		return variables.get(id);		
 	}
 	
-	public Double getParam(String id) {
+	/*public Double getParam(String id) {
 		return parametros.get(id);		
-	}
+	}*/
 	
 	public Double set(String id, double value) {
 		return variables.put(id, value);
 	}
 	
-	public Double setParam(String id, double value) {
+	/*public Double setParam(String id, double value) {
 		return parametros.put(id, value);
-	}
+	}*/
 	
 	public String toString() {
 		List<String> ids = new ArrayList<String>(variables.keySet());

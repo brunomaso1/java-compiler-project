@@ -12,7 +12,7 @@ import behaviour.*;
  * @version 0.0.1
  * @date 30 oct. 2016
  */
-public abstract class Sentencia {
+public abstract class Sentencia extends Programa{
 	
 	public static final Sentencia skip = new Secuencia(new Sentencia[0]);
 	

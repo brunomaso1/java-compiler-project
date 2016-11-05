@@ -37,6 +37,11 @@ public class Variable extends ExpresionAritmetica {
 	}
 
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
+		if(ctx.parametros.contains(id)){
+			Integer index = ctx.parametros.indexOf(id);
+			ctx.codeIL.append("ldarg " +  index + "\n");
+			return ctx;
+		}	
 		if(!ctx.variables.contains(id)){
 			ctx.variables.add(id);
 		}	

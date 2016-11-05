@@ -13,7 +13,7 @@ import java.io.*;
  * @version 0.0.1
  * @date 30 oct. 2016
  */
-public abstract class Definicion {
+public abstract class Definicion extends Programa{
 
 	abstract public String unparse();
 

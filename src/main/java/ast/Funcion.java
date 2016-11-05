@@ -20,15 +20,17 @@ public class Funcion extends Definicion {
 	//Crear SuperClase Definicion de la que hereda Funcion.
 		
 	public final String id;
-	public final ExpresionAritmetica[] parametros;
-	public final Secuencia cuerpo;
+	public final Variable parametro;
+	public final Variable[] parametros;
+	public final Sentencia cuerpo;
 	public final Variable resultado;
 
-	public Funcion(String id, ExpresionAritmetica[] parametros, Secuencia cuerpo) {
+	public Funcion(String id, Variable parametro, Sentencia cuerpo) {
 		this.id = id;
-		this.parametros = parametros; 
+		this.parametro = parametro;
+		this.parametros = null;
 		this.cuerpo = cuerpo;
-		this.resultado = null;
+		this.resultado = new Variable("$resultado");
 	}
 	
 
@@ -40,9 +42,8 @@ public class Funcion extends Definicion {
 		if(text!=""){
 			text = text.substring(0,text.length()-1);
 		}
-		text = id +"("+text+"){";
-		for (Sentencia statement : cuerpo.statements) text += statement.unparse() +"\n";
-		text += "}";
+		text = id +"("+text+") ";
+		text += cuerpo.unparse();
 		return text;
 	}
 
@@ -51,36 +52,53 @@ public class Funcion extends Definicion {
 	}
 
 	@Override public Set<String> freeVariables(Set<String> vars) {
-		for (Sentencia statement : cuerpo.statements) vars = statement.freeVariables(vars);
+		for (Variable parametro : parametros) vars = parametro.freeVariables(vars);
+		vars = cuerpo.freeVariables(vars);
+		vars = resultado.freeVariables(vars);
 		return vars;
 	}
 
 	@Override public int maxStackIL() {
 		int result = 0;
-		for (Sentencia statement : cuerpo.statements) result = Math.max(result, statement.maxStackIL());
+		for (Variable parametro : parametros){ 
+			result = Math.max(result, parametro.maxStackIL());
+		}
+		result = Math.max(result, cuerpo.maxStackIL());
+		result = Math.max(result, resultado.maxStackIL());
 		return result;
 	}
 
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
-	/*	ctx.codeIL.append(this.id+":"+"\n");
-		int index = 0;
-		for (ExpresionAritmetica expresionAritmetica : parametros) {
-			ctx.codeIL.append(this.id+":"+"\n");
+		if(!ctx.variables.contains(id)){
+			ctx.funciones.add(id);
+		}else{
+			//TODO Agregar ERROR.
 		}
+		for (Variable variable : parametros) {
+			ctx.parametros.add(variable.id);
+		}
+		ctx.variables.add(resultado.id);
 		
+		String etiqueta = ctx.newLabel();
+		ctx.codeIL.append(etiqueta + ":"+"\n");
+		ctx.codeIL.append("nop" + "\n");
+		ctx = cuerpo.compileIL(ctx);
 		
-		ctx= expression.compileIL(ctx);
+		//br.s        IL_0009
+		String saltoFinal = ctx.newLabel();
+		ctx.codeIL.append("br.s " +saltoFinal+ "\n");
+		//IL_0009:  ldloc.1     
+		ctx.codeIL.append(saltoFinal + ":");
+		Integer index = ctx.variables.indexOf(resultado);
+		ctx.codeIL.append(" ldloc " +  index + "\n");
+		//IL_000A:  ret
+		ctx.codeIL.append("ret" + "\n\n");   
+				
+		ctx.parametros.clear();
+		ctx.variables.clear();
 
-		Integer index = ctx.variables.indexOf(id);
-		ctx.codeIL.append("stloc." + index + "\n");
 		return ctx;
-		
-		for (Sentencia stmt : statements) {
-			ctx = stmt.compileIL(ctx);
-		}
-		return ctx;
-		
-	*/return ctx;}
+	}
 	
 	@Override public Funcion optimization(State state){		
 		//if(state.get(id) != null)
@@ -89,7 +107,7 @@ public class Funcion extends Definicion {
 	}
 	
 	@Override public String toString() {
-		return "Funcion("+ id +", "+ Arrays.toString(parametros) +", "+Arrays.toString(cuerpo.statements) +")";
+		return "Funcion("+ id +", "+ Arrays.toString(parametros) +", "+cuerpo.toString()+" )";
 	}
 
 	@Override public int hashCode() {
@@ -100,7 +118,7 @@ public class Funcion extends Definicion {
 		for (ExpresionAritmetica expression : parametros) result2 = Math.max(result2, expression.maxStackIL());
 		
 		int result3 = 0;
-		for (Sentencia statement : cuerpo.statements) result3 = Math.max(result3, statement.maxStackIL());
+		result3 = Math.max(result3, cuerpo.maxStackIL());
 				
 		result = result * 31 + result2 + result3;
 		return result;
@@ -111,25 +129,21 @@ public class Funcion extends Definicion {
 		if (obj == null || getClass() != obj.getClass()) return false;
 				
 		Funcion other = (Funcion)obj;
-		return (this.id == null ? other.id == null : this.id.equals(other.id)) && Arrays.equals(this.parametros, other.parametros) && Arrays.equals(this.cuerpo.statements, other.cuerpo.statements);
+		return (this.id == null ? other.id == null : this.id.equals(other.id)) && Arrays.equals(this.parametros, other.parametros) && this.cuerpo.equals(other.cuerpo);
 	}
 
 	public static Funcion generate(Random random, int min, int max) {
 		String id; 
 		id = ""+"abcdefghijklmnopqrstuvwxyz".charAt(random.nextInt(26));
-		ExpresionAritmetica[] parametros;
-		parametros = new ExpresionAritmetica[random.nextInt(Math.max(0, max)+1)];
+		Variable[] parametros;
+		parametros = new Variable[random.nextInt(Math.max(0, max)+1)];
 		for (int i = 0; i < parametros.length; i++) {
-			parametros[i] = ExpresionAritmetica.generate(random, min-1, max-1);
+			parametros[i] = Variable.generate(random, min-1, max-1);
 		}
 		
-		Sentencia[] statements; 
-		statements = new Sentencia[random.nextInt(Math.max(0, max)+1)];
-		for (int i = 0; i < statements.length; i++) {
-			statements[i] = Sentencia.generate(random, min-1, max-1);
-		}
-		Secuencia cuerpo = new Secuencia(statements);
-		return new Funcion(id,parametros,cuerpo);	
+		Sentencia cuerpo; 
+		cuerpo = Sentencia.generate(random, min-1, max-1);
+		return new Funcion(id,new Variable("$a"),cuerpo);	
 		
 	}
 }

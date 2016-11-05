@@ -54,11 +54,11 @@ public class Resta extends ExpresionAritmetica {
 			//a - 0 = a
 			if(((Numeral)opt2).number == 0)
 				return opt1;
-			//a + a = 0
+			//a - a = 0
 			if( ((Numeral)opt1).number == ((Numeral)opt2).number )
 				return new Numeral(0.0);
 			
-			return new Numeral( ((Numeral)opt1).number - ((Numeral)opt2).number );
+			return new Numeral(((Numeral)opt1).number - ((Numeral)opt2).number);
 		}else{
 			return new Resta(opt1, opt2);
 		}

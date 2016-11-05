@@ -28,12 +28,18 @@ parser code {:
 	}
 
 :}
-
+non terminal Programa prog;
+non terminal Definicion def;
+non terminal Variable param;
 non terminal Sentencia stmt;
 non terminal ExpresionAritmetica aexp;
 non terminal ExpresionVerdad bexp;
 terminal Double NUM;
 terminal String ID;
+terminal String IDFUNC;
+terminal FUNCION;
+terminal RECIBE;
+terminal COMA;
 terminal SIGNO_NO;
 terminal PARENTESIS_IZQUIERDO;
 terminal PARENTESIS_DERECHO;
@@ -43,13 +49,14 @@ terminal ENTONCES;
 terminal SIGNO_MAS;
 terminal SIGNO_MENOS;
 terminal PUNTO;
-terminal PARENTESIS_CURVO_IZQUIERDO;
+terminal CORCHETE_IZQUIERDO;
 terminal VERDADERO;
 terminal SIGNO_IGUAL;
-terminal PARENTESIS_CURVO_DERECHO;
+terminal CORCHETE_DERECHO;
 terminal SIGNO_Y;
 terminal SIGNO_MENOR_IGUAL;
 non terminal List<Sentencia> repeat$stmt;
+non terminal List<Variable> repeat$param;
 terminal HACER;
 terminal NADA;
 terminal MIENTRAS;
@@ -60,20 +67,39 @@ terminal PONER;
 terminal EN;
 terminal SIGNO_MAYOR_IGUAL;
 
+precedence left FUNCION;
 precedence left SIGNO_Y;
 precedence left SIGNO_MAS, SIGNO_MENOS;
 precedence left SIGNO_MULT;
 precedence left SIGNO_DISTINTO;
 precedence left SINO;
 
-start with stmt;
+start with prog;
+
+prog ::=
+		def:d {:  System.out.println("" + d);
+		RESULT = d; :} 
+	|
+		stmt:s {: System.out.println("" + s); 
+		RESULT = s; :} 
+;
+
+def ::=
+		FUNCION:$1 IDFUNC:$2 RECIBE:$3 repeat$param:$4 stmt:$5
+		{: RESULT = new FuncionX($2,$4.toArray(new Variable[$4.size()]),$5);
+		:}
+;
+param ::=
+		ID:$1 
+		{: RESULT = new Variable($1); :}
+;
 
 stmt ::=
 		PONER:$1 aexp:$2 EN:$3 ID:$4 PUNTO:$5 
 		{: RESULT = new Asignacion($4, $2); :}
 	|	NADA:$1 PUNTO:$2 
 		{: RESULT = new Secuencia(new Sentencia[0]); :}
-	|	PARENTESIS_CURVO_IZQUIERDO:$1 repeat$stmt:$2 PARENTESIS_CURVO_DERECHO:$3 
+	|	CORCHETE_IZQUIERDO:$1 repeat$stmt:$2 CORCHETE_DERECHO:$3 
 		{: RESULT = new Secuencia($2.toArray(new Sentencia[$2.size()])); :}
 	|	MIENTRAS:$1 bexp:$2 HACER:$3 stmt:$4 
 		{: RESULT = new MientrasHacer($2, $4); :}
@@ -121,6 +147,17 @@ repeat$stmt ::=
 		RESULT = $0; :}
 	|	repeat$stmt:$1 stmt:$2 
 		{: List<Sentencia> $0;
+		$1.add($2); $0 = $1;
+		RESULT = $0; :}
+;
+
+repeat$param ::=
+		
+		{: List<Variable> $0;
+		$0 = new ArrayList<Variable>();
+		RESULT = $0; :}
+	|	repeat$param:$1 param:$2 
+		{: List<Variable> $0;
 		$1.add($2); $0 = $1;
 		RESULT = $0; :}
 ;

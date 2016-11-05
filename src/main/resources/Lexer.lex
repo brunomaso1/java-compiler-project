@@ -58,6 +58,8 @@ import java.io.*;
 	{ return new Symbol(SIGNO_MENOS, yyline, yycolumn, yytext()); }
 "."
 	{ return new Symbol(PUNTO, yyline, yycolumn, yytext()); }
+","
+	{ return new Symbol(COMA, yyline, yycolumn, yytext()); }	
 "<="
 	{ return new Symbol(SIGNO_MENOR_IGUAL, yyline, yycolumn, yytext()); }
 ">="
@@ -68,8 +70,6 @@ import java.io.*;
 	{ return new Symbol(PONER, yyline, yycolumn, yytext()); }
 "en"
 	{ return new Symbol(EN, yyline, yycolumn, yytext()); }
-//"=="
-//	{ return new Symbol(DOUBLE_EQUALS_SIGN, yyline, yycolumn, yytext()); }
 "hacer"
 	{ return new Symbol(HACER, yyline, yycolumn, yytext()); }
 "sino"
@@ -86,10 +86,14 @@ import java.io.*;
 	{ return new Symbol(VERDADERO, yyline, yycolumn, yytext()); }
 "mientras"
 	{ return new Symbol(MIENTRAS, yyline, yycolumn, yytext()); }
+"funcion"
+	{ return new Symbol(FUNCION, yyline, yycolumn, yytext()); }
+"recibe"
+	{ return new Symbol(RECIBE, yyline, yycolumn, yytext()); }	
 "{"
-	{ return new Symbol(PARENTESIS_CURVO_IZQUIERDO, yyline, yycolumn, yytext()); }
+	{ return new Symbol(CORCHETE_IZQUIERDO, yyline, yycolumn, yytext()); }
 "}"
-	{ return new Symbol(PARENTESIS_CURVO_DERECHO, yyline, yycolumn, yytext()); }
+	{ return new Symbol(CORCHETE_DERECHO, yyline, yycolumn, yytext()); }
 [0-9]+
 	{ String $1 = yytext(); Double $0 = Double.parseDouble($1);
 	  return new Symbol(NUM, yyline, yycolumn, $0); }
@@ -97,6 +101,10 @@ import java.io.*;
 	{ String $1 = yytext(); String $0;
 	  $0 = $1;
 	  return new Symbol(ID, yyline, yycolumn, $0); }
+[%][a-zA-Z0-9_]*
+	{ String $1 = yytext(); String $0;
+	  $0 = $1;
+	  return new Symbol(IDFUNC, yyline, yycolumn, $0); }	  
 [ \t\r\n\f\v]+
 	{ /* Ignore */ }
 \/\*+([^\*]|\*+[^\/])*\*+\/

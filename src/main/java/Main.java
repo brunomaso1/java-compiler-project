@@ -1,4 +1,5 @@
 import java.io.*;
+
 import ast.*;
 import parser.*;
 import behaviour.*;
@@ -16,13 +17,26 @@ public class Main {
 			source.append(line).append("\n");
 		} 
 		
-		Sentencia prog = (Sentencia)(Parser.parse(source.toString()).value);
-		String il = CompilationContextIL.compileIL(prog);
+		//try {
+			//Definicion prog = (Definicion)(Parser.parse(source.toString()).value);
+			System.out.println("=============");
 		
-		System.out.println(il);
-
-		PrintWriter out = new PrintWriter("src\\main\\result\\compilador.il");
-		out.print(il);
-		out.close();
+			//System.out.println(Parser.parse(source.toString()).value);
+			System.out.println("=============");
+			
+		
+			Definicion def = (Definicion)(Parser.parse(source.toString()).value);
+			String il = CompilationContextIL.compileIL(def);
+		
+			//System.out.println(il);
+			
+		//	PrintWriter out = new PrintWriter("src\\main\\result\\compilador.il");
+		//	out.print(il);
+		//	out.close();
+		/*}catch (Exception e) {
+			
+			System.out.println(e.toString());
+			System.out.println(e.getMessage());
+		}*/
 	}
 }
