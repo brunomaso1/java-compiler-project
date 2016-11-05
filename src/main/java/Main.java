@@ -27,16 +27,5 @@ public class Main {
 		
 			Definicion def = (Definicion)(Parser.parse(source.toString()).value);
 			String il = CompilationContextIL.compileIL(def);
-		
-			//System.out.println(il);
-			
-		//	PrintWriter out = new PrintWriter("src\\main\\result\\compilador.il");
-		//	out.print(il);
-		//	out.close();
-		/*}catch (Exception e) {
-			
-			System.out.println(e.toString());
-			System.out.println(e.getMessage());
-		}*/
 	}
 }

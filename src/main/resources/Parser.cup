@@ -66,6 +66,7 @@ terminal SIGNO_DISTINTO;
 terminal PONER;
 terminal EN;
 terminal SIGNO_MAYOR_IGUAL;
+terminal MOSTRAR;
 
 precedence left FUNCION;
 precedence left SIGNO_Y;
@@ -107,6 +108,8 @@ stmt ::=
 		{: RESULT = new SiEntoncesSino($2, $4, $6); :}
 	|	SI:$1 bexp:$2 ENTONCES:$3 stmt:$4
 		{: RESULT = new SiEntonces($2, $4); :}
+	|	MOSTRAR:$1 PARENTESIS_IZQUIERDO:$2 aexp:$3 PARENTESIS_DERECHO:$4 PUNTO:$5
+		{: RESULT = new Mostrar($3); :}
 ;
 aexp ::=
 		NUM:$1 
