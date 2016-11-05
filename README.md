@@ -7,9 +7,10 @@ Propuesta de proyecto -> <a href="Propuesta_de_proyecto.md">Link</a>
 <p>
 ### Parser
 Falta implementar el parser entero.
-<p>
-### Lexer
-Falta implementar el lexer entero.
+<ul>
+	<li>Llamar funcion</li>
+	<li>lista</li>
+</ul>
 <p>
 ### AST
 <ul>

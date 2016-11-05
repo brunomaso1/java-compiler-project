@@ -31,6 +31,7 @@ parser code {:
 non terminal Programa prog;
 non terminal Definicion def;
 non terminal Variable param;
+non terminal ExpresionAritmetica paramAexp;
 non terminal Sentencia stmt;
 non terminal ExpresionAritmetica aexp;
 non terminal ExpresionVerdad bexp;
@@ -57,6 +58,7 @@ terminal SIGNO_Y;
 terminal SIGNO_MENOR_IGUAL;
 non terminal List<Sentencia> repeat$stmt;
 non terminal List<Variable> repeat$param;
+non terminal List<ExpresionAritmetica> repeat$paramAexp;
 terminal HACER;
 terminal NADA;
 terminal MIENTRAS;
@@ -66,6 +68,8 @@ terminal SIGNO_DISTINTO;
 terminal PONER;
 terminal EN;
 terminal SIGNO_MAYOR_IGUAL;
+terminal LLAMAR;
+terminal PONER_EN;
 
 precedence left FUNCION;
 precedence left SIGNO_Y;
@@ -94,6 +98,11 @@ param ::=
 		{: RESULT = new Variable($1); :}
 ;
 
+paramAexp ::=
+		aexp:a {:  System.out.println("" + a);
+		RESULT = a; :} 
+;
+
 stmt ::=
 		PONER:$1 aexp:$2 EN:$3 ID:$4 PUNTO:$5 
 		{: RESULT = new Asignacion($4, $2); :}
@@ -107,6 +116,8 @@ stmt ::=
 		{: RESULT = new SiEntoncesSino($2, $4, $6); :}
 	|	SI:$1 bexp:$2 ENTONCES:$3 stmt:$4
 		{: RESULT = new SiEntonces($2, $4); :}
+	|	LLAMAR:$1 IDFUNC:$2 RECIBE:$3 repeat$paramAexp:$4 PONER_EN:$5 ID:$6 PUNTO:$7
+		{: RESULT = new LlamarFuncion($2,$4.toArray(new ExpresionAritmetica[$4.size()]),new Variable($6)); :}		
 ;
 aexp ::=
 		NUM:$1 
@@ -158,6 +169,17 @@ repeat$param ::=
 		RESULT = $0; :}
 	|	repeat$param:$1 param:$2 
 		{: List<Variable> $0;
+		$1.add($2); $0 = $1;
+		RESULT = $0; :}
+;
+
+repeat$paramAexp ::=
+		
+		{: List<ExpresionAritmetica> $0;
+		$0 = new ArrayList<ExpresionAritmetica>();
+		RESULT = $0; :}
+	|	repeat$paramAexp:$1 paramAexp:$2 
+		{: List<ExpresionAritmetica> $0;
 		$1.add($2); $0 = $1;
 		RESULT = $0; :}
 ;

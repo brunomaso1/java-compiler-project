@@ -90,6 +90,10 @@ import java.io.*;
 	{ return new Symbol(FUNCION, yyline, yycolumn, yytext()); }
 "recibe"
 	{ return new Symbol(RECIBE, yyline, yycolumn, yytext()); }	
+"llamar"
+	{ return new Symbol(LLAMAR, yyline, yycolumn, yytext()); }	
+"poner en"
+	{ return new Symbol(PONER_EN, yyline, yycolumn, yytext()); }	
 "{"
 	{ return new Symbol(CORCHETE_IZQUIERDO, yyline, yycolumn, yytext()); }
 "}"

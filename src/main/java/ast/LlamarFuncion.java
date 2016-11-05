@@ -25,12 +25,12 @@ public class LlamarFuncion extends Sentencia {
 	@Override public String unparse() {		
 		String text = "";
 		for (ExpresionAritmetica expresionAritmetica : parametros) {
-			text += expresionAritmetica+",";
+			text += expresionAritmetica.unparse()+",";
 		}
 		if(text!=""){
 			text = text.substring(0,text.length()-1);
 		}
-		text = id +resultado.unparse()+ "("+text+"){";
+		text = "llamar "+id +"("+text+")"+ " poner en "+resultado.unparse()+ ".";
 		return text;
 	}
 
@@ -60,7 +60,7 @@ public class LlamarFuncion extends Sentencia {
 	}
 	
 	@Override public String toString() {
-		return "LlamarFuncion("+ id +", "+ resultado.toString()+", "+ Arrays.toString(parametros)+")";
+		return "Llamar("+ id +", "+ Arrays.toString(parametros)+", "+ resultado.toString()+")";
 	}
 
 	@Override public int hashCode() {

@@ -28,19 +28,37 @@ public class FuncionX extends Definicion {
 	}
 	
 	@Override public String unparse() {
-		return null;
+		String text = "";
+		for (Variable variable : parametros) {
+			text += variable.unparse()+",";
+		}
+		if(text!=""){
+			text = text.substring(0,text.length()-1);
+		}
+		text = "funcion "+ id +"("+text+") ";
+		text += cuerpo.unparse();
+		return text;
 	}
 
 	@Override public State evaluate(State state) {
-		return null;
+		return state;
 	}
 
 	@Override public Set<String> freeVariables(Set<String> vars) {
-		return null;
+		for (Variable parametro : parametros) vars = parametro.freeVariables(vars);
+		vars = cuerpo.freeVariables(vars);
+		vars = resultado.freeVariables(vars);
+		return vars;
 	}
 
 	@Override public int maxStackIL() {
-		return 0;
+		int result = 0;
+		for (Variable parametro : parametros){ 
+			result = Math.max(result, parametro.maxStackIL());
+		}
+		//result = Math.max(result, cuerpo.maxStackIL());
+		//result = Math.max(result, resultado.maxStackIL());
+		return result;
 	}
 
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
@@ -54,7 +72,7 @@ public class FuncionX extends Definicion {
 		}
 		ctx.variables.add(resultado.id);
 		
-		String etiqueta = ctx.newLabel();
+		String etiqueta = id;
 		ctx.codeIL.append(etiqueta + ":"+"\n");
 		ctx.codeIL.append("nop" + "\n");
 		ctx = cuerpo.compileIL(ctx);
@@ -64,7 +82,7 @@ public class FuncionX extends Definicion {
 		ctx.codeIL.append("br.s " +saltoFinal+ "\n");
 		//IL_0009:  ldloc.1     
 		ctx.codeIL.append(saltoFinal + ":");
-		Integer index = ctx.variables.indexOf(resultado);
+		Integer index = ctx.variables.indexOf(resultado.id);
 		ctx.codeIL.append(" ldloc " +  index + "\n");
 		//IL_000A:  ret
 		ctx.codeIL.append("ret" + "\n\n");   
@@ -83,7 +101,7 @@ public class FuncionX extends Definicion {
 	}
 	
 	@Override public String toString() {
-		return "Funcion("+ id +", "+ Arrays.toString(parametros) +", "+cuerpo.toString()+" )";
+		return "funcion("+ id +", "+ Arrays.toString(parametros) +", "+cuerpo.toString()+" )";
 		
 	}
 
