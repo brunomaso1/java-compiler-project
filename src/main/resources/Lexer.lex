@@ -91,7 +91,9 @@ import java.io.*;
 "recibe"
 	{ return new Symbol(RECIBE, yyline, yycolumn, yytext()); }	
 "llamar"
-	{ return new Symbol(LLAMAR, yyline, yycolumn, yytext()); }	
+	{ return new Symbol(LLAMAR, yyline, yycolumn, yytext()); }
+"mostrar"
+	{ return new Symbol(MOSTRAR, yyline, yycolumn, yytext()); }		
 "poner en"
 	{ return new Symbol(PONER_EN, yyline, yycolumn, yytext()); }	
 "{"
