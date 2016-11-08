@@ -1,6 +1,7 @@
 package parser;
 
 import java_cup.runtime.Symbol;
+import ast.Tipo;
 import java.util.*;
 import java.io.*;
 
@@ -95,7 +96,19 @@ import java.io.*;
 "mostrar"
 	{ return new Symbol(MOSTRAR, yyline, yycolumn, yytext()); }		
 "poner en"
-	{ return new Symbol(PONER_EN, yyline, yycolumn, yytext()); }	
+	{ return new Symbol(PONER_EN, yyline, yycolumn, yytext()); }
+"largo"
+	{ return new Symbol(LARGO, yyline, yycolumn, yytext()); }
+"definida"
+	{ return new Symbol(DEFINIDA, yyline, yycolumn, yytext()); }
+"numero"
+	{ return new Symbol(TIPO, yyline, yycolumn, Tipo.NUMERAL); }
+"entero"
+	{ return new Symbol(TIPO, yyline, yycolumn, Tipo.ENTERO); }
+"texto"
+	{ return new Symbol(TIPO, yyline, yycolumn, Tipo.TEXTO); }
+"verdad"
+	{ return new Symbol(TIPO, yyline, yycolumn, Tipo.VERDAD); }	
 "{"
 	{ return new Symbol(CORCHETE_IZQUIERDO, yyline, yycolumn, yytext()); }
 "}"
@@ -110,7 +123,10 @@ import java.io.*;
 [%][a-zA-Z0-9_]*
 	{ String $1 = yytext(); String $0;
 	  $0 = $1;
-	  return new Symbol(IDFUNC, yyline, yycolumn, $0); }	  
+	  return new Symbol(IDFUNC, yyline, yycolumn, $0); }
+(\"([^\"\\n]|\\[^\n])*\")
+	{ String $1 = yytext(); String $0 = String.valueOf($1); $0 = $0.substring(1,$0.length()-1);
+	  return new Symbol(STRING, yyline, yycolumn, $0); }
 [ \t\r\n\f\v]+
 	{ /* Ignore */ }
 \/\*+([^\*]|\*+[^\/])*\*+\/
