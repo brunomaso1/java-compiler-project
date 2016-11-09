@@ -27,8 +27,7 @@ public class Main {
 		for (String line; (line = in.readLine()) != null && line.length() > 0 ;) {
 			source.append(line).append("\n");
 		} 
-		Tipo a;
-		
+
 		//try {
 			//Definicion prog = (Definicion)(Parser.parse(source.toString()).value);
 			System.out.println("=============");
@@ -36,12 +35,12 @@ public class Main {
 			//System.out.println(Parser.parse(source.toString()).value);
 			System.out.println("=============");
 			
-			//Sentencia def = (Sentencia)(Parser.parse(source.toString()).value);
+			Sentencia def = (Sentencia)(Parser.parse(source.toString()).value);
 			
 			//Definicion def = (Definicion)(Parser.parse(source.toString()).value);
-			//String il = CompilationContextIL.compileIL(def);
+			String il = CompilationContextIL.compileIL(def);
 		
-			//System.out.println(il);
+			System.out.println(il);
 			
 			//PrintWriter out = new PrintWriter("src\\main\\result\\compilador.il");
 			//out.print(il);
