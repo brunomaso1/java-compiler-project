@@ -42,7 +42,6 @@ terminal String IDFUNC;
 terminal String STRING;
 terminal FUNCION;
 terminal RECIBE;
-terminal COMA;
 terminal SIGNO_NO;
 terminal PARENTESIS_IZQUIERDO;
 terminal PARENTESIS_DERECHO;
@@ -76,7 +75,12 @@ terminal MOSTRAR;
 terminal LARGO;
 terminal DEFINIDA;
 terminal Tipo TIPO;
-
+terminal CREAR_VARIABLE;
+terminal CREAR_LISTA;
+terminal SIM_TIPO;
+terminal CANTIDAD;
+terminal POSICION;
+terminal OBTENER_POSICION;
 
 precedence left FUNCION;
 precedence left SIGNO_NO;
@@ -91,10 +95,10 @@ precedence left SIGNO_MAYOR_IGUAL;
 start with prog;
 
 prog ::=
-		def:d {:  System.out.println("" + d);
+		def:d {:  //System.out.println("" + d);
 		RESULT = d; :} 
 	|
-		stmt:s {: System.out.println("" + s); 
+		stmt:s {: //System.out.println("" + s); 
 		RESULT = s; :} 
 ;
 
@@ -109,13 +113,15 @@ param ::=
 ;
 
 paramExp ::=
-		exp:a {:  System.out.println("" + a);
+		exp:a {:  //System.out.println("" + a);
 		RESULT = a; :} 
 ;
 
 stmt ::=
 		PONER:$1 exp:$2 EN:$3 ID:$4 PUNTO:$5 
 		{: RESULT = new Asignacion($4, $2); :}
+	|   PONER:$1 exp:$2 EN:$3 TIPO:$4 ID:$5 PUNTO:$6
+		{: RESULT = new DeclaracionIniciar($2,$4,$5); :}	
 	|	NADA:$1 PUNTO:$2 
 		{: RESULT = new Secuencia(new Sentencia[0]); :}
 	|	CORCHETE_IZQUIERDO:$1 repeat$stmt:$2 CORCHETE_DERECHO:$3 
@@ -130,10 +136,13 @@ stmt ::=
 		{: RESULT = new LlamarFuncion($2,$4.toArray(new Expresion[$4.size()]),new Variable($6)); :}		
 	|	MOSTRAR:$1 PARENTESIS_IZQUIERDO:$2 exp:$3 PARENTESIS_DERECHO:$4 PUNTO:$5
 		{: RESULT = new Mostrar($3); :}
-	|	TIPO:$1 ID:$2 PUNTO:$3
-		{: RESULT = new Declaracion($2,$1); :}
-	|   PONER:$1 exp:$2 EN:$3 TIPO:$4 ID:$5 PUNTO:$6
-		{: RESULT = new DeclaracionIniciar($2,$4,$5); :}	
+	|	CREAR_VARIABLE:$1 ID:$2 SIM_TIPO:$3 TIPO:$4 PUNTO:$5
+		{: RESULT = new Declaracion($2,$4); :}
+	|	CREAR_LISTA:$1 ID:$2 SIM_TIPO:$3 TIPO:$4 CANTIDAD:$5 exp:$6 PUNTO:$7
+		{: RESULT = new DeclaracionLista($2,$4,$6); :}	
+	|	PONER:$1 exp:$2 EN:$3 ID:$4 POSICION:$5 exp:$6 PUNTO:$7 
+		{: RESULT = new PonerLista($4,$6,$2); :}
+		
 ;
 
 assigExp ::=
@@ -176,6 +185,8 @@ exp ::=
 		{: RESULT = new Largo($3); :}
 	|	DEFINIDA:$1 PARENTESIS_IZQUIERDO:$2 ID:$3 PARENTESIS_DERECHO:$4
 		{: RESULT = new Definida($3); :}	
+	|	OBTENER_POSICION:$1 exp:$2 ID:$3
+		{: RESULT = new ObtenerLista($3,$2); :}
 ;
 
 repeat$stmt ::=

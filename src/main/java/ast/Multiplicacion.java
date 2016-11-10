@@ -26,14 +26,14 @@ public class Multiplicacion extends Expresion {
 		return "("+ left.unparse() +" * "+ right.unparse() +")";
 	}
 
-	@Override public Object evaluate(Estado state) {
+	/*@Override public Object evaluate(Estado state) {
 		if ((left.evaluate(state) instanceof Double) & (right.evaluate(state) instanceof Double))
 			return new Double((Double)left.evaluate(state) * (Double)right.evaluate(state));
 		else {
 			System.out.print("Estas multiplicando mal. Nuemro1 -> " + left.evaluate(state) + " Numero2 -> " + right.evaluate(state));
 			return null;
 		}
-	}
+	}*/
 
 	@Override public Set<String> freeVariables(Set<String> vars) {
 		return right.freeVariables(left.freeVariables(vars));
@@ -94,12 +94,12 @@ public class Multiplicacion extends Expresion {
 			&& (this.right == null ? other.right == null : this.right.equals(other.right));
 	}
 
-	public static Multiplicacion generate(Random random, int min, int max) {
+	/*public static Multiplicacion generate(Random random, int min, int max) {
 		Expresion left; Expresion right; 
 		left = Expresion.generate(random, min-1, max-1);
 		right = Expresion.generate(random, min-1, max-1);
 		return new Multiplicacion(left, right);
-	}
+	}*/
 	
 	@Override public Object check(ChequearEstado checkstate){
 		

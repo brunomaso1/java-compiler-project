@@ -17,7 +17,7 @@ public abstract class Expresion {
 
 	@Override public abstract boolean equals(Object obj);
 	
-	abstract public Object evaluate(Estado state);
+	//abstract public Object evaluate(Estado state);
 	
 	abstract public Object check(ChequearEstado checkstate);
 	
@@ -29,8 +29,8 @@ public abstract class Expresion {
 	
 	abstract public CompilationContextIL compileIL(CompilationContextIL ctx);
 
-	public static Expresion generate(Random random, int min, int max) {
-		/*final int TERMINAL_COUNT = 1;
+	/*public static Expresion generate(Random random, int min, int max) {
+		final int TERMINAL_COUNT = 1;
 		final int NONTERMINAL_COUNT = 4;
 		int i = min > 0 ? random.nextInt(NONTERMINAL_COUNT) + TERMINAL_COUNT
 			: random.nextInt(max > 0 ? NONTERMINAL_COUNT + TERMINAL_COUNT: TERMINAL_COUNT);
@@ -52,8 +52,8 @@ public abstract class Expresion {
 			case 3: return Division.generate(random, min-1, max-1);
 			case 4: return Addition.generate(random, min-1, max-1);
 			case 5: return Subtraction.generate(random, min-1, max-1);
-		}*/
+		}
 		return null;
-	}
+	}*/
 	
 }

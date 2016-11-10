@@ -59,8 +59,6 @@ import java.io.*;
 	{ return new Symbol(SIGNO_MENOS, yyline, yycolumn, yytext()); }
 "."
 	{ return new Symbol(PUNTO, yyline, yycolumn, yytext()); }
-","
-	{ return new Symbol(COMA, yyline, yycolumn, yytext()); }	
 "<="
 	{ return new Symbol(SIGNO_MENOR_IGUAL, yyline, yycolumn, yytext()); }
 ">="
@@ -108,7 +106,21 @@ import java.io.*;
 "texto"
 	{ return new Symbol(TIPO, yyline, yycolumn, Tipo.TEXTO); }
 "verdad"
-	{ return new Symbol(TIPO, yyline, yycolumn, Tipo.VERDAD); }	
+	{ return new Symbol(TIPO, yyline, yycolumn, Tipo.VERDAD); }
+"crearVariable"
+	{ return new Symbol(CREAR_VARIABLE, yyline, yycolumn, yytext()); }	
+"crearLista"
+	{ return new Symbol(CREAR_LISTA, yyline, yycolumn, yytext()); }
+"tipo"
+	{ return new Symbol(SIM_TIPO, yyline, yycolumn, yytext()); }
+"cantidad"
+	{ return new Symbol(CANTIDAD, yyline, yycolumn, yytext()); }
+"posicion"
+	{ return new Symbol(POSICION, yyline, yycolumn, yytext()); }
+"obtener posicion"
+	{ return new Symbol(OBTENER_POSICION, yyline, yycolumn, yytext()); }
+"en"
+	{ return new Symbol(EN, yyline, yycolumn, yytext()); }
 "{"
 	{ return new Symbol(CORCHETE_IZQUIERDO, yyline, yycolumn, yytext()); }
 "}"

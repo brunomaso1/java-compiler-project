@@ -26,10 +26,10 @@ public class Secuencia extends Sentencia {
 		return result +"}";
 	}
 
-	@Override public Estado evaluate(Estado state) {
+	/*@Override public Estado evaluate(Estado state) {
 		for (Sentencia statement : statements) state = statement.evaluate(state);
 					return state;
-	}
+	}*/
 
 	@Override public Set<String> freeVariables(Set<String> vars) {
 		for (Sentencia statement : statements) vars = statement.freeVariables(vars);
@@ -84,14 +84,14 @@ public class Secuencia extends Sentencia {
 		return Arrays.equals(this.statements, other.statements);
 	}
 
-	public static Secuencia generate(Random random, int min, int max) {
+	/*public static Secuencia generate(Random random, int min, int max) {
 		Sentencia[] statements; 
 		statements = new Sentencia[random.nextInt(Math.max(0, max)+1)];
 		for (int i = 0; i < statements.length; i++) {
 			statements[i] = Sentencia.generate(random, min-1, max-1);
 		}
 		return new Secuencia(statements);
-	}
+	}*/
 	
 	@Override public ChequearEstado check(ChequearEstado checkstate){
 		for (Sentencia statement : statements) {

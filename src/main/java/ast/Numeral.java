@@ -24,9 +24,9 @@ public class Numeral extends Expresion {
 		return number.toString();
 	}
 
-	@Override public Double evaluate(Estado state) {
+	/*@Override public Double evaluate(Estado state) {
 		return number;
-	}
+	}*/
 
 	@Override public Set<String> freeVariables(Set<String> vars) {
 		return vars;
@@ -50,7 +50,7 @@ public class Numeral extends Expresion {
 	}
 	
 	@Override public Object check(ChequearEstado checkstate) {
-		return new String("number");
+		return new String("numero");
 	}
 	
 	@Override public int hashCode() {
@@ -66,10 +66,10 @@ public class Numeral extends Expresion {
 		return (this.number == null ? other.number == null : this.number.equals(other.number));
 	}
 
-	public static Numeral generate(Random random, int min, int max) {
+	/*public static Numeral generate(Random random, int min, int max) {
 		Double number; 
 		number = Math.round(random.nextDouble() * 1000) / 100.0;
 		return new Numeral(number);
-	}
+	}*/
 	
 }

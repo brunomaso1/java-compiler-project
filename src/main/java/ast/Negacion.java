@@ -24,14 +24,14 @@ public class Negacion extends Expresion {
 		return "(!"+ condition.unparse() +")";
 	}
 
-	@Override public Object evaluate(Estado state) {
+	/*@Override public Object evaluate(Estado state) {
 		if (condition.evaluate(state) instanceof Boolean)
 			return !((Boolean)condition.evaluate(state));
 		else {
 			System.out.print("Estas haciendo una negacion mal. Numero1 -> " + condition.evaluate(state));
 			return null;
 		}
-	}
+	}*/
 
 	@Override public Set<String> freeVariables(Set<String> vars) {
 		return condition.freeVariables(vars);
@@ -73,11 +73,11 @@ public class Negacion extends Expresion {
 		return (this.condition == null ? other.condition == null : this.condition.equals(other.condition));
 	}
 
-	public static Negacion generate(Random random, int min, int max) {
+	/*public static Negacion generate(Random random, int min, int max) {
 		Expresion condition; 
 		condition = Expresion.generate(random, min-1, max-1);
 		return new Negacion(condition);
-	}
+	}*/
 	
 	@Override public Object check(ChequearEstado checkstate){
 		

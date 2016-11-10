@@ -34,9 +34,9 @@ public class LlamarFuncion extends Sentencia {
 		return text;
 	}
 
-	@Override public Estado evaluate(Estado state) {
+	/*@Override public Estado evaluate(Estado state) {
 		return state;
-	}
+	}*/
 
 	@Override public Set<String> freeVariables(Set<String> vars) {
 		return vars;
@@ -82,7 +82,7 @@ public class LlamarFuncion extends Sentencia {
 		return (this.id == null ? other.id == null : this.id.equals(other.id)) && Arrays.equals(this.parametros, other.parametros) && (this.resultado.equals(other.resultado));
 	}
 
-	public static LlamarFuncion generate(Random random, int min, int max) {
+	/*public static LlamarFuncion generate(Random random, int min, int max) {
 		String id; 
 		id = ""+"abcdefghijklmnopqrstuvwxyz".charAt(random.nextInt(26));
 		Expresion[] parametros;
@@ -97,7 +97,7 @@ public class LlamarFuncion extends Sentencia {
 		resultado = new Variable(idVar);
 		
 		return new LlamarFuncion(id,parametros,resultado);	
-	}
+	}*/
 	
 	@Override public ChequearEstado check(ChequearEstado checkstate){
 		//if (resultado.check(checkstate).equals("bool")){

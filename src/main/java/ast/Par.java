@@ -19,4 +19,15 @@ public class Par {
 	public void setInicializada(boolean inicializada) {
 		this.inicializada = inicializada;
 	}
+	
+	public String toString(){
+		
+		String aux = "tipo:"+tipo;
+		if(inicializada){
+			aux += " inicializada:true";
+		}else{
+			aux += " inicializada:false";
+		}
+		return "("+aux+")";
+	}
 }

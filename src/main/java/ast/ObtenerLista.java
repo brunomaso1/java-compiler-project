@@ -1,30 +1,25 @@
 package ast;
 
-import java.util.*;
+import java.util.Random;
+import java.util.Set;
 
-import behaviour.*;
+import behaviour.CompilationContextIL;
 
-
-/**
- * Representacion de las variables.
- *
- * @author Grupo_9
- * @version 0.0.1
- * @date 30 oct. 2016
- */
-public class Variable extends Expresion {
+public class ObtenerLista extends Expresion {
 	public final String id;
+	public final Expresion posicion;
 
-	public Variable(String id) {
+	public ObtenerLista(String id, Expresion posicion) {
 		this.id = id;
+		this.posicion = posicion;
 	}
 
 	@Override public String unparse() {
-		return id;
+		return "obtener posicion "+posicion.unparse()+" "+id;
 	}
 
 	/*@Override public Object evaluate(Estado state) {
-		return state.get(id);
+		return null;//state.get(id);
 	}*/
 
 	@Override public Set<String> freeVariables(Set<String> vars) {
@@ -32,7 +27,7 @@ public class Variable extends Expresion {
 	}
 
 	@Override public int maxStackIL() {
-		return 1;
+		return posicion.maxStackIL();
 	}
 
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
@@ -50,13 +45,14 @@ public class Variable extends Expresion {
 	}
 	
 	@Override public Expresion optimization(Estado state){		
-		if(state.get(id) != null)
-			return new Numeral((Double)state.get(id));
-		return this;
+		//if(state.get(id) != null)
+		////	return new Numeral((Double)state.get(id));
+		//return this;
+		return null;
 	}
 
 	@Override public String toString() {
-		return "Variable("+ id +")";
+		return "Obtener Posicion "+posicion.unparse()+" "+id;
 	}
 
 	@Override public int hashCode() {
@@ -72,13 +68,13 @@ public class Variable extends Expresion {
 		return (this.id == null ? other.id == null : this.id.equals(other.id));
 	}
 
-	/*public static Variable generate(Random random, int min, int max) {
-		String id; 
-		id = ""+"abcdefghijklmnopqrstuvwxyz".charAt(random.nextInt(26));
-		return new Variable(id);
+	/*public static ObtenerLista generate(Random random, int min, int max) {
+		//String id; 
+		//id = ""+"abcdefghijklmnopqrstuvwxyz".charAt(random.nextInt(26));
+		return null;//new Variable(id);
 	}*/
 	
 	@Override public Object check(ChequearEstado checkstate){
-		return checkstate.devolverValor(id).getTipo();
+		return null;//checkstate.devolverValor(id).getTipo();
 	}
 }

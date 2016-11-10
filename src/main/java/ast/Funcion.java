@@ -40,9 +40,9 @@ public class Funcion extends Definicion {
 		return text;
 	}
 
-	@Override public Estado evaluate(Estado state) {
+	/*@Override public Estado evaluate(Estado state) {
 		return state;
-	}
+	}*/
 
 	@Override public Set<String> freeVariables(Set<String> vars) {
 		for (Variable parametro : parametros) vars = parametro.freeVariables(vars);
@@ -112,7 +112,7 @@ public class Funcion extends Definicion {
 	@Override public boolean equals(Object obj) {
 		return true;}
 
-	public static Funcion generate(Random random, int min, int max) {
+	/*public static Funcion generate(Random random, int min, int max) {
 		return null;
-	}
+	}*/
 }

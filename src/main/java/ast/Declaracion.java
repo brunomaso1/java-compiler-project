@@ -27,18 +27,18 @@ public class Declaracion extends Sentencia{
 		return result;
 	}
 
-	public static Declaracion generate(Random random, int min, int max) {
+	/*public static Declaracion generate(Random random, int min, int max) {
 		return null;
-	}
+	}*/
 		
-	@Override public Estado evaluate(Estado state){
+	/*@Override public Estado evaluate(Estado state){
 		state.set(variable, null);
 		return state;
-	}		
+	}*/		
 	
 	@Override public ChequearEstado check(ChequearEstado checkstate){
 		checkstate.agregar(variable, new Par(tipo.toString(), false));
-		return checkstate;
+		return checkstate;		
 	}
 
 	@Override

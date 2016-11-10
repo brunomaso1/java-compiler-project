@@ -34,23 +34,24 @@ public class Largo extends Expresion {
 		return (this.exp == null ? other.exp == null : this.exp.equals(other.exp));
 	}
 
-	public static Largo generate(Random random, int min, int max) {
+	/*public static Largo generate(Random random, int min, int max) {
 		Expresion exp;
 		exp = Expresion.generate(random, min-1, max-1);
 		return new Largo(exp);
-	}
+	}*/
 	
 	@Override public ChequearEstado check(ChequearEstado checkstate){
 		return null;
 	}
 			
 	
-	@Override public Object evaluate(Estado state){
+	/*@Override public Object evaluate(Estado state){
 		Object aState = this.exp.evaluate(state);
 		Double valor = aState.toString().length() * 1.0;
 		//System.out.println(aState.toString().length()); 
 		return valor;	
-	}	
+	}*/
+	
 	@Override
 	public int maxStackIL() {
 		// TODO Auto-generated method stub

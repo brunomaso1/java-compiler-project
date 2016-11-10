@@ -24,7 +24,7 @@ public class Division extends Expresion {
 		return "("+ left.unparse() +" / "+ right.unparse() +")";
 	}
 
-	@Override
+	/*@Override
 	public Object evaluate(Estado state) {
 		if ((left.evaluate(state) instanceof Double) & (right.evaluate(state) instanceof Double))
 			if (!((Double)right.evaluate(state) == 0))
@@ -37,7 +37,7 @@ public class Division extends Expresion {
 			System.out.print("Estas comparando mal. Nuemro1 -> " + left.evaluate(state) + " Numero2 -> " + right.evaluate(state));
 			return null;
 		}
-	}
+	}*/
 
 	@Override public Set<String> freeVariables(Set<String> vars) {
 		return right.freeVariables(left.freeVariables(vars));
@@ -99,12 +99,12 @@ public class Division extends Expresion {
 			&& (this.right == null ? other.right == null : this.right.equals(other.right));
 	}
 
-	public static Division generate(Random random, int min, int max) {
+	/*public static Division generate(Random random, int min, int max) {
 		Expresion left; Expresion right; 
 		left = Expresion.generate(random, min-1, max-1);
 		right = Expresion.generate(random, min-1, max-1);
 		return new Division(left, right);
-	}
+	}*/
 	
 	@Override public Object check(ChequearEstado checkstate){
 		

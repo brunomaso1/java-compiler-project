@@ -31,24 +31,24 @@ public class DeclaracionIniciar extends Sentencia{
 		return result;
 	}
 
-	public static DeclaracionIniciar generate(Random random, int min, int max) {
+	/*public static DeclaracionIniciar generate(Random random, int min, int max) {
 		return null;
-	}
+	}*/
 		
-	@Override public Estado evaluate(Estado state){
+	/*@Override public Estado evaluate(Estado state){
 		state.set(id, expresion.evaluate(state));
 		return state;
-	}		
+	}*/		
 	
 	@Override public ChequearEstado check(ChequearEstado checkstate){
-		if(tipo == Tipo.ENTERO && expresion.check(checkstate).toString().equals("integer")){
-			checkstate.agregar(id, new Par("integer", true));
-		} else if(tipo == Tipo.VERDAD && expresion.check(checkstate).toString().equals("bool")){
-			checkstate.agregar(id, new Par("bool", true));
-			} else if(tipo == Tipo.NUMERAL && expresion.check(checkstate).toString().equals("number")){
-				checkstate.agregar(id, new Par("number", true));
-				} else if(tipo == Tipo.TEXTO && expresion.check(checkstate).toString().equals("string")){
-					checkstate.agregar(id, new Par("string", true));	
+		if(tipo == Tipo.ENTERO && expresion.check(checkstate).toString().equals("entero")){
+			checkstate.agregar(id, new Par("entero", true));
+		} else if(tipo == Tipo.VERDAD && expresion.check(checkstate).toString().equals("verdad")){
+			checkstate.agregar(id, new Par("verdad", true));
+			} else if(tipo == Tipo.NUMERAL && expresion.check(checkstate).toString().equals("numero")){
+				checkstate.agregar(id, new Par("numero", true));
+				} else if(tipo == Tipo.TEXTO && expresion.check(checkstate).toString().equals("texto")){
+					checkstate.agregar(id, new Par("texto", true));	
 				}
 		return checkstate;
 	}

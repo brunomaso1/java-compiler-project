@@ -17,7 +17,7 @@ public class Errores extends Exception
   }
   public static void imprimirErrores(){
 	  for (int i=0; i<exceptionList.size(); i++) {
-		  exceptionList.get(i);
+		  System.out.println(exceptionList.get(i));
 	  }
 	  
   }

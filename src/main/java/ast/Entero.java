@@ -34,20 +34,20 @@ public class Entero extends Expresion {
 		return (this.number == null ? other.number == null : this.number.equals(other.number));
 	}
 
-	public static Numeral generate(Random random, int min, int max) {
+	/*public static Numeral generate(Random random, int min, int max) {
 		Integer number; 
 		number = Math.round(random.nextInt() * 1000) / 100;
 		return null;
-	}
+	}*/
 
-	@Override
+	/*@Override
 	public Object evaluate(Estado state) {
 		return new Integer(number);
-	}
+	}*/
 	
 	@Override
 	public Object check(ChequearEstado checkstate) {
-		return new String("integer");
+		return new String("entero");
 	}
 	
 	@Override

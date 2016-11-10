@@ -18,7 +18,7 @@ public abstract class Sentencia extends Programa{
 	
 	abstract public String unparse();
 
-	abstract public Estado evaluate(Estado state);
+	//abstract public Estado evaluate(Estado state);
 
 	abstract public Set<String> freeVariables(Set<String> vars);
 
@@ -36,7 +36,7 @@ public abstract class Sentencia extends Programa{
 
 	@Override public abstract boolean equals(Object obj);
 
-	public static Sentencia generate(Random random, int min, int max) {
+	/*public static Sentencia generate(Random random, int min, int max) {
 		final int TERMINAL_COUNT = 0;
 		final int NONTERMINAL_COUNT = 4;
 		int i = random.nextInt(TERMINAL_COUNT + NONTERMINAL_COUNT);
@@ -49,5 +49,5 @@ public abstract class Sentencia extends Programa{
 			case 3: return MientrasHacer.generate(random, min-1, max-1);
 			default: throw new Error("Unexpected error at Stmt.generate()!");
 		}
-	}
+	}*/
 }

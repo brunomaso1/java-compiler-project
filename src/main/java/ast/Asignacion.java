@@ -24,10 +24,10 @@ public class Asignacion extends Sentencia {
 		return id +" = "+ expression.unparse() +"; ";
 	}
 
-	@Override public Estado evaluate(Estado state) {
+	/*@Override public Estado evaluate(Estado state) {
 		state.set(id, expression.evaluate(state)); 
 		return state;
-	}
+	}*/
 
 	@Override public Set<String> freeVariables(Set<String> vars) {
 		vars = expression.freeVariables(vars); 
@@ -75,23 +75,17 @@ public class Asignacion extends Sentencia {
 	}
 	
 	@Override public ChequearEstado check(ChequearEstado checkstate){
-		Object aux = expression.check(checkstate); // Creo que es un par
-		if (aux.equals("number")) {
-			checkstate.agregar(id, new Par((String)aux, true));
-		}else if (aux.equals("number")) {
-			checkstate.agregar(id, new Par((String)aux, true));
-		}else if (aux.equals("string")) {
-			checkstate.agregar(id, new Par((String)aux, true));
-		}else if (aux.equals("bool")) {
-			checkstate.agregar(id, new Par((String)aux, true));
+		Par par = checkstate.devolverValor(id);
+		if (par == null){
+			Errores.exceptionList.add(new Errores("Variable \"" + id + "\" no definida"));
 		}
 		return checkstate;
 	}
 
-	public static Asignacion generate(Random random, int min, int max) {
+	/*public static Asignacion generate(Random random, int min, int max) {
 		String id; Expresion expression; 
 		id = ""+"abcdefghijklmnopqrstuvwxyz".charAt(random.nextInt(26));
 		expression = Expresion.generate(random, min-1, max-1);
 		return new Asignacion(id, expression);
-	}
+	}*/
 }

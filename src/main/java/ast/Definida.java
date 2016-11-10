@@ -34,14 +34,14 @@ public class Definida extends Expresion {
 		return (this.var == null ? other.var == null : this.var.equals(other.var));
 	}
 
-	public static Definida generate(Random random, int min, int max) {
+	/*public static Definida generate(Random random, int min, int max) {
 		String var;
 		var = ""+"abcdefghijklmnopqrstuvwxyz".charAt(random.nextInt(26));
 				//String.generate(random, min-1, max-1);
 		return new Definida(var);		
-	}
+	}*/
 	
-	@Override public Object evaluate(Estado state){
+	/*@Override public Object evaluate(Estado state){
 				
 		Object valor = state.get(this.var);
 		if (valor==null) {
@@ -52,7 +52,7 @@ public class Definida extends Expresion {
 				//this.var.evaluate(state);
 	//	System.out.println(aState.toString());
 	//	return state;	
-	}	
+	}*/	
 	
 	
 	@Override public Object check(ChequearEstado checkstate){

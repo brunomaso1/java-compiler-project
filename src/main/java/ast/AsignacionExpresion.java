@@ -34,15 +34,16 @@ public class AsignacionExpresion extends Expresion {
 		return (this.assigment == null ? other.assigment == null : this.assigment.equals(other.assigment));
 	}
 
-	public static AsignacionExpresion generate(Random random, int min, int max) {
+	/*public static AsignacionExpresion generate(Random random, int min, int max) {
 		Sentencia assigment; 
 		assigment = Sentencia.generate(random, min-1, max-1);
 		return new AsignacionExpresion(assigment);
-	}
-	@Override public Estado evaluate(Estado state){
+	}*/
+	
+	/*@Override public Estado evaluate(Estado state){
 		state = assigment.evaluate(state);
 		return state;
-	}	
+	}*/
 	
 	@Override public Object check(ChequearEstado checkstate){
 		checkstate = assigment.check(checkstate);

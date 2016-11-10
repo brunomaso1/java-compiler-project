@@ -24,7 +24,7 @@ public class Disyuncion extends Expresion {
 		return "("+ left.unparse() +" | "+ right.unparse() +")";
 	}
 
-	@Override
+	/*@Override
 	public Object evaluate(Estado state) {
 		if ((left.evaluate(state) instanceof Boolean) & (right.evaluate(state) instanceof Boolean))
 			return new Boolean((Boolean)left.evaluate(state) || (Boolean)right.evaluate(state));
@@ -32,7 +32,7 @@ public class Disyuncion extends Expresion {
 			System.out.print("Estas haciendo una conjuncion mal. Numero1 -> " + left.evaluate(state) + " Numero2 -> " + right.evaluate(state));
 			return null;
 		}
-	}
+	}*/
 
 	@Override public Set<String> freeVariables(Set<String> vars) {
 		return right.freeVariables(left.freeVariables(vars));
@@ -89,12 +89,12 @@ public class Disyuncion extends Expresion {
 			&& (this.right == null ? other.right == null : this.right.equals(other.right));
 	}
 
-	public static Disyuncion generate(Random random, int min, int max) {
+	/*public static Disyuncion generate(Random random, int min, int max) {
 		Expresion left; Expresion right; 
 		left = Expresion.generate(random, min-1, max-1);
 		right = Expresion.generate(random, min-1, max-1);
 		return new Disyuncion(left, right);
-	}
+	}*/
 	
 	@Override
 	public Object check(ChequearEstado checkstate) {

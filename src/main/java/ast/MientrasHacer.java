@@ -26,12 +26,12 @@ public class MientrasHacer extends Sentencia {
 		return "Mientras "+ condition.unparse() +" hacer { "+ body.unparse() +" }";
 	}
 
-	@Override public Estado evaluate(Estado state) {
+	/*@Override public Estado evaluate(Estado state) {
 		while((Boolean) condition.evaluate(state)){
 			state = body.evaluate(state);
 		}
 		return state;
-	}	
+	}*/	
 
 	@Override public Set<String> freeVariables(Set<String> vars) {
 		vars = condition.freeVariables(vars); return body.freeVariables(vars);
@@ -89,12 +89,12 @@ public class MientrasHacer extends Sentencia {
 			&& (this.body == null ? other.body == null : this.body.equals(other.body));
 	}
 
-	public static MientrasHacer generate(Random random, int min, int max) {
+	/*public static MientrasHacer generate(Random random, int min, int max) {
 		Expresion condition; Sentencia body; 
 		condition = Expresion.generate(random, min-1, max-1);
 		body = Sentencia.generate(random, min-1, max-1);
 		return new MientrasHacer(condition, body);
-	}
+	}*/
 	
 	@Override public ChequearEstado check(ChequearEstado checkstate){
 		return checkstate;

@@ -17,7 +17,7 @@ public abstract class Definicion extends Programa{
 
 	abstract public String unparse();
 
-	abstract public Estado evaluate(Estado state);
+	//abstract public Estado evaluate(Estado state);
 
 	abstract public Set<String> freeVariables(Set<String> vars);
 	
@@ -35,7 +35,7 @@ public abstract class Definicion extends Programa{
 
 	@Override public abstract boolean equals(Object obj);
 
-	public static Definicion generate(Random random, int min, int max) {
+	/*public static Definicion generate(Random random, int min, int max) {
 		final int TERMINAL_COUNT = 0;
 		final int NONTERMINAL_COUNT = 1;
 		int i = random.nextInt(TERMINAL_COUNT + NONTERMINAL_COUNT);
@@ -45,5 +45,5 @@ public abstract class Definicion extends Programa{
 			case 0: return Funcion.generate(random, min-1, max-1);
 			default: throw new Error("Unexpected error at Definition.generate()!");
 		}
-	}
+	}*/
 }

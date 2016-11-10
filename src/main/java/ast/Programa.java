@@ -16,7 +16,7 @@ public abstract class Programa{
 	
 	abstract public String unparse();
 
-	abstract public Estado evaluate(Estado state);
+	//abstract public Estado evaluate(Estado state);
 
 	abstract public Set<String> freeVariables(Set<String> vars);
 
@@ -32,8 +32,8 @@ public abstract class Programa{
 
 	@Override public abstract boolean equals(Object obj);
 
-	public static Programa generate(Random random, int min, int max) {
-		/*final int TERMINAL_COUNT = 0;
+	/*public static Programa generate(Random random, int min, int max) {
+		final int TERMINAL_COUNT = 0;
 		final int NONTERMINAL_COUNT = 2;
 		int i = random.nextInt(TERMINAL_COUNT + NONTERMINAL_COUNT);
 		switch (i) {
@@ -44,7 +44,7 @@ public abstract class Programa{
 			case 2: return SiEntoncesSino.generate(random, min-1, max-1);
 			case 3: return MientrasHacer.generate(random, min-1, max-1);
 			default: throw new Error("Unexpected error at Stmt.generate()!");
-		}*/
+		}
 		return null;
-	}
+	}*/
 }

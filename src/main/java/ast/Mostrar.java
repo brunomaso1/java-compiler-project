@@ -34,17 +34,17 @@ public class Mostrar extends Sentencia {
 		return (this.exp == null ? other.exp == null : this.exp.equals(other.exp));
 	}
 
-	public static Mostrar generate(Random random, int min, int max) {
+	/*public static Mostrar generate(Random random, int min, int max) {
 		Expresion exp;
 		exp = Expresion.generate(random, min-1, max-1);
 		return new Mostrar(exp);		
-	}
+	}*/
 	
-	@Override public Estado evaluate(Estado state){
+	/*@Override public Estado evaluate(Estado state){
 		Object aState = this.exp.evaluate(state);
 		System.out.println(aState.toString());
 		return state;	
-	}
+	}*/
 
 	@Override
 	public Set<String> freeVariables(Set<String> vars) {

@@ -32,9 +32,9 @@ public class ChequearEstado {
 		
 		for(Map.Entry<String, Par> entry : this.state.entrySet()) {
 		    String key = entry.getKey();
-		    String value = entry.getValue().toString();
+		    Par value = entry.getValue();
 		 
-		    System.out.println("key :"+key+" type/state:"+value);
+		    System.out.println("key :"+key+" "+value.toString());
 		}
 	}
 	

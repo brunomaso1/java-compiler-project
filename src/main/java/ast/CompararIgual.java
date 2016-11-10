@@ -24,9 +24,9 @@ public class CompararIgual extends Expresion {
 		return "("+ left.unparse() +" == "+ right.unparse() +")";
 	}
 
-	@Override public Boolean evaluate(Estado state) {
+	/*@Override public Boolean evaluate(Estado state) {
 		return left.evaluate(state) == right.evaluate(state);
-	}
+	}*/
 
 	@Override public Set<String> freeVariables(Set<String> vars) {
 		return right.freeVariables(left.freeVariables(vars));
@@ -54,6 +54,30 @@ public class CompararIgual extends Expresion {
 			else
 				return new ValorVerdad(false);
 		}
+		
+		//Str a == Str b
+		if(opt1 instanceof Texto && opt2 instanceof Texto){
+			if( ((Texto)opt1).str == ((Texto)opt2).str)
+				return new ValorVerdad(true);
+			else
+				return new ValorVerdad(false);
+		}
+		
+		//Int a == Int b
+		if(opt1 instanceof Entero && opt2 instanceof Entero){
+			if( ((Entero)opt1).number == ((Entero)opt2).number)
+				return new ValorVerdad(true);
+			else
+				return new ValorVerdad(false);
+		}
+		
+		//Bool a == Bool b
+		/*if(opt1 instanceof Verdad && opt2 instanceof Numeral){
+			if( ((Numeral)opt1).number == ((Numeral)opt2).number)
+				return new ValorVerdad(true);
+			else
+				return new ValorVerdad(false);
+		}	*/		
 		
 		//Variable a == Variable a --> True
 		if(opt1 instanceof Variable && opt2 instanceof Variable){
@@ -84,12 +108,12 @@ public class CompararIgual extends Expresion {
 			&& (this.right == null ? other.right == null : this.right.equals(other.right));
 	}
 
-	public static CompararIgual generate(Random random, int min, int max) {
+	/*public static CompararIgual generate(Random random, int min, int max) {
 		Expresion left; Expresion right; 
 		left = Expresion.generate(random, min-1, max-1);
 		right = Expresion.generate(random, min-1, max-1);
 		return new CompararIgual(left, right);
-	}
+	}*/
 	
 	@Override
 	public Object check(ChequearEstado checkstate) {

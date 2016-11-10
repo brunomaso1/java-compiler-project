@@ -1,30 +1,27 @@
 package ast;
 
-import java.util.*;
+import java.util.Random;
+import java.util.Set;
 
-import behaviour.*;
+import behaviour.CompilationContextIL;
 
-
-/**
- * Representacion de las variables.
- *
- * @author Grupo_9
- * @version 0.0.1
- * @date 30 oct. 2016
- */
-public class Variable extends Expresion {
+public class DeclaracionLista extends Sentencia {
 	public final String id;
+	public final Tipo tipo;
+	public final Expresion cantidad;
 
-	public Variable(String id) {
+	public DeclaracionLista(String id, Tipo tipo, Expresion cantidad) {
 		this.id = id;
+		this.tipo = tipo;
+		this.cantidad = cantidad;
 	}
 
 	@Override public String unparse() {
-		return id;
+		return "lista "+tipo.toString()+" "+id+"["+cantidad+"]";
 	}
 
-	/*@Override public Object evaluate(Estado state) {
-		return state.get(id);
+	/*@Override public Estado evaluate(Estado state) {
+		return null;//state.get(id);
 	}*/
 
 	@Override public Set<String> freeVariables(Set<String> vars) {
@@ -32,7 +29,7 @@ public class Variable extends Expresion {
 	}
 
 	@Override public int maxStackIL() {
-		return 1;
+		return cantidad.maxStackIL();
 	}
 
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
@@ -49,14 +46,15 @@ public class Variable extends Expresion {
 		return ctx;
 	}
 	
-	@Override public Expresion optimization(Estado state){		
-		if(state.get(id) != null)
-			return new Numeral((Double)state.get(id));
-		return this;
+	@Override public Sentencia optimization(Estado state){		
+		//if(state.get(id) != null)
+		////	return new Numeral((Double)state.get(id));
+		//return this;
+		return null;
 	}
 
 	@Override public String toString() {
-		return "Variable("+ id +")";
+		return "Lista "+tipo.toString()+" "+id+"["+cantidad+"]";
 	}
 
 	@Override public int hashCode() {
@@ -72,13 +70,15 @@ public class Variable extends Expresion {
 		return (this.id == null ? other.id == null : this.id.equals(other.id));
 	}
 
-	/*public static Variable generate(Random random, int min, int max) {
-		String id; 
-		id = ""+"abcdefghijklmnopqrstuvwxyz".charAt(random.nextInt(26));
-		return new Variable(id);
+	/*public static DeclaracionLista generate(Random random, int min, int max) {
+		//String id; 
+		//id = ""+"abcdefghijklmnopqrstuvwxyz".charAt(random.nextInt(26));
+		return null;//new Variable(id);
 	}*/
 	
-	@Override public Object check(ChequearEstado checkstate){
-		return checkstate.devolverValor(id).getTipo();
+	@Override public ChequearEstado check(ChequearEstado checkstate){
+		//validar nombre que no exista
+		// y tipo de expresion
+		return checkstate;//checkstate.devolverValor(id).getTipo();
 	}
 }

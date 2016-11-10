@@ -23,9 +23,9 @@ public class ValorVerdad extends Expresion {
 		return value ? "true" : "false";
 	}
 
-	@Override public Boolean evaluate(Estado state) {
+	/*@Override public Boolean evaluate(Estado state) {
 		return value;
-	}
+	}*/
 
 	@Override public Set<String> freeVariables(Set<String> vars) {
 		return vars;
@@ -66,12 +66,13 @@ public class ValorVerdad extends Expresion {
 		return (this.value == null ? other.value == null : this.value.equals(other.value));
 	}
 
-	public static ValorVerdad generate(Random random, int min, int max) {
+	/*public static ValorVerdad generate(Random random, int min, int max) {
 		Boolean value; 
 		value = random.nextBoolean();
 		return new ValorVerdad(value);
-	}
+	}*/
+	
 	@Override public Object check(ChequearEstado checkstate){
-		return new String("bool");
+		return new String("verdad");
 	}
 }

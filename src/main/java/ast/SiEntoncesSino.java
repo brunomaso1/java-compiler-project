@@ -27,7 +27,7 @@ public class SiEntoncesSino extends Sentencia {
 		return "Si "+ condition.unparse() +" entonces { "+ thenBody.unparse() +" } sino { "+ elseBody.unparse() +" }";
 	}
 
-	@Override public Estado evaluate(Estado state) {
+	/*@Override public Estado evaluate(Estado state) {
 		Boolean resCond = (Boolean) condition.evaluate(state);
 		if (resCond){
 			state = thenBody.evaluate(state);
@@ -35,7 +35,7 @@ public class SiEntoncesSino extends Sentencia {
 			state = elseBody.evaluate(state);
 		}
 		return state;
-	}
+	}*/
 
 	@Override public Set<String> freeVariables(Set<String> vars) {
 		vars = condition.freeVariables(vars); vars = thenBody.freeVariables(vars); return elseBody.freeVariables(vars);
@@ -112,13 +112,13 @@ public class SiEntoncesSino extends Sentencia {
 			&& (this.elseBody == null ? other.elseBody == null : this.elseBody.equals(other.elseBody));
 	}
 
-	public static SiEntoncesSino generate(Random random, int min, int max) {
+	/*public static SiEntoncesSino generate(Random random, int min, int max) {
 		Expresion condition; Sentencia thenBody; Sentencia elseBody; 
 		condition = Expresion.generate(random, min-1, max-1);
 		thenBody = Sentencia.generate(random, min-1, max-1);
 		elseBody = Sentencia.generate(random, min-1, max-1);
 		return new SiEntoncesSino(condition, thenBody, elseBody);
-	}
+	}*/
 	
 	@Override public ChequearEstado check(ChequearEstado checkstate){
 		if (condition.check(checkstate).equals("bool")){
