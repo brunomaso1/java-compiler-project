@@ -104,8 +104,8 @@ public class Conjuncion extends Expresion {
 	
 	@Override
 	public Object check(ChequearEstado checkstate) {
-		if ((left.check(checkstate).equals("bool")) & (right.check(checkstate).equals("bool")))
-			return new String("bool");
+		if ((left.check(checkstate).equals("boolean")) & (right.check(checkstate).equals("boolean")))
+			return new String("boolean");
 		else {
 			System.out.print("Estas haciendo una conjuncion mal. Numero1 -> " + left.check(checkstate) + " Numero2 -> " + right.check(checkstate));
 			return null;

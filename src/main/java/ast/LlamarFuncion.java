@@ -100,7 +100,7 @@ public class LlamarFuncion extends Sentencia {
 	}*/
 	
 	@Override public ChequearEstado check(ChequearEstado checkstate){
-		//if (resultado.check(checkstate).equals("bool")){
+		//if (resultado.check(checkstate).equals("boolean")){
 			
 		//	return thenBody.check(checkstate);
 					

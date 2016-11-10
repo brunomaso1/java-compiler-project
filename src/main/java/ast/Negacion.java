@@ -81,8 +81,8 @@ public class Negacion extends Expresion {
 	
 	@Override public Object check(ChequearEstado checkstate){
 		
-		if (condition.check(checkstate).equals("bool")){
-			return new String("bool");
+		if (condition.check(checkstate).equals("boolean")){
+			return new String("boolean");
 		}	
 		return null;
 	}

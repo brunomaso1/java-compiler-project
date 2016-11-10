@@ -96,7 +96,7 @@ public class SiEntonces extends Sentencia {
 	}*/
 
 	@Override public ChequearEstado check(ChequearEstado checkstate){
-		if (condition.check(checkstate).equals("bool")){
+		if (condition.check(checkstate).equals("boolean")){
 			
 			return thenBody.check(checkstate);
 					

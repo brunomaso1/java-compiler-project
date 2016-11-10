@@ -79,6 +79,7 @@ public class Asignacion extends Sentencia {
 		if (par == null){
 			Errores.exceptionList.add(new Errores("Variable \"" + id + "\" no definida"));
 		}
+		expression.check(checkstate);
 		return checkstate;
 	}
 

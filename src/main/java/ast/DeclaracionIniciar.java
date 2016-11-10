@@ -43,8 +43,8 @@ public class DeclaracionIniciar extends Sentencia{
 	@Override public ChequearEstado check(ChequearEstado checkstate){
 		if(tipo == Tipo.ENTERO && expresion.check(checkstate).toString().equals("entero")){
 			checkstate.agregar(id, new Par("entero", true));
-		} else if(tipo == Tipo.VERDAD && expresion.check(checkstate).toString().equals("verdad")){
-			checkstate.agregar(id, new Par("verdad", true));
+		} else if(tipo == Tipo.BOOLEAN && expresion.check(checkstate).toString().equals("boolean")){
+			checkstate.agregar(id, new Par("boolean", true));
 			} else if(tipo == Tipo.NUMERAL && expresion.check(checkstate).toString().equals("numero")){
 				checkstate.agregar(id, new Par("numero", true));
 				} else if(tipo == Tipo.TEXTO && expresion.check(checkstate).toString().equals("texto")){

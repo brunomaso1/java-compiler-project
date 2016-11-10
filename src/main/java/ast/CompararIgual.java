@@ -63,13 +63,29 @@ public class CompararIgual extends Expresion {
 				return new ValorVerdad(false);
 		}
 		
+		//Variable a == Variable a --> True
+		if(opt1 instanceof Variable && opt2 instanceof Variable){
+			if( ((Variable)opt1).id.equals(((Variable)opt2).id) ){
+				return new ValorVerdad(true);
+			}
+		}
+		
+		//verdadero == verdadero a --> True
+		if(opt1 instanceof ValorVerdad && opt2 instanceof ValorVerdad){
+			if( ((ValorVerdad)opt1).value == ((ValorVerdad)opt2).value){
+				return new ValorVerdad(true);
+			}else{
+				return new ValorVerdad(false);
+			}
+		}
+		
 		//Int a == Int b
-		if(opt1 instanceof Entero && opt2 instanceof Entero){
+		/*if(opt1 instanceof Entero && opt2 instanceof Entero){
 			if( ((Entero)opt1).number == ((Entero)opt2).number)
 				return new ValorVerdad(true);
 			else
 				return new ValorVerdad(false);
-		}
+		}*/
 		
 		//Bool a == Bool b
 		/*if(opt1 instanceof Verdad && opt2 instanceof Numeral){
@@ -77,14 +93,7 @@ public class CompararIgual extends Expresion {
 				return new ValorVerdad(true);
 			else
 				return new ValorVerdad(false);
-		}	*/		
-		
-		//Variable a == Variable a --> True
-		if(opt1 instanceof Variable && opt2 instanceof Variable){
-			if( ((Variable)opt1).id.equals(((Variable)opt2).id) ){
-				return new ValorVerdad(true);
-			}
-		}
+		}	*/
 		
 		return new CompararIgual(opt1, opt2);
 	}
@@ -115,11 +124,10 @@ public class CompararIgual extends Expresion {
 		return new CompararIgual(left, right);
 	}*/
 	
-	@Override
-	public Object check(ChequearEstado checkstate) {
+	@Override public Object check(ChequearEstado checkstate) {
 		left.check(checkstate); 
 		right.check(checkstate);
 		
-		return new String("bool");
+		return new String("boolean");
 	}
 }

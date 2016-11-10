@@ -73,6 +73,6 @@ public class ValorVerdad extends Expresion {
 	}*/
 	
 	@Override public Object check(ChequearEstado checkstate){
-		return new String("verdad");
+		return new String("boolean");
 	}
 }

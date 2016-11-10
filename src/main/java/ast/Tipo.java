@@ -2,5 +2,5 @@ package ast;
 
 public enum Tipo {
 
-	ENTERO, TEXTO, NUMERAL, VERDAD;
+	ENTERO, TEXTO, NUMERAL, BOOLEAN;
 }

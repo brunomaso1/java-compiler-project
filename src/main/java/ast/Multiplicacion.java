@@ -103,8 +103,8 @@ public class Multiplicacion extends Expresion {
 	
 	@Override public Object check(ChequearEstado checkstate){
 		
-		if ((left.check(checkstate).equals("number")) & (right.check(checkstate).equals("number")))
-			return new String("number");
+		if ((left.check(checkstate).equals("numero")) & (right.check(checkstate).equals("numero")))
+			return new String("numero");
 		else {
 			System.out.print("Estas multiplicando tipos incompatibles. Numero1 -> " + left.check(checkstate) + " Numero2 -> " + right.check(checkstate));
 			return null;

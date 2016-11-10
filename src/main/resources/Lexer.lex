@@ -59,6 +59,10 @@ import java.io.*;
 	{ return new Symbol(SIGNO_MENOS, yyline, yycolumn, yytext()); }
 "."
 	{ return new Symbol(PUNTO, yyline, yycolumn, yytext()); }
+"<"
+	{ return new Symbol(SIGNO_MENOR, yyline, yycolumn, yytext()); }
+">"
+	{ return new Symbol(SIGNO_MAYOR, yyline, yycolumn, yytext()); }	
 "<="
 	{ return new Symbol(SIGNO_MENOR_IGUAL, yyline, yycolumn, yytext()); }
 ">="
@@ -73,7 +77,7 @@ import java.io.*;
 	{ return new Symbol(HACER, yyline, yycolumn, yytext()); }
 "sino"
 	{ return new Symbol(SINO, yyline, yycolumn, yytext()); }
-"falso"
+"esFalso"
 	{ return new Symbol(FALSO, yyline, yycolumn, yytext()); }
 "si"
 	{ return new Symbol(SI, yyline, yycolumn, yytext()); }
@@ -81,7 +85,7 @@ import java.io.*;
 	{ return new Symbol(NADA, yyline, yycolumn, yytext()); }
 "entonces"
 	{ return new Symbol(ENTONCES, yyline, yycolumn, yytext()); }
-"verdadero"
+"esVerdadero"
 	{ return new Symbol(VERDADERO, yyline, yycolumn, yytext()); }
 "mientras"
 	{ return new Symbol(MIENTRAS, yyline, yycolumn, yytext()); }
@@ -105,8 +109,8 @@ import java.io.*;
 	{ return new Symbol(TIPO, yyline, yycolumn, Tipo.ENTERO); }
 "texto"
 	{ return new Symbol(TIPO, yyline, yycolumn, Tipo.TEXTO); }
-"verdad"
-	{ return new Symbol(TIPO, yyline, yycolumn, Tipo.VERDAD); }
+"boolean"
+	{ return new Symbol(TIPO, yyline, yycolumn, Tipo.BOOLEAN); }
 "crearVariable"
 	{ return new Symbol(CREAR_VARIABLE, yyline, yycolumn, yytext()); }	
 "crearLista"

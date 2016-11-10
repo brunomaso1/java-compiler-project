@@ -96,13 +96,13 @@ public class Suma extends Expresion {
 	}*/
 	
 	@Override public Object check(ChequearEstado checkstate){
-		Object a = left.check(checkstate);
-		Object b = right.check(checkstate);
+		//Object a = left.check(checkstate);
+		//Object b = right.check(checkstate);
         
-		if ((left.check(checkstate).equals("number")) & (right.check(checkstate).equals("number")))
-			return new String("number");
+		if ((left.check(checkstate).equals("numero")) & (right.check(checkstate).equals("numero")))
+			return new String("numero");
 		else {
-			System.out.print("Estas sumando tipos incompatibles. Numero1 -> " + left.check(checkstate) + " Numero2 -> " + right.check(checkstate));
+			Errores.exceptionList.add(new Errores("Suma \"" + left.toString()+" + " + right.toString()+ "\" tipos no numéricos."));
 			return null;
 		}	
 	}
