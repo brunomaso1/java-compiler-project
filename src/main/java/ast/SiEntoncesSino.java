@@ -144,8 +144,10 @@ public class SiEntoncesSino extends Sentencia {
 			
 			// Intersccion
 					
+		}else{
+			Errores.exceptionList.add(new Errores("Condición \"" + condition.toString() + "\" no es booleana"));
 		}
-		return null;
+		return checkstate;
 	
 	}
 	

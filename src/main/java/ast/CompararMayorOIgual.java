@@ -1,6 +1,7 @@
 package ast;
 
 import java.util.*;
+
 import behaviour.*;
 
 /**
@@ -104,12 +105,11 @@ public class CompararMayorOIgual extends Expresion {
 	
 	@Override
 	public Object check(ChequearEstado checkstate) {
-		
 		if ((left.check(checkstate).equals("number") & right.check(checkstate).equals("number")))
 			return new String("boolean");
 		else {
-			System.out.print("Estas comparando mal. Numero1 -> " + left.check(checkstate) + " Numero2 -> " + right.check(checkstate));
-			return null;
+			Errores.exceptionList.add(new Errores("Comparación Mayor Igual \"" + this.toString() + "\" tipos no númericos."));
 		}
+		return checkstate;
 	}
 }

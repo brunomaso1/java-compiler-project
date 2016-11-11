@@ -104,11 +104,11 @@ public class Conjuncion extends Expresion {
 	
 	@Override
 	public Object check(ChequearEstado checkstate) {
-		if ((left.check(checkstate).equals("boolean")) & (right.check(checkstate).equals("boolean")))
+		if ((left.check(checkstate).equals("boolean")) & (right.check(checkstate).equals("boolean"))){
 			return new String("boolean");
-		else {
-			System.out.print("Estas haciendo una conjuncion mal. Numero1 -> " + left.check(checkstate) + " Numero2 -> " + right.check(checkstate));
-			return null;
+		}else {
+			Errores.exceptionList.add(new Errores("Conjunción \"" + this.toString() + "\" tipos no booleanos."));
 		}
+		return checkstate;
 	}
 }

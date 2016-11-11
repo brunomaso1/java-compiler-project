@@ -43,10 +43,10 @@ import java.io.*;
 %%
 "no"
 	{ return new Symbol(SIGNO_NO, yyline, yycolumn, yytext()); }
-"<>"
-	{ return new Symbol(SIGNO_DISTINTO, yyline, yycolumn, yytext()); }
 "y"
 	{ return new Symbol(SIGNO_Y, yyline, yycolumn, yytext()); }
+"o"
+	{ return new Symbol(SIGNO_O, yyline, yycolumn, yytext()); }
 "("
 	{ return new Symbol(PARENTESIS_IZQUIERDO, yyline, yycolumn, yytext()); }
 ")"

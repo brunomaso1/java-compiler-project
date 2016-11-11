@@ -68,7 +68,7 @@ terminal NADA;
 terminal MIENTRAS;
 terminal SINO;
 terminal SI;
-terminal SIGNO_DISTINTO;
+terminal SIGNO_O;
 terminal PONER;
 terminal EN;
 terminal SIGNO_MAYOR_IGUAL;
@@ -90,6 +90,7 @@ precedence left SIGNO_NO;
 precedence left SIGNO_MULT;
 precedence left SIGNO_MAS, SIGNO_MENOS;
 precedence left SIGNO_Y;
+precedence left SIGNO_O;
 precedence left SINO;
 precedence left SIGNO_IGUAL;
 precedence left SIGNO_MENOR_IGUAL;
@@ -136,7 +137,7 @@ stmt ::=
 	|	SI:$1 exp:$2 ENTONCES:$3 stmt:$4 SINO:$5 stmt:$6 
 		{: RESULT = new SiEntoncesSino($2, $4, $6); :}
 	|	SI:$1 exp:$2 ENTONCES:$3 stmt:$4
-		{: System.out.println($1+" "+$2+" "+$3+" "+$4);
+		{: //System.out.println($1+" "+$2+" "+$3+" "+$4);
 		RESULT = new SiEntonces($2, $4); :}
 	|	LLAMAR:$1 IDFUNC:$2 RECIBE:$3 repeat$paramExp:$4 PONER_EN:$5 ID:$6 PUNTO:$7
 		{: RESULT = new LlamarFuncion($2,$4.toArray(new Expresion[$4.size()]),new Variable($6)); :}		
@@ -191,6 +192,8 @@ exp ::=
 		{: RESULT = new Negacion($2); :}
 	|	exp:$1 SIGNO_Y:$2 exp:$3 
 		{: RESULT = new Conjuncion($1, $3); :}
+	|	exp:$1 SIGNO_O:$2 exp:$3 
+		{: RESULT = new Disyuncion($1, $3); :}
 	|	LARGO:$1 PARENTESIS_IZQUIERDO:$2 exp:$3 PARENTESIS_DERECHO:$4
 		{: RESULT = new Largo($3); :}
 	|	DEFINIDA:$1 PARENTESIS_IZQUIERDO:$2 ID:$3 PARENTESIS_DERECHO:$4

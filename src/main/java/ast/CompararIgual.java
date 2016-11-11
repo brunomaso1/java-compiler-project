@@ -37,6 +37,7 @@ public class CompararIgual extends Expresion {
 	}
 
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
+		//TODO ojo que cuando compara string == string cambia el IL.
 		ctx = left.compileIL(ctx);
 		ctx = right.compileIL(ctx);
 		ctx.codeIL.append("ceq \n");
@@ -125,9 +126,13 @@ public class CompararIgual extends Expresion {
 	}*/
 	
 	@Override public Object check(ChequearEstado checkstate) {
-		left.check(checkstate); 
-		right.check(checkstate);
-		
-		return new String("boolean");
+		if ((left.check(checkstate).equals("numero") & right.check(checkstate).equals("numero"))
+		||	(left.check(checkstate).equals("texto") & right.check(checkstate).equals("texto"))
+		||	(left.check(checkstate).equals("boolean") & right.check(checkstate).equals("boolean"))){
+			return new String("boolean");
+		}else{
+			Errores.exceptionList.add(new Errores("Comparación Igual \"" + this.toString() + "\" tipos no coinciden."));
+		}
+		return checkstate;
 	}
 }

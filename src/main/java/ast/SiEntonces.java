@@ -100,9 +100,9 @@ public class SiEntonces extends Sentencia {
 			
 			return thenBody.check(checkstate);
 					
-		}
-		return null;
-		
-		
+		}else{
+			Errores.exceptionList.add(new Errores("Condición \"" + condition.toString() + "\" no es booleana"));
+		}			
+		return checkstate;		
 	}
 }
