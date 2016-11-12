@@ -101,7 +101,7 @@ public class Disyuncion extends Expresion {
 		if ((left.check(checkstate).equals("boolean")) & (right.check(checkstate).equals("boolean"))){
 			return new String("boolean");
 		}else {
-			Errores.exceptionList.add(new Errores("Disyunción \"" + this.toString() + "\" tipos no booleanos."));
+			Errores.exceptionList.add(new Errores("Disyuncion \"" + this.toString() + "\" tipos no booleanos."));
 		}
 		return checkstate;
 	}

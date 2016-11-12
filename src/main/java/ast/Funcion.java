@@ -112,6 +112,12 @@ public class Funcion extends Definicion {
 	@Override public boolean equals(Object obj) {
 		return true;}
 
+	@Override
+	public ChequearEstado check(ChequearEstado checkstate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	/*public static Funcion generate(Random random, int min, int max) {
 		return null;
 	}*/

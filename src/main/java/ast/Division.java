@@ -111,7 +111,7 @@ public class Division extends Expresion {
 		if ((left.check(checkstate).equals("numero")) & (right.check(checkstate).equals("numero")))
 			return new String("numero");
 		else {
-			Errores.exceptionList.add(new Errores("División \"" + this.toString() + "\" tipos no númericos."));
+			Errores.exceptionList.add(new Errores("Division \"" + this.toString() + "\" tipos no nï¿½mericos."));
 		}	
 		return checkstate;
 	}

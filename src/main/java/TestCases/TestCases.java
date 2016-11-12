@@ -95,5 +95,35 @@ public class TestCases {
 //	si $variable1 < $variable2 entonces
 //	poner $variable1 + 1 en $variable1.  
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	Bienvenidos al compilador de EASY_LANGUAGE!
+//
+//	> {poner 5 en entero $a. poner 6 en entero $b. si $a<$b entonces poner 8 en entero $c.}
+//
+//	=============
+//	=============
+//	key :$a (tipo:entero inicializada:true)
+//	key :$b (tipo:entero inicializada:true)
+//	key :$c (tipo:entero inicializada:true)
+//	// variables = [$a, $b, $c]
+//	// maxStack =  2
+//	ldloc 0
+//	ldloc 1
+//	cgt 
+//	ldc.i4.0 
+//	ceq 
+//	brsfalse IL_0
+//	IL_0:nop
+//	ret
+	
 
 }

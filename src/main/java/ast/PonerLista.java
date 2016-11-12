@@ -33,18 +33,18 @@ public class PonerLista extends Sentencia {
 	}
 
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
-		ctx.var
-		
-		if(ctx.parametros.contains(id)){
-			Integer index = ctx.parametros.indexOf(id);
-			ctx.codeIL.append("ldarg " +  index + "\n");
-			return ctx;
-		}	
-		if(!ctx.variables.contains(id)){
-			ctx.variables.add(id);
-		}	
-		Integer index = ctx.variables.indexOf(id);
-		ctx.codeIL.append("ldloc " +  index + "\n");
+//		ctx.var
+//		
+//		if(ctx.parametros.contains(id)){
+//			Integer index = ctx.parametros.indexOf(id);
+//			ctx.codeIL.append("ldarg " +  index + "\n");
+//			return ctx;
+//		}	
+//		if(!ctx.variables.contains(id)){
+//			ctx.variables.add(id);
+//		}	
+//		Integer index = ctx.variables.indexOf(id);
+//		ctx.codeIL.append("ldloc " +  index + "\n");
 		return ctx;
 	}
 	
