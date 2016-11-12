@@ -19,11 +19,11 @@ public class DeclaracionIniciar extends Sentencia{
 	}
 
 	@Override public String unparse() {
-		return "declaracion " + tipo + " variable " + expresion;
+		return "declaracionIniciar " + tipo + " variable " + expresion;
 	}
 
 	@Override public String toString() {
-		return "Declaration("+ tipo +", "+ expresion + ")";
+		return "DeclaracionIniciar("+ tipo +", "+ expresion + ")";
 	}
 
 	@Override public int hashCode() {
@@ -56,7 +56,13 @@ public class DeclaracionIniciar extends Sentencia{
 	@Override
 	public boolean equals(Object obj) {
 		// TODO Auto-generated method stub
-		return false;
+		
+		if (this == obj) return true;
+		if (obj == null || getClass() != obj.getClass()) return false;
+		DeclaracionIniciar other = (DeclaracionIniciar)obj;
+		return (this.id == null ? other.id == null : this.id.equals(other.id))
+			&& (this.expresion == null ? other.expresion == null : this.expresion.equals(other.expresion))
+			&& (this.tipo == null ? other.tipo == null : this.tipo.equals(other.tipo));
 	}
 	
 	@Override public Set<String> freeVariables(Set<String> vars) {
