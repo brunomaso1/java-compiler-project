@@ -70,6 +70,16 @@ public class TestCases {
 	public void test5() throws Exception {
 		System.out.println("poner esVerdadero en boolean $variable. distinto a  poner esVerdadero en boolean $variable2.");
 		
+//		crearVariable $a tipo entero.
+//
+//		=============
+//		=============
+//		key :$a (tipo:ENTERO inicializada:false)
+//		// variables = [$a]
+//		// maxStack =  1
+//		ret
+		
+		
 		DeclaracionIniciar resEsp = new DeclaracionIniciar(BOOLEAN_VERDADERO_A_TESTEAR, Tipo.BOOLEAN, VARIABLE_A_TESTEAR);
 		String cadena = "poner esVerdadero en boolean $variable2.";
 		DeclaracionIniciar resultado = (DeclaracionIniciar)Parser.parse(cadena).value;
