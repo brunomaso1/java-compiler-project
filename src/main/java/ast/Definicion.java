@@ -34,6 +34,8 @@ public abstract class Definicion extends Programa{
 	@Override public abstract int hashCode();
 
 	@Override public abstract boolean equals(Object obj);
+	
+	abstract public ChequearEstado check(ChequearEstado checkstate);
 
 	/*public static Definicion generate(Random random, int min, int max) {
 		final int TERMINAL_COUNT = 0;

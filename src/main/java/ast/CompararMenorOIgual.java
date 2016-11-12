@@ -107,10 +107,10 @@ public class CompararMenorOIgual extends Expresion {
 	@Override
 	public Object check(ChequearEstado checkstate) {
 		
-		if ((left.check(checkstate).equals("number") & right.check(checkstate).equals("number")))
+		if ((left.check(checkstate).equals("entero") & right.check(checkstate).equals("entero")))
 			return new String("boolean");
 		else {
-			Errores.exceptionList.add(new Errores("Comparación Menor Igual \"" + this.toString() + "\" tipos no númericos."));
+			Errores.exceptionList.add(new Errores("Comparacion Menor Igual \"" + this.toString() + "\" tipos no numericos."));
 		}
 		return checkstate;
 	}

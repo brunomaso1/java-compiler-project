@@ -75,7 +75,11 @@ public class PonerLista extends Sentencia {
 		return null;//ew Variable(id);
 	}*/
 	
-	@Override public ChequearEstado check(ChequearEstado checkstate){
-		return null;//checkstate.devolverValor(id).getTipo();
+	@Override public ChequearEstado check(ChequearEstado checkstate){		
+		
+		// Errores.exceptionList.add(new Errores("Comparacion Menor \"" + this.toString() + "\" tipos no n�mericos."));
+
+		
+		return checkstate;//checkstate.devolverValor(id).getTipo();
 	}
 }
