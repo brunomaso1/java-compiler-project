@@ -149,7 +149,6 @@ stmt ::=
 		{: RESULT = new DeclaracionLista($2,$4,$6); :}	
 	|	PONER:$1 exp:$2 EN:$3 ID:$4 POSICION:$5 exp:$6 PUNTO:$7 
 		{: RESULT = new PonerLista($4,$6,$2); :}
-		
 ;
 
 assigExp ::=

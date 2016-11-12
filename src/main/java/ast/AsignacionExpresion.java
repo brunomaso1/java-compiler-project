@@ -46,8 +46,17 @@ public class AsignacionExpresion extends Expresion {
 	}*/
 	
 	@Override public Object check(ChequearEstado checkstate){
+			
 		checkstate = assigment.check(checkstate);
-		return checkstate;
+		
+		Asignacion asignacion = (Asignacion)assigment;
+		
+		String id = asignacion.getId();
+		
+		Par par = checkstate.devolverValor(id); 
+		
+		return par.getTipo();
+		
 	}	
 	
 	@Override public Set<String> freeVariables(Set<String> vars) {

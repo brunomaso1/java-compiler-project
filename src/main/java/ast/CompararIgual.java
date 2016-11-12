@@ -126,12 +126,16 @@ public class CompararIgual extends Expresion {
 	}*/
 	
 	@Override public Object check(ChequearEstado checkstate) {
-		if ((left.check(checkstate).equals("numero") & right.check(checkstate).equals("numero"))
-		||	(left.check(checkstate).equals("texto") & right.check(checkstate).equals("texto"))
-		||	(left.check(checkstate).equals("boolean") & right.check(checkstate).equals("boolean"))){
+		if ((left.check(checkstate).equals("texto") & right.check(checkstate).equals("texto"))
+		||	(left.check(checkstate).equals("boolean") & right.check(checkstate).equals("boolean"))
+		||	(left.check(checkstate).equals("entero") & right.check(checkstate).equals("entero"))
+		)
+		
+		
+		{
 			return new String("boolean");
-		}else{
-			Errores.exceptionList.add(new Errores("Comparación Igual \"" + this.toString() + "\" tipos no coinciden."));
+		} else {
+			Errores.exceptionList.add(new Errores("Comparacion Igual \"" + this.toString() + "\" tipos no coinciden."));
 		}
 		return checkstate;
 	}

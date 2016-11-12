@@ -50,7 +50,7 @@ public class Numeral extends Expresion {
 	}
 	
 	@Override public Object check(ChequearEstado checkstate) {
-		return new String("numero");
+		return new String("entero");
 	}
 	
 	@Override public int hashCode() {

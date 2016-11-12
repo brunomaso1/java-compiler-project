@@ -98,11 +98,11 @@ public class CompararMayor extends Expresion {
 	}*/
 	
 	@Override
-	public Object check(ChequearEstado checkstate) {
-		if ((left.check(checkstate).equals("number") & right.check(checkstate).equals("number")))
+	public Object check(ChequearEstado checkstate) {		
+		if ((left.check(checkstate).equals("entero") & right.check(checkstate).equals("entero")))
 			return new String("boolean");
 		else {
-			Errores.exceptionList.add(new Errores("Comparación Mayor \"" + this.toString() + "\" tipos no númericos."));
+			Errores.exceptionList.add(new Errores("Comparacion Mayor \"" + this.toString() + "\" tipos no numericos."));
 		}
 		return checkstate;
 	}

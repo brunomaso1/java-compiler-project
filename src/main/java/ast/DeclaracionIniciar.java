@@ -41,15 +41,22 @@ public class DeclaracionIniciar extends Sentencia{
 	}*/		
 	
 	@Override public ChequearEstado check(ChequearEstado checkstate){
-		if(tipo == Tipo.ENTERO && expresion.check(checkstate).toString().equals("entero")){
-			checkstate.agregar(id, new Par("entero", true));
+		if (checkstate.devolverValor(id)==null){
+			checkstate.agregar(id, new Par(tipo.toString(), false, false));
+	
+		}
+		else {
+			Errores.exceptionList.add(new Errores("Error en la declaracion \"" + id + "\" variable ya declarada."));
+			return checkstate;
+		}
+		if(tipo == Tipo.ENTERO && expresion.check(checkstate).toString().equals("entero"))
+		{
+			checkstate.agregar(id, new Par("entero", true,false));
 		} else if(tipo == Tipo.BOOLEAN && expresion.check(checkstate).toString().equals("boolean")){
-			checkstate.agregar(id, new Par("boolean", true));
-			} else if(tipo == Tipo.NUMERAL && expresion.check(checkstate).toString().equals("numero")){
-				checkstate.agregar(id, new Par("numero", true));
-				} else if(tipo == Tipo.TEXTO && expresion.check(checkstate).toString().equals("texto")){
-					checkstate.agregar(id, new Par("texto", true));	
-				}
+			checkstate.agregar(id, new Par("boolean", true,false));
+		} else if(tipo == Tipo.TEXTO && expresion.check(checkstate).toString().equals("texto")){
+					checkstate.agregar(id, new Par("texto", true, false));	
+		}
 		return checkstate;
 	}
 

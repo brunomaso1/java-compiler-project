@@ -145,7 +145,7 @@ public class SiEntoncesSino extends Sentencia {
 			// Intersccion
 					
 		}else{
-			Errores.exceptionList.add(new Errores("Condición \"" + condition.toString() + "\" no es booleana"));
+			Errores.exceptionList.add(new Errores("Condicion \"" + condition.toString() + "\" no es booleana"));
 		}
 		return checkstate;
 	

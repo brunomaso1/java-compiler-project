@@ -103,8 +103,6 @@ import java.io.*;
 	{ return new Symbol(LARGO, yyline, yycolumn, yytext()); }
 "definida"
 	{ return new Symbol(DEFINIDA, yyline, yycolumn, yytext()); }
-"numero"
-	{ return new Symbol(TIPO, yyline, yycolumn, Tipo.NUMERAL); }
 "entero"
 	{ return new Symbol(TIPO, yyline, yycolumn, Tipo.ENTERO); }
 "texto"

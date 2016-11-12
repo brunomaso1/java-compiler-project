@@ -79,8 +79,25 @@ public class Asignacion extends Sentencia {
 		if (par == null){
 			Errores.exceptionList.add(new Errores("Variable \"" + id + "\" no definida"));
 		}
-		expression.check(checkstate);
+		else {
+			if (expression.check(checkstate).equals(par.getTipo().toString())){
+				par.setInicializada(true);
+				checkstate.agregar(id, par);
+				return checkstate;
+			}else{
+				Errores.exceptionList.add(new Errores("Error en la asignacion \"" + this.toString() + "\" tipos no coinciden."));
+			}
+		}
 		return checkstate;
+
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public Expresion getExpression() {
+		return expression;
 	}
 
 	/*public static Asignacion generate(Random random, int min, int max) {

@@ -37,7 +37,12 @@ public class Declaracion extends Sentencia{
 	}*/		
 	
 	@Override public ChequearEstado check(ChequearEstado checkstate){
-		checkstate.agregar(variable, new Par(tipo.toString(), false));
+		if (checkstate.devolverValor(variable)==null){
+			checkstate.agregar(variable, new Par(tipo.toString(), false, false));
+		}
+		else {
+			Errores.exceptionList.add(new Errores("Error en la declaracion \"" + variable + "\" variable ya declarada."));
+		}
 		return checkstate;		
 	}
 

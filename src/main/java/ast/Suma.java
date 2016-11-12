@@ -99,10 +99,10 @@ public class Suma extends Expresion {
 		//Object a = left.check(checkstate);
 		//Object b = right.check(checkstate);
         
-		if ((left.check(checkstate).equals("numero")) & (right.check(checkstate).equals("numero")))
-			return new String("numero");
+		if ((left.check(checkstate).equals("entero")) & (right.check(checkstate).equals("entero")))
+			return new String("entero");
 		else {
-			Errores.exceptionList.add(new Errores("Suma \"" + left.toString()+" + " + right.toString()+ "\" tipos no numéricos."));
+			Errores.exceptionList.add(new Errores("Suma \"" + left.toString()+" + " + right.toString()+ "\" tipos no numericos."));
 			return null;
 		}	
 	}

@@ -38,6 +38,14 @@ public class DeclaracionLista extends Sentencia {
 			ctx.codeIL.append("ldarg " +  index + "\n");
 			return ctx;
 		}	
+		
+		
+		
+		if(ctx.parametros.contains(id)){
+			Integer index = ctx.parametros.indexOf(id);
+			ctx.codeIL.append("ldarg " +  index + "\n");
+			return ctx;
+		}	
 		if(!ctx.variables.contains(id)){
 			ctx.variables.add(id);
 		}	
@@ -77,6 +85,16 @@ public class DeclaracionLista extends Sentencia {
 	}*/
 	
 	@Override public ChequearEstado check(ChequearEstado checkstate){
+		if (!(cantidad.check(checkstate).equals("entero"))) {
+			Errores.exceptionList.add(new Errores("Error. La cantidad debe ser entero."));
+			return checkstate;
+		}
+		if (checkstate.devolverValor(id)==null){
+			checkstate.agregar(id, new Par(tipo.toString(), true, true));
+		}
+		else {
+			Errores.exceptionList.add(new Errores("Error en la declaracion \"" + id + "\" lista ya declarada."));
+		}
 		//validar nombre que no exista
 		// y tipo de expresion
 		return checkstate;//checkstate.devolverValor(id).getTipo();
