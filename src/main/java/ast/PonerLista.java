@@ -33,6 +33,8 @@ public class PonerLista extends Sentencia {
 	}
 
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
+		ctx.var
+		
 		if(ctx.parametros.contains(id)){
 			Integer index = ctx.parametros.indexOf(id);
 			ctx.codeIL.append("ldarg " +  index + "\n");
