@@ -72,13 +72,14 @@ public class AsignacionExpresion extends Expresion {
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
 		Asignacion a = (Asignacion) this.assigment;
 		ctx= a.compileIL(ctx);
+		Integer index = ctx.variables.indexOf(a.id);
+		ctx.codeIL.append("ldloc. " + index + "\n");
 		return ctx;
 	}
 	
 	@Override public Expresion optimization(Estado state){
-		Asignacion a = (Asignacion) this.assigment;
-		Asignacion b = (Asignacion) a.optimization(state);
-		return new AsignacionExpresion(b);
+		Asignacion ret = (Asignacion) assigment.optimization(state);
+		return new AsignacionExpresion(ret);
 	}
 	
 	

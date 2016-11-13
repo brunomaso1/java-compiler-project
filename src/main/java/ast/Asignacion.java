@@ -48,11 +48,11 @@ public class Asignacion extends Sentencia {
 	}
 	
 	@Override public Sentencia optimization(Estado state){				
-		Expresion expresion = expression.optimization(state);
-		if(expresion instanceof Numeral){
-			state.set(id, ((Numeral)expresion).number);
+		Expresion der = expression.optimization(state);
+		if(der instanceof Numeral){
+			state.set(id, ((Numeral)der).number);
 		}
-		return new Asignacion(id, expresion);
+		return new Asignacion(id, der);		
 	}
 	
 	@Override public String toString() {

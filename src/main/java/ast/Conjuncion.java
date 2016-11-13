@@ -50,31 +50,23 @@ public class Conjuncion extends Expresion {
 	}
 	
 	@Override public Expresion optimization(Estado state){
-		Expresion opt1 = left.optimization(state);
-		Expresion opt2 = right.optimization(state);
-		
-		//NUM a == NUM b
-		if(opt1 instanceof ValorVerdad && opt2 instanceof ValorVerdad){
-			if( ((ValorVerdad)opt1).value && ((ValorVerdad)opt2).value)
-				return new ValorVerdad(true);
-			else
-				return new ValorVerdad(false);
+		Expresion izq = left.optimization(state);
+		Expresion der = right.optimization(state);
+		if(izq instanceof Expresion && ((ValorVerdad)der).value == false){
+			return new ValorVerdad (false);
 		}
-
-		//True & BExp b --> b
-		if(opt1 instanceof ValorVerdad && ((ValorVerdad)opt1).value)
-			return opt2;
-		//BExp b & True --> b
-		if(opt2 instanceof ValorVerdad && ((ValorVerdad)opt2).value)
-			return opt1;
-		//False & BExp b --> False
-		if(opt1 instanceof ValorVerdad && !((ValorVerdad)opt1).value)
-			return new ValorVerdad(false);
-		//BExp b & False --> False
-		if(opt2 instanceof ValorVerdad && !((ValorVerdad)opt2).value)
-			return new ValorVerdad(false);
 		
-		return new Conjuncion(opt1, opt2);
+		if(((ValorVerdad)izq).value == false && der instanceof Expresion){
+			return new ValorVerdad(false);
+		}
+	
+		if(izq instanceof ValorVerdad && der instanceof ValorVerdad){
+			if(((ValorVerdad)izq).value == true && ((ValorVerdad)der).value == true){
+				return new ValorVerdad(true);
+			}
+		}
+		Conjuncion b = new Conjuncion(izq, der);
+		return b;	
 	}
 	@Override public String toString() {
 		return "Conjuncion("+ left +", "+ right +")";

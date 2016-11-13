@@ -53,7 +53,7 @@ public class CompararMayor extends Expresion {
 		Expresion opt1 = left.optimization(state);
 		Expresion opt2 = right.optimization(state);
 		
-		//NUM a == NUM b
+		
 		if(opt1 instanceof Numeral && opt2 instanceof Numeral){
 			if( ((Numeral)opt1).number > ((Numeral)opt2).number)
 				return new ValorVerdad(true);
@@ -61,10 +61,10 @@ public class CompararMayor extends Expresion {
 				return new ValorVerdad(false);
 		}
 		
-		//Variable a >= Variable a --> True
+		
 		if(opt1 instanceof Variable && opt2 instanceof Variable){
 			if( ((Variable)opt1).id.equals(((Variable)opt2).id)) {
-				return new ValorVerdad(true);
+				return new ValorVerdad(false);
 			}
 		}
 		

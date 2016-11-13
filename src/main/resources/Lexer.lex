@@ -97,7 +97,7 @@ import java.io.*;
 	{ return new Symbol(LLAMAR, yyline, yycolumn, yytext()); }
 "mostrar"
 	{ return new Symbol(MOSTRAR, yyline, yycolumn, yytext()); }		
-"poner en"
+"ponerEn"
 	{ return new Symbol(PONER_EN, yyline, yycolumn, yytext()); }
 "largo"
 	{ return new Symbol(LARGO, yyline, yycolumn, yytext()); }

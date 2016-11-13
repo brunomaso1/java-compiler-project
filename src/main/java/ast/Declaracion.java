@@ -58,19 +58,13 @@ public class Declaracion extends Sentencia{
 	}
 	
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
-		//ctx= expression.compileIL(ctx);
-
-		//Integer index = ctx.variables.indexOf(id);
-		//ctx.codeIL.append("stloc " + index + "\n");
+		ctx.variables.add(variable);
 		return ctx;
 	}
 	
 	@Override public Sentencia optimization(Estado state){				
-		//Expresion expresion = expression.optimization(state);
-	//	if(expresion instanceof Numeral){
-	//		state.set(id, ((Numeral)expresion).number);
-	//	}
-		return null; //new Asignacion(id, expresion);
+		state.set(variable, null);
+		return this;
 	}
 	
 	@Override public int maxStackIL() {

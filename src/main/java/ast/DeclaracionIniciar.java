@@ -41,11 +41,7 @@ public class DeclaracionIniciar extends Sentencia{
 	}*/		
 	
 	@Override public ChequearEstado check(ChequearEstado checkstate){
-		if (checkstate.devolverValor(id)==null){
-			checkstate.agregar(id, new Par(tipo.toString(), false, false));
-	
-		}
-		else {
+		if (checkstate.devolverValor(id)!=null){
 			Errores.exceptionList.add(new Errores("Error en la declaracion \"" + id + "\" variable ya declarada."));
 			return checkstate;
 		}
@@ -79,19 +75,25 @@ public class DeclaracionIniciar extends Sentencia{
 	}
 	
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
-		//ctx= expression.compileIL(ctx);
+		ctx.variables.add(id);
+		
+		ctx= expresion.compileIL(ctx);
 
-		//Integer index = ctx.variables.indexOf(id);
-		//ctx.codeIL.append("stloc " + index + "\n");
+		Integer index = ctx.variables.indexOf(id);
+		ctx.codeIL.append("stloc " + index + "\n");
 		return ctx;
 	}
 	
 	@Override public Sentencia optimization(Estado state){				
-		//Expresion expresion = expression.optimization(state);
-	//	if(expresion instanceof Numeral){
-	//		state.set(id, ((Numeral)expresion).number);
-	//	}
-		return null; //new Asignacion(id, expresion);
+		Expresion expOpt = expresion.optimization(state);
+		if(expOpt instanceof Numeral){
+			state.set(id, ((Numeral)expOpt).number);
+		}if(expOpt instanceof Texto){
+			state.set(id, ((Texto)expOpt).str);
+		}if(expOpt instanceof ValorVerdad){
+			state.set(id, ((ValorVerdad)expOpt).value);
+		}
+		return new DeclaracionIniciar(expOpt, tipo, id);
 	}
 	
 	@Override public int maxStackIL() {

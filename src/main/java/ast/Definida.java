@@ -14,11 +14,11 @@ public class Definida extends Expresion {
 	}
 
 	@Override public String unparse() {
-		return "print "+ var+" }";
+		return "definida "+ var+" }";
 	}
 
 	@Override public String toString() {
-		return "Print("+ var +")";
+		return "Definida("+ var +")";
 	}
 
 	@Override public int hashCode() {
@@ -61,8 +61,8 @@ public class Definida extends Expresion {
 	
 	@Override
 	public Set<String> freeVariables(Set<String> vars) {
-		// TODO Auto-generated method stub
-		return null;
+		vars.add(var); 
+		return vars;
 	}
 	
 	@Override
@@ -73,12 +73,11 @@ public class Definida extends Expresion {
 
 	@Override
 	public Expresion optimization(Estado state) {
-		// TODO Auto-generated method stub
-		return null;
+		//TODO si esta definida o no, me fijo y retorno true/false
+		return this;
 	}	
 	@Override
 	public int maxStackIL() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 1;
 	}
 }

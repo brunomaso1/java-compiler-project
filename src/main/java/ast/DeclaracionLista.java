@@ -55,10 +55,8 @@ public class DeclaracionLista extends Sentencia {
 	}
 	
 	@Override public Sentencia optimization(Estado state){		
-		//if(state.get(id) != null)
-		////	return new Numeral((Double)state.get(id));
-		//return this;
-		return null;
+		Expresion cantOpt = cantidad.optimization(state);
+		return new DeclaracionLista(id, tipo, cantOpt);
 	}
 
 	@Override public String toString() {

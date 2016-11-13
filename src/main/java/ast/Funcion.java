@@ -13,29 +13,26 @@ import behaviour.*;
  */
 public class Funcion extends Definicion {
 	public final String id;
-	public final Variable[] parametros;
+	public final Parametro[] parametros;
+	public final Parametro resultado;
 	public final Sentencia cuerpo;
-	public final Variable resultado;
 
-	
-//public final ExpresionAritmetica expression;
-
-	public Funcion(String id, Variable[] parametros, Sentencia cuerpo) {
+	public Funcion(String id, Parametro[] parametros, Parametro resultado, Sentencia cuerpo) {
 		this.id = id;
 		this.parametros = parametros;
 		this.cuerpo = cuerpo;
-		this.resultado = new Variable("$resultado");
+		this.resultado = resultado;
 	}
 	
 	@Override public String unparse() {
 		String text = "";
-		for (Variable variable : parametros) {
+		for (Parametro variable : parametros) {
 			text += variable.unparse()+",";
 		}
 		if(text!=""){
 			text = text.substring(0,text.length()-1);
 		}
-		text = "funcion "+ id +"("+text+") ";
+		text = "funcion "+ id +"("+text+") "+resultado.unparse()+" ";
 		text += cuerpo.unparse();
 		return text;
 	}
@@ -45,7 +42,7 @@ public class Funcion extends Definicion {
 	}*/
 
 	@Override public Set<String> freeVariables(Set<String> vars) {
-		for (Variable parametro : parametros) vars = parametro.freeVariables(vars);
+		for (Parametro parametro : parametros) vars = parametro.freeVariables(vars);
 		vars = cuerpo.freeVariables(vars);
 		vars = resultado.freeVariables(vars);
 		return vars;
@@ -53,7 +50,7 @@ public class Funcion extends Definicion {
 
 	@Override public int maxStackIL() {
 		int result = 0;
-		for (Variable parametro : parametros){ 
+		for (Parametro parametro : parametros){ 
 			result = Math.max(result, parametro.maxStackIL());
 		}
 		//result = Math.max(result, cuerpo.maxStackIL());
@@ -62,12 +59,13 @@ public class Funcion extends Definicion {
 	}
 
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
+		//TODO revisar
 		if(!ctx.variables.contains(id)){
 			ctx.funciones.add(id);
 		}else{
 			//TODO Agregar ERROR.
 		}
-		for (Variable variable : parametros) {
+		for (Parametro variable : parametros) {
 			ctx.parametros.add(variable.id);
 		}
 		ctx.variables.add(resultado.id);
@@ -97,11 +95,11 @@ public class Funcion extends Definicion {
 		Estado newStateVacio = new Estado();
 		Sentencia stmtBodyOpt = cuerpo.optimization(newStateVacio);
 		state.estado.clear();//Porque no sabemos cuales constantes se invalidaron dentro del cuerpo del while.
-		return new Funcion(id,parametros,cuerpo);
+		return new Funcion(id,parametros,resultado,cuerpo);
 	}
 	
 	@Override public String toString() {
-		return "funcion("+ id +", "+ Arrays.toString(parametros) +", "+cuerpo.toString()+" )";
+		return "funcion("+ id +", "+ Arrays.toString(parametros) +", "+resultado.toString()+", "+cuerpo.toString()+" )";
 		
 	}
 
@@ -114,8 +112,36 @@ public class Funcion extends Definicion {
 
 	@Override
 	public ChequearEstado check(ChequearEstado checkstate) {
-		// TODO Auto-generated method stub
-		return null;
+		ParFunc parFunc = checkstate.devolverValorFunc(id);
+		if (parFunc != null){
+			Errores.exceptionList.add(new Errores("Funcion \"" + id + "\" ya definida."));
+		}
+		else {
+			Par[] params = new Par[parametros.length];
+			int index = 0;
+			for (Parametro variable : parametros) {
+				if (checkstate.devolverValor(variable.id)==null){
+					checkstate.agregar(variable.id, new Par(variable.tipo.toString(),true,false));
+					params[index] = new Par(variable.tipo.toString(),true,false); 
+				}else{
+					Errores.exceptionList.add(new Errores("Funcion parámetro\"" + variable.toString() + "\" ya definido."));
+				}
+				index++;
+			}
+			Par res = null;
+			if (checkstate.devolverValor(resultado.id)==null){
+				checkstate.agregar(resultado.id, new Par(resultado.tipo.toString(),true,false));
+				res = new Par(resultado.tipo.toString(),true,false); 
+			}else{
+				Errores.exceptionList.add(new Errores("Funcion resultado\"" + resultado.toString() + "\" ya definido."));
+			}
+			ParFunc parFunc2 = new ParFunc(params,res);
+			checkstate.agregarFunc(id, parFunc2);
+			checkstate = cuerpo.check(checkstate);
+			checkstate.borrar();		
+			
+		}
+		return checkstate;
 	}
 
 	/*public static Funcion generate(Random random, int min, int max) {
