@@ -94,8 +94,7 @@ public class Funcion extends Definicion {
 	@Override public Definicion optimization(Estado state){
 		Estado newStateVacio = new Estado();
 		Sentencia stmtBodyOpt = cuerpo.optimization(newStateVacio);
-		state.estado.clear();//Porque no sabemos cuales constantes se invalidaron dentro del cuerpo del while.
-		return new Funcion(id,parametros,resultado,cuerpo);
+		return new Funcion(id,parametros,resultado,stmtBodyOpt);
 	}
 	
 	@Override public String toString() {

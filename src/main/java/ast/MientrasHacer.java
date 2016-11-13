@@ -58,16 +58,22 @@ public class MientrasHacer extends Sentencia {
 	}
 	
 	@Override public Sentencia optimization(Estado state) {
+		Expresion con = condition.optimization(state);
+		Sentencia bodyWhile = body.optimization(state);
 		
-		Expresion bExpCondition = condition.optimization(state);
-		if(bExpCondition instanceof ValorVerdad && !((ValorVerdad)bExpCondition).value)
-			return Sentencia.skip;
-		
-		Estado newStateVacio = new Estado();
+		if(con instanceof ValorVerdad){
+			if(!((ValorVerdad)con).value){
+				return new Secuencia(new Sentencia[0]);
+			}
+		}
+		//return new MientrasHacer(con,bodyWhile); 
+		//TODO revisar mientras hacer
+		/*Estado newStateVacio = new Estado();
 		bExpCondition = condition.optimization(newStateVacio);
 		Sentencia stmtBodyOpt = body.optimization(newStateVacio);
 		state.estado.clear();//Porque no sabemos cuales constantes se invalidaron dentro del cuerpo del while.
-		return new MientrasHacer(bExpCondition, stmtBodyOpt);
+		*/
+		return new MientrasHacer(con, bodyWhile);
 	}
 
 	@Override public String toString() {

@@ -49,10 +49,19 @@ public class Variable extends Expresion {
 		return ctx;
 	}
 	
-	@Override public Expresion optimization(Estado state){		
-		if(state.get(id) != null)
-			return new Numeral((Double)state.get(id));
-		return this;
+	@Override public Expresion optimization(Estado state){	
+		Object obj = state.get(id);
+		if(obj != null){
+			if (obj instanceof Double){
+				return new Numeral((Double)obj);
+			}
+			if (obj instanceof String){
+				return new Texto((String)obj);
+			}
+			if (obj instanceof Boolean){
+				return new ValorVerdad((Boolean)obj);
+			}
+		}return this;
 	}
 
 	@Override public String toString() {

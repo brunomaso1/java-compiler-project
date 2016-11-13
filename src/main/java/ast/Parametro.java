@@ -38,17 +38,8 @@ public class Parametro extends Expresion {
 	}
 
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
-		//TODO rehacer.
-		if(ctx.parametros.contains(id)){
-			Integer index = ctx.parametros.indexOf(id);
-			ctx.codeIL.append("ldarg " +  index + "\n");
-			return ctx;
-		}	
-		if(!ctx.variables.contains(id)){
-			ctx.variables.add(id);
-		}	
-		Integer index = ctx.variables.indexOf(id);
-		ctx.codeIL.append("ldloc " +  index + "\n");
+		Integer index = ctx.parametros.indexOf(id);
+		ctx.codeIL.append("ldarg " +  index + "\n");
 		return ctx;
 	}
 	

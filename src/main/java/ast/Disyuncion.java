@@ -50,24 +50,25 @@ public class Disyuncion extends Expresion {
 	}
 	
 	@Override public Expresion optimization(Estado state){
-		Expresion opt1 = left.optimization(state);
-		Expresion opt2 = right.optimization(state);
+		//OR
+		Expresion izq = left.optimization(state);
+		Expresion der = right.optimization(state);
 		
-		//NUM a or NUM b
-		if(opt1 instanceof ValorVerdad){
-			if( ((ValorVerdad)opt1).value)
-				return new ValorVerdad(true);
-			else
-				return new ValorVerdad(false);
+		if(izq instanceof Expresion && ((ValorVerdad)der).value){
+			return new ValorVerdad (true);
 		}
-		if(opt2 instanceof ValorVerdad){
-			if( ((ValorVerdad)opt2).value)
-				return new ValorVerdad(true);
-			else
-				return new ValorVerdad(false);
+		
+		if(((ValorVerdad)izq).value && der instanceof Expresion){
+			return new ValorVerdad(true);
 		}
-
-		return new Disyuncion(opt1, opt2);
+	
+		if(izq instanceof ValorVerdad && der instanceof ValorVerdad){
+			if(((ValorVerdad)izq).value == false && ((ValorVerdad)der).value == false){
+				return new ValorVerdad(false);
+			}
+		}
+		Conjuncion b = new Conjuncion(izq, der);
+		return b;
 	}
 
 	@Override public String toString() {

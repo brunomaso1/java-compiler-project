@@ -73,8 +73,11 @@ public class Definida extends Expresion {
 
 	@Override
 	public Expresion optimization(Estado state) {
-		//TODO si esta definida o no, me fijo y retorno true/false
-		return this;
+		if (state.get(var) == null){
+			return new ValorVerdad(false);
+		}else{
+			return new ValorVerdad(true);
+		}
 	}	
 	@Override
 	public int maxStackIL() {

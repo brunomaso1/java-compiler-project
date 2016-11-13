@@ -55,9 +55,30 @@ public class DeclaracionLista extends Sentencia {
 	}
 	
 	@Override public Sentencia optimization(Estado state){
+		Expresion optCant = cantidad.optimization(state);
+		
 		//TODO agregar a lista de funciones en state???
-		Expresion cantOpt = cantidad.optimization(state);
-		return new DeclaracionLista(id, tipo, cantOpt);
+		if (optCant instanceof Numeral){
+			if (((Numeral)optCant).number > 0){
+				Double aux = ((Numeral)optCant).number;
+				int aux2 = Integer.parseInt(aux.toString());
+				Object[] objetos = new Object[aux2];
+				
+				ParLista parLista = new ParLista(objetos,tipo);				
+				state.setLista(id, parLista);
+				
+			}else{
+				
+				Errores.exceptionList.add(new Errores("Declaracion Lista cantidad \"" + optCant.toString() + "\" debe ser mayor que 0."));			
+			}
+	
+		}else{
+			
+			Errores.exceptionList.add(new Errores("Declaracion Lista cantidad \"" + optCant.toString() + "\" deber ser numerica."));
+			
+		}
+	
+		return new DeclaracionLista(id, tipo, optCant);
 	}
 
 	@Override public String toString() {

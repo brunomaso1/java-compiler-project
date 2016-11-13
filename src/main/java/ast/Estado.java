@@ -4,6 +4,7 @@ import java.util.*;
 
 public class Estado {
 	public final Map<String, Object> estado = new HashMap<String, Object>();
+	public final Map<String, ParLista> estadoLista = new HashMap<String, ParLista>();
 	
 	public Object get(String variableName) {
 		if (estado.get(variableName)==null) {
@@ -16,6 +17,10 @@ public class Estado {
 	}
 	public void set(String nombre, Object valor) {
 		estado.put(nombre, valor);
+	}
+	
+	public void setLista(String nombre, ParLista valor) {
+		estadoLista.put(nombre, valor);
 	}
 	
 	public void print() {

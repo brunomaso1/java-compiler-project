@@ -60,24 +60,26 @@ public class Division extends Expresion {
 		
 		if(opt1 instanceof Numeral && opt2 instanceof Numeral)
 		{
-			//a // 0 = 0 OJO ACA!!!
-			/*if(((Numeral)opt2).number == 0)
-				return opt2;*/
 			
-			//0 / a = 0 CAPAZ CHEQUEAR que a <> 0
-			if(((Numeral)opt1).number == 0)
-				return new Numeral(0.0);
-			//a / a = 1
-			if(((Numeral)opt1).number == ((Numeral)opt2).number)
-				return new Numeral(1.0);
-			//a / 1 = a
-			if(((Numeral)opt2).number == 1)
-				return opt1;
-			//Si no entra en los otros casos, devolvemos un Numeral(opt1 * opt2)
-			return new Numeral( ((Numeral)opt1).number * ((Numeral)opt2).number );
-		}else{
-			return new Division(opt1, opt2);
-		}
+			if (((Numeral)opt2).number != 0)
+			{
+				
+				if(((Numeral)opt1).number == 0)
+					return new Numeral(0.0);
+				//a / a = 1
+				if(((Numeral)opt1).number == ((Numeral)opt2).number)
+					return new Numeral(1.0);
+				//a / 1 = a
+				if(((Numeral)opt2).number == 1)
+					return opt1;
+				
+				//Si no entra en los otros casos, devolvemos un Numeral(opt1 / opt2)
+				return new Numeral( ((Numeral)opt1).number / ((Numeral)opt2).number );
+			}else{
+				Errores.exceptionList.add(new Errores("Division \"" + this.toString() + "\" no valida."));
+			}
+		
+		}	return new Division(opt1, opt2);
 	}
 
 	@Override public String toString() {
