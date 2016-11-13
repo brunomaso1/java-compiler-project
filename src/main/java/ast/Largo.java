@@ -59,8 +59,7 @@ public class Largo extends Expresion {
 	
 	@Override
 	public int maxStackIL() {
-		// TODO Auto-generated method stub
-		return 0;
+		return exp.maxStackIL();
 	}
 
 	@Override
@@ -71,13 +70,18 @@ public class Largo extends Expresion {
 
 	@Override
 	public Expresion optimization(Estado state) {
-		// TODO Auto-generated method stub
-		return null;
+		Expresion opt = exp.optimization(state);
+		if (opt instanceof Texto){
+			Texto aux = (Texto)opt;
+			Double aux2 = (double) aux.str.length();
+			return new Numeral(aux2);
+		}	
+		
+		return this;
 	}	
 	
 	@Override
 	public Set<String> freeVariables(Set<String> vars) {
-		// TODO Auto-generated method stub
-		return null;
+		return exp.freeVariables(vars);
 	}
 }

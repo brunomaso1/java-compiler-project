@@ -54,9 +54,15 @@ public class LlamarFuncion extends Sentencia {
 		return ctx;
 	}
 	@Override public LlamarFuncion optimization(Estado state){		
-		//if(state.get(id) != null)
-		//	return new Numeral(state.get(id));
-		return this;
+		Expresion[] aux = new Expresion[parametros.length]; 
+		
+		int i = 0;
+		for (Expresion expresion : parametros) {
+			Expresion auxOpt = expresion.optimization(state);
+			aux[i] = auxOpt;
+			i++;
+		}
+		return new LlamarFuncion(id, aux, resultado);
 	}
 	
 	@Override public String toString() {
