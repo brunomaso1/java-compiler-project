@@ -123,7 +123,7 @@ public class Funcion extends Definicion {
 					checkstate.agregar(variable.id, new Par(variable.tipo.toString(),true,false));
 					params[index] = new Par(variable.tipo.toString(),true,false); 
 				}else{
-					Errores.exceptionList.add(new Errores("Funcion parámetro\"" + variable.toString() + "\" ya definido."));
+					Errores.exceptionList.add(new Errores("Funcion parametro\"" + variable.toString() + "\" ya definido."));
 				}
 				index++;
 			}

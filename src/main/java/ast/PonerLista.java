@@ -90,7 +90,7 @@ public class PonerLista extends Sentencia {
 				if (expresion.check(checkstate).equals(aux)){
 					return checkstate;
 				}else{
-					Errores.exceptionList.add(new Errores("PonerLista expresión \"" + posicion.toString() + "\" no es del mismo tipo que Lista."));
+					Errores.exceptionList.add(new Errores("PonerLista expresion \"" + posicion.toString() + "\" no es del mismo tipo que Lista."));
 				}
 			}else{
 				Errores.exceptionList.add(new Errores("PonerLista Posicion \"" + posicion.toString() + "\" no numerica."));
