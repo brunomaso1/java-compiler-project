@@ -17,56 +17,67 @@ public class TestCases {
 	private static Expresion BOOLEAN_VERDADERO_A_TESTEAR = new ValorVerdad(true);
 	private static Expresion BOOLEAN_FALSO_A_TESTEAR = new ValorVerdad(false);
 	
+	
+	private DeclaracionIniciar declaracionIniciarNumeral(String variable, Expresion numeral){
+		DeclaracionIniciar unaDeclaracion = new DeclaracionIniciar(numeral, Tipo.ENTERO, variable);
+		return unaDeclaracion;
+	}
+	
+	private DeclaracionIniciar declaracionIniciarBooleanVerdadero(){
+		DeclaracionIniciar unaDeclaracion = new DeclaracionIniciar(BOOLEAN_VERDADERO_A_TESTEAR, Tipo.BOOLEAN, VARIABLE_A_TESTEAR);
+		return unaDeclaracion;
+	}
+	
 	@Test
 	public void testDeclaracionIguales() throws Exception {
 		System.out.println("poner 5 en entero $variable.");
 		
-		DeclaracionIniciar resEsp = new DeclaracionIniciar(NUMERAL_A_TESTEAR, Tipo.ENTERO, VARIABLE_A_TESTEAR);
+		DeclaracionIniciar unaDeclaracion = declaracionIniciarNumeral(VARIABLE_A_TESTEAR,NUMERAL_A_TESTEAR);
 		String cadena = "poner 5 en entero $variable.";
 		
 		DeclaracionIniciar resultado = (DeclaracionIniciar)Parser.parse(cadena).value;
 		assertNotNull(resultado);
-		assertNotNull(resEsp);
-		assertTrue(resEsp.equals(resultado));
+		assertNotNull(unaDeclaracion);
+		assertTrue(unaDeclaracion.equals(resultado));
 	}
 	
 	@Test
 	public void testDeclaracionDistintos() throws Exception {
 		System.out.println("poner 5 en entero $variable. distinto a  poner 6 en entero $variable.");
 		
-		DeclaracionIniciar resEsp = new DeclaracionIniciar(NUMERAL_A_TESTEAR, Tipo.ENTERO, VARIABLE_A_TESTEAR);
+		DeclaracionIniciar unaDeclaracion = declaracionIniciarNumeral(VARIABLE_A_TESTEAR,NUMERAL_A_TESTEAR);
 		String cadena = "poner 6 en entero $variable.";
 		DeclaracionIniciar resultado = (DeclaracionIniciar)Parser.parse(cadena).value;
 
 		assertNotNull(resultado);
-		assertNotNull(resEsp);
-		assertFalse(resEsp.equals(resultado));
+		assertNotNull(unaDeclaracion);
+		assertFalse(unaDeclaracion.equals(resultado));
 	}
 	
 	@Test
 	public void testDeclaracionTiposDistintos() throws Exception {
 		System.out.println("poner esVerdadero en boolean $variable. distinto a  poner 6 en entero $variable.");
 		
-		DeclaracionIniciar resEsp = new DeclaracionIniciar(BOOLEAN_VERDADERO_A_TESTEAR, Tipo.BOOLEAN, VARIABLE_A_TESTEAR);
+		DeclaracionIniciar unaDeclaracion = declaracionIniciarBooleanVerdadero();
 		String cadena = "poner 6 en entero $variable.";
 		DeclaracionIniciar resultado = (DeclaracionIniciar)Parser.parse(cadena).value;
 
 		assertNotNull(resultado);
-		assertNotNull(resEsp);
-		assertFalse(resEsp.equals(resultado));
+		assertNotNull(unaDeclaracion);
+		assertFalse(unaDeclaracion.equals(resultado));
 	}	
 	
 	@Test
 	public void testDeclaracionesValoresIgualesDiferenteNombre() throws Exception {
 		System.out.println("poner esVerdadero en boolean $variable. distinto a  poner esVerdadero en boolean $variable2.");
 		
-		DeclaracionIniciar resEsp = new DeclaracionIniciar(BOOLEAN_VERDADERO_A_TESTEAR, Tipo.BOOLEAN, VARIABLE_A_TESTEAR);
+		DeclaracionIniciar unaDeclaracion = declaracionIniciarBooleanVerdadero();
 		String cadena = "poner esVerdadero en boolean $variable2.";
 		DeclaracionIniciar resultado = (DeclaracionIniciar)Parser.parse(cadena).value;
 
 		assertNotNull(resultado);
-		assertNotNull(resEsp);
-		assertFalse(resEsp.equals(resultado));
+		assertNotNull(unaDeclaracion);
+		assertFalse(unaDeclaracion.equals(resultado));
 	}	
 	
 	@Test
@@ -78,7 +89,7 @@ public class TestCases {
 		assertNotNull(statementsAComparar);
 
 		DeclaracionIniciar variableAChequearBooleanda = new DeclaracionIniciar(BOOLEAN_FALSO_A_TESTEAR, Tipo.BOOLEAN, VARIABLE_A_TESTEAR);
-		DeclaracionIniciar variableAChequearNumeral = new DeclaracionIniciar(NUMERAL_A_TESTEAR_SEGUNDA, Tipo.ENTERO, VARIABLE_A_TESTEAR_SEGUNDA);
+		DeclaracionIniciar variableAChequearNumeral = declaracionIniciarNumeral(VARIABLE_A_TESTEAR_SEGUNDA,NUMERAL_A_TESTEAR_SEGUNDA);
 		
 		assertNotNull(variableAChequearBooleanda);
 		assertNotNull(variableAChequearNumeral);
@@ -91,7 +102,7 @@ public class TestCases {
 	public void inicializarVariable() throws Exception {
 		System.out.println("crearVariable $a tipo entero.");
 		
-		DeclaracionIniciar resEsp = new DeclaracionIniciar(BOOLEAN_VERDADERO_A_TESTEAR, Tipo.BOOLEAN, VARIABLE_A_TESTEAR);
+		DeclaracionIniciar resEsp = declaracionIniciarBooleanVerdadero();
 		String cadena = "poner esVerdadero en boolean $variable2.";
 		DeclaracionIniciar resultado = (DeclaracionIniciar)Parser.parse(cadena).value;
 
@@ -110,8 +121,8 @@ public class TestCases {
 		int ultimoValor = statementsAComparar.statements.length-1;
 		assertNotNull(ultimoValor);
 
-		DeclaracionIniciar variableAChequear = new DeclaracionIniciar(NUMERAL_A_TESTEAR,Tipo.ENTERO,VARIABLE_A_TESTEAR);
-		DeclaracionIniciar variableAChequearSegunda = new DeclaracionIniciar(NUMERAL_A_TESTEAR_SEGUNDA,Tipo.ENTERO,VARIABLE_A_TESTEAR_SEGUNDA);
+		DeclaracionIniciar variableAChequear = declaracionIniciarNumeral(VARIABLE_A_TESTEAR,NUMERAL_A_TESTEAR);
+		DeclaracionIniciar variableAChequearSegunda = declaracionIniciarNumeral(VARIABLE_A_TESTEAR_SEGUNDA,NUMERAL_A_TESTEAR_SEGUNDA);
 		assertNotNull(variableAChequear);
 		assertNotNull(variableAChequearSegunda);
 
@@ -133,75 +144,23 @@ public class TestCases {
 	 * ThenBody -> DeclaracionIniciar(ENTERO,Numeral(8.0))
 	 * @throws Exception
 	 */
-//	@Test
-//	public void testSiEntoncesConDosVariablesYSentenciaOptimizada() throws Exception {
-//		System.out.println("Optimizando --> {poner 5 en entero $variable. poner 6 en entero $variable2. si $variable < $variable2 entonces poner 8 en entero $variable3.}");
-//		String cadenaAComparar = "{poner 5 en entero $variable. poner 6 en entero $variable2. si $variable < $variable2 entonces poner 8 en entero $variable3.}";
-//		Secuencia statementsAComparar = (Secuencia)Parser.parse(cadenaAComparar).value;
-//		assertNotNull(statementsAComparar);
-//		
-//		
-//		//Para que funcione el optimization debería bajarme lo que subió Jorge que estaba trabajando en lo ultimo
-//		Estado state = new Estado();
-//		Secuencia secuenciaOptimizada = (Secuencia)(statementsAComparar.optimization(state));
-//		assertNotNull(secuenciaOptimizada);
-//		
-//		
-//		int ultimoValor = statementsAComparar.statements.length-1;
-//		assertNotNull(ultimoValor);
-//
-//		DeclaracionIniciar variableAChequear = new DeclaracionIniciar(NUMERAL_A_TESTEAR,Tipo.ENTERO,VARIABLE_A_TESTEAR);
-//		DeclaracionIniciar variableAChequearSegunda = new DeclaracionIniciar(NUMERAL_A_TESTEAR_SEGUNDA,Tipo.ENTERO,VARIABLE_A_TESTEAR_SEGUNDA);
-//		assertNotNull(variableAChequear);
-//		assertNotNull(variableAChequearSegunda);
-//
-//		String cadena = "poner 8 en entero $variable3.";
-//		DeclaracionIniciar cuerpoCondicion = (DeclaracionIniciar)Parser.parse(cadena).value;
-//		assertNotNull(cuerpoCondicion);
-//
-//		CompararMenor condicion = new CompararMenor(variableAChequear.expresion,variableAChequearSegunda.expresion);
-//		SiEntonces siEntonces = new SiEntonces(condicion, cuerpoCondicion);
-//		assertNotNull(condicion);
-//		assertNotNull(siEntonces);
-//
-//		// Esta condicion debería dar true
-//		assertTrue(siEntonces.equals(statementsAComparar.statements[ultimoValor]));
-//	}
-	
 	@Test
-	public void testCrearVariablesYAsignarlas() throws Exception {
-//		SI:$1 exp:$2 ENTONCES:$3 stmt:$4 SINO:$5 stmt:$6 
-		
-		System.out.println("{crearVariable $variable tipo boolean. crearVariable $variable2 tipo boolean. poner esVerdadero en $variable. poner esFalso en $variable2. si $variable y $variable2 entonces poner 3 en entero $c sino nada.}");
-		
-		String cadenaAComparar = "{crearVariable $variable tipo boolean. crearVariable $variable2 tipo boolean. poner esVerdadero en $variable. poner esFalso en $variable2. si $variable y $variable2 entonces poner 3 en entero $c sino nada.}";
+	public void testSiEntoncesConDosVariablesYSentenciaOptimizada() throws Exception {
+		System.out.println("Optimizando --> {poner 5 en entero $variable. poner 6 en entero $variable2. si $variable < $variable2 entonces poner 8 en entero $variable3.}");
+		String cadenaAComparar = "{poner 5 en entero $variable. poner 6 en entero $variable2. si $variable < $variable2 entonces poner 8 en entero $variable3.}";
 		Secuencia statementsAComparar = (Secuencia)Parser.parse(cadenaAComparar).value;
 		assertNotNull(statementsAComparar);
 		
 		
-		Declaracion declaracionVariable = new Declaracion(VARIABLE_A_TESTEAR, Tipo.BOOLEAN);
-		Declaracion declaracionVariable2 = new Declaracion(VARIABLE_A_TESTEAR_SEGUNDA,Tipo.BOOLEAN);
-		assertNotNull(declaracionVariable);
-		assertNotNull(declaracionVariable2);
-		
-		Asignacion asignacionVariable = new Asignacion(declaracionVariable.variable, BOOLEAN_VERDADERO_A_TESTEAR);
-		Asignacion asignacionVariable2 = new Asignacion(declaracionVariable2.variable,BOOLEAN_FALSO_A_TESTEAR);
-		
-		assertNotNull(asignacionVariable);
-		assertNotNull(asignacionVariable2);
-		
-//		
-//		public Asignacion(String id, Expresion expression) {
-//			this.id = id;
-//			this.expression = expression;
-//		}
+		//Para que funcione el optimization debería bajarme lo que subió Jorge que estaba trabajando en lo ultimo
+		Estado state = new Estado();
+		Secuencia secuenciaOptimizada = (Secuencia)(statementsAComparar.optimization(state));
+		assertNotNull(secuenciaOptimizada);
 		
 		
-//		public Declaracion(String variable, Tipo tipo) {
-//			this.variable = variable;
-//			this.tipo = tipo;
-//		}
-		
+		int ultimoValor = statementsAComparar.statements.length-1;
+		assertNotNull(ultimoValor);
+
 		DeclaracionIniciar variableAChequear = new DeclaracionIniciar(NUMERAL_A_TESTEAR,Tipo.ENTERO,VARIABLE_A_TESTEAR);
 		DeclaracionIniciar variableAChequearSegunda = new DeclaracionIniciar(NUMERAL_A_TESTEAR_SEGUNDA,Tipo.ENTERO,VARIABLE_A_TESTEAR_SEGUNDA);
 		assertNotNull(variableAChequear);
@@ -216,7 +175,46 @@ public class TestCases {
 		assertNotNull(condicion);
 		assertNotNull(siEntonces);
 
-		assertFalse(siEntonces.equals(statementsAComparar.statements));
+		// Esta condicion debería dar true
+		assertTrue(siEntonces.equals(statementsAComparar.statements[ultimoValor]));
+	}
+	
+	@Test
+	public void testCrearVariablesYAsignarlas() throws Exception {	
+		System.out.println("{crearVariable $variable tipo boolean. crearVariable $variable2 tipo boolean. poner esVerdadero en $variable. poner esFalso en $variable2. si $variable y $variable2 entonces poner 3 en entero $c. sino nada.}");
+		String cadenaAComparar = "{crearVariable $variable tipo boolean. crearVariable $variable2 tipo boolean. poner esVerdadero en $variable. poner esFalso en $variable2. si $variable y $variable2 entonces poner 3 en entero $c. sino nada.}";
+		Sentencia statementsAComparar = (Sentencia)Parser.parse(cadenaAComparar).value;
+		assertNotNull(statementsAComparar);
+		
+		ChequearEstado estadoAChequear = new ChequearEstado();
+		estadoAChequear = statementsAComparar.check(estadoAChequear);
+		assertNotNull(estadoAChequear);
+		
+		Par parAValidar = estadoAChequear.devolverValor(VARIABLE_A_TESTEAR);
+		Par parAValidar2 = estadoAChequear.devolverValor(VARIABLE_A_TESTEAR_SEGUNDA);
+		Par parVariableCAValidar = estadoAChequear.devolverValor("$c");
+		assertNotNull(parAValidar);
+		assertNotNull(parAValidar2);
+		assertNotNull(parVariableCAValidar);
+		
+		Declaracion declaracionVariable = new Declaracion(VARIABLE_A_TESTEAR, Tipo.BOOLEAN);
+		Declaracion declaracionVariable2 = new Declaracion(VARIABLE_A_TESTEAR_SEGUNDA,Tipo.BOOLEAN);
+		assertNotNull(declaracionVariable);
+		assertNotNull(declaracionVariable2);
+		
+		assertTrue(parAValidar.getTipo().equals(declaracionVariable.tipo.toString().toLowerCase()));
+		assertTrue(parAValidar2.getTipo().equals(declaracionVariable2.tipo.toString().toLowerCase()));
+		
+		Asignacion asignacionVariable = new Asignacion(declaracionVariable.variable, BOOLEAN_VERDADERO_A_TESTEAR);
+		Asignacion asignacionVariable2 = new Asignacion(declaracionVariable2.variable,BOOLEAN_FALSO_A_TESTEAR);
+		assertNotNull(asignacionVariable);
+		assertNotNull(asignacionVariable2);
+		
+		Expresion unaExpresion = new Numeral(3.0);
+		DeclaracionIniciar variableCDeclarada = declaracionIniciarNumeral("$c",unaExpresion);
+		
+		assertNotNull(variableCDeclarada);
+		assertTrue(parVariableCAValidar.getTipo().equals(variableCDeclarada.tipo.toString().toLowerCase()));
 	}
 	
 	
