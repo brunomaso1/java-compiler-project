@@ -30,15 +30,6 @@ public class DeclaracionIniciar extends Sentencia{
 		int result = 1;
 		return result;
 	}
-
-	/*public static DeclaracionIniciar generate(Random random, int min, int max) {
-		return null;
-	}*/
-		
-	/*@Override public Estado evaluate(Estado state){
-		state.set(id, expresion.evaluate(state));
-		return state;
-	}*/		
 	
 	@Override public ChequearEstado check(ChequearEstado checkstate){
 		if (checkstate.devolverValor(id)!=null){
