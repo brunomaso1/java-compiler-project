@@ -46,10 +46,12 @@ public class Declaracion extends Sentencia{
 		return checkstate;		
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		// TODO Auto-generated method stub
-		return false;
+	@Override public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null || getClass() != obj.getClass()) return false;
+		DeclaracionIniciar other = (DeclaracionIniciar)obj;
+		return (this.variable == null ? other.id == null : this.variable.equals(other.id))
+			&& (this.tipo == null ? other.tipo == null : this.tipo.equals(other.tipo));
 	}
 	
 	@Override public Set<String> freeVariables(Set<String> vars) {

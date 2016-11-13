@@ -58,8 +58,6 @@ public class DeclaracionIniciar extends Sentencia{
 
 	@Override
 	public boolean equals(Object obj) {
-		// TODO Auto-generated method stub
-		
 		if (this == obj) return true;
 		if (obj == null || getClass() != obj.getClass()) return false;
 		DeclaracionIniciar other = (DeclaracionIniciar)obj;

@@ -54,7 +54,8 @@ public class DeclaracionLista extends Sentencia {
 		return ctx;
 	}
 	
-	@Override public Sentencia optimization(Estado state){		
+	@Override public Sentencia optimization(Estado state){
+		//TODO agregar a lista de funciones en state???
 		Expresion cantOpt = cantidad.optimization(state);
 		return new DeclaracionLista(id, tipo, cantOpt);
 	}
@@ -93,8 +94,6 @@ public class DeclaracionLista extends Sentencia {
 		else {
 			Errores.exceptionList.add(new Errores("Error en la declaracion \"" + id + "\" lista ya declarada."));
 		}
-		//validar nombre que no exista
-		// y tipo de expresion
-		return checkstate;//checkstate.devolverValor(id).getTipo();
+		return checkstate;
 	}
 }
