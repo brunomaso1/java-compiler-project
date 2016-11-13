@@ -83,8 +83,10 @@ public class Negacion extends Expresion {
 		
 		if (condition.check(checkstate).equals("boolean")){
 			return new String("boolean");
+		}else{
+			Errores.exceptionList.add(new Errores("Negación \"" + condition.toString() + "\" no booleana."));
 		}	
-		return null;
+		return checkstate;
 	}
 	
 }

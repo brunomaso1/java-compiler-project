@@ -108,10 +108,10 @@ public class Division extends Expresion {
 	
 	@Override public Object check(ChequearEstado checkstate){
 		
-		if ((left.check(checkstate).equals("numero")) & (right.check(checkstate).equals("numero")))
-			return new String("numero");
+		if ((left.check(checkstate).equals("entero")) & (right.check(checkstate).equals("entero")))
+			return new String("entero");
 		else {
-			Errores.exceptionList.add(new Errores("Division \"" + this.toString() + "\" tipos no n�mericos."));
+			Errores.exceptionList.add(new Errores("Division \"" + this.toString() + "\" tipos no numericos."));
 		}	
 		return checkstate;
 	}

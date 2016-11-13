@@ -56,12 +56,7 @@ public class Definida extends Expresion {
 	
 	
 	@Override public Object check(ChequearEstado checkstate){
-		
 		return new String("boolean");
-		
-				//this.var.evaluate(state);
-	//	System.out.println(aState.toString());
-	//	return state;	
 	}	
 	
 	@Override

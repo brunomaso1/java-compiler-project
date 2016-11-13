@@ -97,11 +97,9 @@ public class SiEntonces extends Sentencia {
 
 	@Override public ChequearEstado check(ChequearEstado checkstate){
 		if (condition.check(checkstate).equals("boolean")){
-			
 			return thenBody.check(checkstate);
-					
 		}else{
-			Errores.exceptionList.add(new Errores("Condicion \"" + condition.toString() + "\" no es booleana"));
+			Errores.exceptionList.add(new Errores("SiEntonces Condicion \"" + condition.toString() + "\" no es booleana"));
 		}			
 		return checkstate;		
 	}

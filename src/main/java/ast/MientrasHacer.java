@@ -97,6 +97,13 @@ public class MientrasHacer extends Sentencia {
 	}*/
 	
 	@Override public ChequearEstado check(ChequearEstado checkstate){
+		if (condition.check(checkstate).equals("boolean")){
+			return body.check(checkstate);
+		}else{
+			Errores.exceptionList.add(new Errores("Mientras \"" + condition.toString() + "\" condicion no booleana."));
+			
+		}
+			
 		return checkstate;
 	}
 }

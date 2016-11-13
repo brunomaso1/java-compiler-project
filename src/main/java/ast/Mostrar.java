@@ -71,6 +71,6 @@ public class Mostrar extends Sentencia {
 	}	
 	
 	@Override public ChequearEstado check(ChequearEstado checkstate){
-		return null;
+		return checkstate;
 	}
 }

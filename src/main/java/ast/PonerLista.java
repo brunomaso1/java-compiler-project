@@ -78,10 +78,23 @@ public class PonerLista extends Sentencia {
 	}*/
 	
 	@Override public ChequearEstado check(ChequearEstado checkstate){		
-		
-		// Errores.exceptionList.add(new Errores("Comparacion Menor \"" + this.toString() + "\" tipos no nï¿½mericos."));
-
-		
-		return checkstate;//checkstate.devolverValor(id).getTipo();
+		Par par = checkstate.devolverValor(id);
+		if (par == null){
+			Errores.exceptionList.add(new Errores("PonerLista lista \"" + id + "\" no definida"));
+		}
+		else{
+			if (posicion.check(checkstate).equals("entero")){
+				String aux = par.getTipo();
+				aux = aux.replace("lista","");
+				if (expresion.check(checkstate).equals(aux)){
+					return checkstate;
+				}else{
+					Errores.exceptionList.add(new Errores("PonerLista expresión \"" + posicion.toString() + "\" no es del mismo tipo que Lista."));
+				}
+			}else{
+				Errores.exceptionList.add(new Errores("PonerLista Posicion \"" + posicion.toString() + "\" no numerica."));
+			}
+		}
+		return checkstate;
 	}
 }

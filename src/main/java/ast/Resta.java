@@ -97,11 +97,11 @@ public class Resta extends Expresion {
 	
 	@Override public Object check(ChequearEstado checkstate){
 		
-		if ((left.check(checkstate).equals("numero")) & (right.check(checkstate).equals("numero")))
-			return new String("numero");
+		if ((left.check(checkstate).equals("entero")) & (right.check(checkstate).equals("entero")))
+			return new String("entero");
 		else {
-			System.out.print("Estas restando tipos incompatibles. Numero1 -> " + left.check(checkstate) + " Numero2 -> " + right.check(checkstate));
-			return null;
+			Errores.exceptionList.add(new Errores("Resta \"" + left.toString()+" + " + right.toString()+ "\" tipos no numericos."));
+			return checkstate;
 		}	
 	}
 }
