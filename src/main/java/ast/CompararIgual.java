@@ -80,22 +80,6 @@ public class CompararIgual extends Expresion {
 			}
 		}
 		
-		//Int a == Int b
-		/*if(opt1 instanceof Entero && opt2 instanceof Entero){
-			if( ((Entero)opt1).number == ((Entero)opt2).number)
-				return new ValorVerdad(true);
-			else
-				return new ValorVerdad(false);
-		}*/
-		
-		//Bool a == Bool b
-		/*if(opt1 instanceof Verdad && opt2 instanceof Numeral){
-			if( ((Numeral)opt1).number == ((Numeral)opt2).number)
-				return new ValorVerdad(true);
-			else
-				return new ValorVerdad(false);
-		}	*/
-		
 		return new CompararIgual(opt1, opt2);
 	}
 

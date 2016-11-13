@@ -51,8 +51,7 @@ public class Texto extends Expresion{
 	
 	@Override
 	public Set<String> freeVariables(Set<String> vars) {
-		// TODO Auto-generated method stub
-		return null;
+		return vars;
 	}
 	
 	@Override
@@ -63,13 +62,11 @@ public class Texto extends Expresion{
 
 	@Override
 	public Expresion optimization(Estado state) {
-		// TODO Auto-generated method stub
-		return null;
+		return this;
 	}	
 	@Override
 	public int maxStackIL() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 1;
 	}
 	
 }

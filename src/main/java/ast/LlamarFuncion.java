@@ -100,13 +100,22 @@ public class LlamarFuncion extends Sentencia {
 	}*/
 	
 	@Override public ChequearEstado check(ChequearEstado checkstate){
-		//if (resultado.check(checkstate).equals("boolean")){
+		ParFunc parFunc = checkstate.devolverValorFunc(id);
+		if (parFunc == null){
+			Errores.exceptionList.add(new Errores("LlamarFuncion \"" + id + "\" no definida."));
+		}
+		else {
+			int index = 0;
+			for (Expresion expresion : parametros) {
+				if (expresion.check(checkstate).equals(parFunc.getPar(index).getTipo()) == false){
+					Errores.exceptionList.add(new Errores("LlamarFuncion parametro \"" + expresion.toString() + "\" tipo no compatible."));
+				}				
+			}
+			if (resultado.check(checkstate).equals(parFunc.getResultado().getTipo()) == false){
+				Errores.exceptionList.add(new Errores("LlamarFuncion resultado \"" + resultado.toString() + "\" tipo no compatible."));
+			}
 			
-		//	return thenBody.check(checkstate);
-					
-		//}
-		return null;
-		
-		
+		}	
+		return checkstate;		
 	}
 }

@@ -48,14 +48,12 @@ public class Mostrar extends Sentencia {
 
 	@Override
 	public Set<String> freeVariables(Set<String> vars) {
-		// TODO Auto-generated method stub
-		return null;
+		return exp.freeVariables(vars);
 	}
 
 	@Override
 	public int maxStackIL() {
-		// TODO Auto-generated method stub
-		return 0;
+		return exp.maxStackIL();
 	}
 
 	@Override

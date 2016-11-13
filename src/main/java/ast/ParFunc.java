@@ -1,16 +1,35 @@
 package ast;
 
 public class ParFunc {
-	private String tipo;
-	private boolean inicializada;
-	private boolean esLista;
-
-	public ParFunc(String tipo, boolean inicializada, boolean esLista) {
-		this.tipo = tipo;
-		this.inicializada = inicializada;
-		this.esLista = esLista;
+	private Par[] pares;
+	
+	public Par[] getPares() {
+		return pares;
 	}
-	public String getTipo() {
+	
+	public Par getPar(int index) {
+		return pares[index];
+	}
+
+	public void setPares(Par[] pares) {
+		this.pares = pares;
+	}
+
+	public Par getResultado() {
+		return resultado;
+	}
+
+	public void setResultado(Par resultado) {
+		this.resultado = resultado;
+	}
+
+	private Par resultado;
+
+	public ParFunc( Par[] pares, Par resultado) {
+		this.pares = pares;
+		this.resultado = resultado;
+	}
+	/*public String getTipo() {
 		if (esLista) {
 			return "lista" + tipo.toLowerCase(); 
 		}
@@ -41,6 +60,6 @@ public class ParFunc {
 	}
 	public void setEsLista(boolean esLista) {
 		this.esLista = esLista;
-	}
+	}*/
 	
 }

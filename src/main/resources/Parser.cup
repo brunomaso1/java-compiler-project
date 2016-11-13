@@ -30,7 +30,7 @@ parser code {:
 :}
 non terminal Programa prog;
 non terminal Definicion def;
-non terminal Variable param;
+non terminal Parametro param;
 non terminal Expresion paramExp;
 non terminal Sentencia stmt;
 non terminal Expresion exp;
@@ -61,7 +61,7 @@ terminal SIGNO_MAYOR;
 terminal SIGNO_MENOR;
 
 non terminal List<Sentencia> repeat$stmt;
-non terminal List<Variable> repeat$param;
+non terminal List<Parametro> repeat$param;
 non terminal List<Expresion> repeat$paramExp;
 terminal HACER;
 terminal NADA;
@@ -109,13 +109,13 @@ prog ::=
 ;
 
 def ::=
-		FUNCION:$1 IDFUNC:$2 RECIBE:$3 repeat$param:$4 stmt:$5
-		{: RESULT = new Funcion($2,$4.toArray(new Variable[$4.size()]),$5);
+		FUNCION:$1 IDFUNC:$2 RECIBE:$3 PARENTESIS_IZQUIERDO:$4 repeat$param:$5 PARENTESIS_DERECHO:$6 param:$7 stmt:$8
+		{: RESULT = new Funcion($2,$5.toArray(new Parametro[$5.size()]),$7,$8);
 		:}
 ;
 param ::=
-		ID:$1 
-		{: RESULT = new Variable($1); :}
+		TIPO:$1 ID:$2
+		{: RESULT = new Parametro($2,$1); :}
 ;
 
 paramExp ::=
@@ -214,11 +214,11 @@ repeat$stmt ::=
 
 repeat$param ::=
 		
-		{: List<Variable> $0;
-		$0 = new ArrayList<Variable>();
+		{: List<Parametro> $0;
+		$0 = new ArrayList<Parametro>();
 		RESULT = $0; :}
 	|	repeat$param:$1 param:$2 
-		{: List<Variable> $0;
+		{: List<Parametro> $0;
 		$1.add($2); $0 = $1;
 		RESULT = $0; :}
 ;
