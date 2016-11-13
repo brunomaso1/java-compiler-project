@@ -40,8 +40,13 @@ public class Largo extends Expresion {
 		return new Largo(exp);
 	}*/
 	
-	@Override public ChequearEstado check(ChequearEstado checkstate){
-		return null;
+	@Override public Object check(ChequearEstado checkstate){
+		if(exp.check(checkstate).equals("texto")||exp.check(checkstate).equals("listatexto")||exp.check(checkstate).equals("listaentero")||exp.check(checkstate).equals("listaboolean")){
+			return new String("entero");
+		}else{
+			Errores.exceptionList.add(new Errores("Largo \"" + exp.toString() + "\" expresión no es texto ni lista."));
+		}
+		return checkstate;
 	}
 			
 	

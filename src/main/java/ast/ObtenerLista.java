@@ -75,6 +75,18 @@ public class ObtenerLista extends Expresion {
 	}*/
 	
 	@Override public Object check(ChequearEstado checkstate){
-		return null;//checkstate.devolverValor(id).getTipo();
+		Par par = checkstate.devolverValor(id);
+		if (par == null){
+			Errores.exceptionList.add(new Errores("ObtenerLista lista \"" + id + "\" no definida"));
+		}
+		else{
+			if (posicion.check(checkstate).equals("entero")){
+				String aux = par.getTipo();
+				return aux.replace("lista","");
+			}else{
+				Errores.exceptionList.add(new Errores("ObtenerLista Posicion \"" + posicion.toString() + "\" no numerica."));
+			}
+		}
+		return checkstate;
 	}
 }

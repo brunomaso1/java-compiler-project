@@ -103,7 +103,7 @@ public class Suma extends Expresion {
 			return new String("entero");
 		else {
 			Errores.exceptionList.add(new Errores("Suma \"" + left.toString()+" + " + right.toString()+ "\" tipos no numericos."));
-			return null;
+			return checkstate;
 		}	
 	}
 }
