@@ -58,14 +58,17 @@ public class Mostrar extends Sentencia {
 
 	@Override
 	public CompilationContextIL compileIL(CompilationContextIL ctx) {
-		// TODO Auto-generated method stub
-		return null;
+		ctx = exp.compileIL(ctx);
+		ctx.codeIL.append("call System.Console.WriteLine \n");
+		ctx.codeIL.append("nop \n");
+		return ctx;
 	}
 
 	@Override
 	public Sentencia optimization(Estado state) {
-		// TODO Auto-generated method stub
-		return null;
+		Expresion aux = exp.optimization(state);
+		
+		return new Mostrar(aux);
 	}	
 	
 	@Override public ChequearEstado check(ChequearEstado checkstate){

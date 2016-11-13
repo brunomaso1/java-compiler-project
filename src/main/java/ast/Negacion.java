@@ -49,11 +49,17 @@ public class Negacion extends Expresion {
 	
 	@Override
 	public Expresion optimization(Estado state) {
-		Expresion exp = condition.optimization(state);
+		Expresion con = optimization(state);
 		
-		if(exp instanceof ValorVerdad)
-			return new ValorVerdad( ! ((ValorVerdad)exp).value );
-		return this;
+		if(con instanceof ValorVerdad){
+			if(((ValorVerdad)con).value){
+				return new ValorVerdad(false);
+			}else{
+				return new ValorVerdad(true);
+			}
+		}
+		Negacion a = new Negacion(con);
+		return a;
 	}
 
 	@Override public String toString() {

@@ -45,10 +45,8 @@ public class ObtenerLista extends Expresion {
 	}
 	
 	@Override public Expresion optimization(Estado state){		
-		//if(state.get(id) != null)
-		////	return new Numeral((Double)state.get(id));
-		//return this;
-		return null;
+		Expresion exp = posicion.optimization(state);
+		return new ObtenerLista(id, exp);
 	}
 
 	@Override public String toString() {

@@ -51,22 +51,25 @@ public class Resta extends Expresion {
 	}
 
 	@Override public Expresion optimization(Estado state){
-		Expresion opt1 = left.optimization(state);
-		Expresion opt2 = right.optimization(state);
+		Expresion izq = left.optimization(state);
+		Expresion der = right.optimization(state);
 		
-		if(opt1 instanceof Numeral && opt2 instanceof Numeral)
-		{
-			//a - 0 = a
-			if(((Numeral)opt2).number == 0)
-				return opt1;
-			//a - a = 0
-			if( ((Numeral)opt1).number == ((Numeral)opt2).number )
-				return new Numeral(0.0);
-			
-			return new Numeral(((Numeral)opt1).number - ((Numeral)opt2).number);
-		}else{
-			return new Resta(opt1, opt2);
+		if(izq instanceof Expresion && der instanceof Numeral){
+			if (((Numeral)der).number == 0){
+				return izq;
+			}
 		}
+		
+		if(izq instanceof Numeral && der instanceof Numeral){
+			if (((Numeral)der).number == 0){
+				return izq;
+			}	
+			Numeral numRes = new Numeral(((Numeral)izq).number - ((Numeral)der).number);
+			return numRes;
+		}
+			
+		Resta a = new Resta(izq, der);
+		return a;
 	}
 	
 	@Override public String toString() {

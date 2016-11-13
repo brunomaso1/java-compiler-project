@@ -51,28 +51,38 @@ public class Multiplicacion extends Expresion {
 	}
 	
 	@Override public Expresion optimization(Estado state){
-		Expresion opt1 = left.optimization(state);
-		Expresion opt2 = right.optimization(state);
-		
-		if(opt1 instanceof Numeral && opt2 instanceof Numeral)
-		{
-			//0 * a = 0
-			if(((Numeral)opt1).number == 0)
-				return opt1;
-			//a * 0 = 0
-			if(((Numeral)opt2).number == 0)
-				return opt2;
-			//1 * a = a
-			if(((Numeral)opt1).number == 1)
-				return opt2;
-			//a * 1 = a
-			if(((Numeral)opt2).number == 1)
-				return opt1;
-			//Si no entra en los otros casos, devolvemos un Numeral(opt1 * opt2)
-			return new Numeral( ((Numeral)opt1).number * ((Numeral)opt2).number );
-		}else{
-			return new Multiplicacion(opt1, opt2);
+		Expresion izq = left.optimization(state);
+		Expresion der = right.optimization(state);
+		if(der instanceof Numeral && ((Numeral)der).number == 1){
+				return izq;
 		}
+		
+		if(izq instanceof Numeral && der instanceof Expresion){
+			if (((Numeral)izq).number == 1){
+				return der;	
+			}
+		}
+		
+		if(izq instanceof Expresion && der instanceof Numeral){
+			if (((Numeral)der).number == 0){
+				return new Numeral (0.0);
+			}
+		}
+		
+		if(izq instanceof Numeral && der instanceof Expresion){
+			if (((Numeral)izq).number == 0){
+				return new Numeral(0.0);	
+			}
+		}
+		
+		if(izq instanceof Numeral && der instanceof Numeral){
+			Numeral numRes = new Numeral(((Numeral)izq).number * ((Numeral)der).number);
+			return numRes;
+		}
+		
+	
+		Multiplicacion a = new Multiplicacion(izq, der);
+		return a;
 	}
 	
 	@Override public String toString() {
