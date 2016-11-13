@@ -63,7 +63,37 @@ public class SiEntoncesSino extends Sentencia {
 	}
 	
 	@Override public Sentencia optimization(Estado state) {
-		Expresion bExpCondition = condition.optimization(state);
+		
+		Expresion con = condition.optimization(state);
+		Sentencia thenB = thenBody.optimization(state);
+		
+		Estado copiaThenB = state;
+		Sentencia elseB = elseBody.optimization(state);
+		Estado copiaElseB = state;
+		if(con instanceof ValorVerdad){
+			if(((ValorVerdad)con).value){
+				return thenB;
+				
+			}else{
+				return elseB;
+			}
+		}else{
+			//intersectar el state optimizado con el copiado
+			ArrayList<String> clavesThen = copiaThenB.devolverClaves();
+			Estado resultado = new Estado();
+			String z;
+			
+			for (int i = 0; i< clavesThen.size();i++) {
+				z = clavesThen.get(i);
+				if (copiaThenB.get(z) == copiaElseB.get(z)) {
+					resultado.set(z, copiaThenB.get(z));
+				}
+			}
+			state = resultado;
+			return new SiEntoncesSino(con, thenB, elseB);
+			
+		}
+		/*Expresion bExpCondition = condition.optimization(state);
 		
 		if(bExpCondition instanceof ValorVerdad){
 			if(((ValorVerdad)bExpCondition).value){
@@ -88,7 +118,7 @@ public class SiEntoncesSino extends Sentencia {
 		//Propagamos las constantes validas al inicio de la sentencia y solo aquellas 
 		//constantes generadas en ambos cuerpos con el mismo valor.
 		state = Estado.intersect(stateForThenBody, stateForElseBody);
-		return new SiEntoncesSino(bExpCondition, stmtThenBodyOpt, stmtElseBodyOpt);
+		return new SiEntoncesSino(bExpCondition, stmtThenBodyOpt, stmtElseBodyOpt);*/
 	}
 
 	@Override public String toString() {

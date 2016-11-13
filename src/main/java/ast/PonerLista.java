@@ -49,9 +49,10 @@ public class PonerLista extends Sentencia {
 	}
 	
 	@Override public Sentencia optimization(Estado state){		
-		//if(state.get(id) != null)
-		//	return new Numeral((Double)state.get(id));
-		return null;//this;
+		Expresion posicionOpt = posicion.optimization(state);
+		Expresion expresionOpt = expresion.optimization(state);
+		
+		return new PonerLista(id, posicionOpt, expresionOpt);
 	}
 
 	@Override public String toString() {

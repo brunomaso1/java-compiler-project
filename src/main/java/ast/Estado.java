@@ -5,6 +5,7 @@ import java.util.*;
 public class Estado {
 	public final Map<String, Object> estado = new HashMap<String, Object>();
 	public final Map<String, ParLista> estadoLista = new HashMap<String, ParLista>();
+
 	
 	public Object get(String variableName) {
 		if (estado.get(variableName)==null) {
@@ -120,4 +121,8 @@ public class Estado {
 		}
 		return result;
 	}	*/
+	public ArrayList<String> devolverClaves() {
+		ArrayList<String> l = new ArrayList<String>(estado.keySet());
+		   return l;
+	}
 }

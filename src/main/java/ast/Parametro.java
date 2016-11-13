@@ -44,8 +44,6 @@ public class Parametro extends Expresion {
 	}
 	
 	@Override public Expresion optimization(Estado state){		
-		if(state.get(id) != null)
-			return new Numeral((Double)state.get(id));
 		return this;
 	}
 

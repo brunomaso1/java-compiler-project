@@ -41,8 +41,10 @@ public class CompilationContextIL {
 	 */
 	public static String compileIL(Sentencia prog) {
 		CompilationContextIL ctx = new CompilationContextIL(prog);
+		ctx.codeIL.append("nop \n");
 		ctx.codeIL.append("// variables = "+ ctx.variables +"\n");
 		ctx.codeIL.append("// maxStack =  "+ ctx.maxStack +"\n");
+		
 		
 
 		prog.compileIL(ctx);

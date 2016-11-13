@@ -47,6 +47,8 @@ public class SiEntonces extends Sentencia {
 	}
 	
 	@Override public Sentencia optimization(Estado state) {
+		
+		
 		Expresion bExpCondition = condition.optimization(state);
 		
 		if(bExpCondition instanceof ValorVerdad){
@@ -58,6 +60,7 @@ public class SiEntonces extends Sentencia {
 		Sentencia stmtThenBodyOpt = thenBody.optimization(state);
 		
 		return new SiEntonces(bExpCondition, stmtThenBodyOpt);
+		
 	}
 
 	@Override public String toString() {
