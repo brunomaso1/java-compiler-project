@@ -26,11 +26,6 @@ public class Secuencia extends Sentencia {
 		return result +"}";
 	}
 
-	/*@Override public Estado evaluate(Estado state) {
-		for (Sentencia statement : statements) state = statement.evaluate(state);
-					return state;
-	}*/
-
 	@Override public Set<String> freeVariables(Set<String> vars) {
 		for (Sentencia statement : statements) vars = statement.freeVariables(vars);
 					return vars;

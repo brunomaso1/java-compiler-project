@@ -6,11 +6,12 @@ import org.junit.Test;
 
 import ast.*;
 import parser.*;
+import behaviour.*;
 
 public class TestCases {
 
 	private static String VARIABLE_A_TESTEAR = "$variable";
-	private static String VARIABLE_A_TESTEAR_SEGUNDA = "$varible2";
+	private static String VARIABLE_A_TESTEAR_SEGUNDA = "$variable2";
 	private static Expresion NUMERAL_A_TESTEAR = new Numeral(5.0);
 	private static Expresion NUMERAL_A_TESTEAR_SEGUNDA = new Numeral(6.0);
 	private static Expresion BOOLEAN_VERDADERO_A_TESTEAR = new ValorVerdad(true);
@@ -24,7 +25,6 @@ public class TestCases {
 		String cadena = "poner 5 en entero $variable.";
 		
 		DeclaracionIniciar resultado = (DeclaracionIniciar)Parser.parse(cadena).value;
-		
 		assertNotNull(resultado);
 		assertNotNull(resEsp);
 		assertTrue(resEsp.equals(resultado));
@@ -70,11 +70,26 @@ public class TestCases {
 	}	
 	
 	@Test
+	public void testDeclaracionSentencias() throws Exception {
+		System.out.println("{poner esFalso en boolean $variable. poner 6 en entero $variable2.}");
+		
+		String cadena = "{poner esFalso en boolean $variable. poner 6 en entero $variable2.}";
+		Secuencia statementsAComparar = (Secuencia)Parser.parse(cadena).value;
+		assertNotNull(statementsAComparar);
+
+		DeclaracionIniciar variableAChequearBooleanda = new DeclaracionIniciar(BOOLEAN_FALSO_A_TESTEAR, Tipo.BOOLEAN, VARIABLE_A_TESTEAR);
+		DeclaracionIniciar variableAChequearNumeral = new DeclaracionIniciar(NUMERAL_A_TESTEAR_SEGUNDA, Tipo.ENTERO, VARIABLE_A_TESTEAR_SEGUNDA);
+		
+		assertNotNull(variableAChequearBooleanda);
+		assertNotNull(variableAChequearNumeral);
+		
+		assertTrue(statementsAComparar.statements[0].equals(variableAChequearBooleanda));
+		assertTrue(statementsAComparar.statements[1].equals(variableAChequearNumeral));
+	}
+	
+	@Test
 	public void inicializarVariable() throws Exception {
 		System.out.println("crearVariable $a tipo entero.");
-		
-//		crearVariable $a tipo entero.
-//		key :$a (tipo:ENTERO inicializada:false)
 		
 		DeclaracionIniciar resEsp = new DeclaracionIniciar(BOOLEAN_VERDADERO_A_TESTEAR, Tipo.BOOLEAN, VARIABLE_A_TESTEAR);
 		String cadena = "poner esVerdadero en boolean $variable2.";
@@ -85,82 +100,134 @@ public class TestCases {
 		assertFalse(resEsp.equals(resultado));
 	}  
 	
-	
 	@Test
-	public void testSiEntoncesConDosVariables() throws Exception {
+	public void testSiEntoncesConDosVariablesSinOptimizar() throws Exception {
 		System.out.println("{poner 5 en entero $variable. poner 6 en entero $variable2. si $variable < $variable2 entonces poner 8 en entero $variable3.}");
+		String cadenaAComparar = "{poner 5 en entero $variable. poner 6 en entero $variable2. si $variable < $variable2 entonces poner 8 en entero $variable3.}";
+		Secuencia statementsAComparar = (Secuencia)Parser.parse(cadenaAComparar).value;
+		assertNotNull(statementsAComparar);
+		
+		int ultimoValor = statementsAComparar.statements.length-1;
+		assertNotNull(ultimoValor);
 
 		DeclaracionIniciar variableAChequear = new DeclaracionIniciar(NUMERAL_A_TESTEAR,Tipo.ENTERO,VARIABLE_A_TESTEAR);
 		DeclaracionIniciar variableAChequearSegunda = new DeclaracionIniciar(NUMERAL_A_TESTEAR_SEGUNDA,Tipo.ENTERO,VARIABLE_A_TESTEAR_SEGUNDA);
-		
 		assertNotNull(variableAChequear);
 		assertNotNull(variableAChequearSegunda);
-		
-		//Sentencia son: asignacion, declaración, etc etc		
-		
-		Sentencia [] listaSentencias = new Sentencia[2];		
-		listaSentencias[0] = variableAChequear;
-		listaSentencias[1] = variableAChequearSegunda;
-		Secuencia unaSecuencia = new Secuencia(listaSentencias);
-				
-        boolean variableBooleana = (variableAChequear < variableAChequearSegunda)? true:false;
-		
-		Expresion exp = new Expresion()
-//		SiEntonces()
-		
-//		public SiEntonces(Expresion condition, Sentencia thenBody) {
-//			this.condition = condition;
-//			this.thenBody = thenBody;
-//		}
-				
-		DeclaracionIniciar resEsp = new DeclaracionIniciar(BOOLEAN_VERDADERO_A_TESTEAR, Tipo.BOOLEAN, VARIABLE_A_TESTEAR);
-		String sentencia = "{poner 5 en entero $variable. poner 6 en entero $variable2. si $variable < $variable2 entonces poner 8 en entero $variable3.}";
-		DeclaracionIniciar resultado = (DeclaracionIniciar)Parser.parse(sentencia).value;
 
-		assertNotNull(resultado);
-		assertNotNull(resEsp);
-		assertFalse(resEsp.equals(resultado));
+		String cadena = "poner 8 en entero $variable3.";
+		DeclaracionIniciar cuerpoCondicion = (DeclaracionIniciar)Parser.parse(cadena).value;
+		assertNotNull(cuerpoCondicion);
+
+		CompararMenor condicion = new CompararMenor(variableAChequear.expresion,variableAChequearSegunda.expresion);
+		SiEntonces siEntonces = new SiEntonces(condicion, cuerpoCondicion);
+		assertNotNull(condicion);
+		assertNotNull(siEntonces);
+
+		assertFalse(siEntonces.equals(statementsAComparar.statements[ultimoValor]));
 	}
 
-
-	
-
-	
-	
-	
-	
-//	> {poner esFalso en boolean $a. si $a entonces poner 5 en entero $b.}
+	/***
+	 * Metodo que testea las condiciones SiEntonces con los valores declarados, deberían chequear 
+	 * Condicion -> CompararMeno(Numeral(5.0),Numeral(6.0))
+	 * ThenBody -> DeclaracionIniciar(ENTERO,Numeral(8.0))
+	 * @throws Exception
+	 */
+//	@Test
+//	public void testSiEntoncesConDosVariablesYSentenciaOptimizada() throws Exception {
+//		System.out.println("Optimizando --> {poner 5 en entero $variable. poner 6 en entero $variable2. si $variable < $variable2 entonces poner 8 en entero $variable3.}");
+//		String cadenaAComparar = "{poner 5 en entero $variable. poner 6 en entero $variable2. si $variable < $variable2 entonces poner 8 en entero $variable3.}";
+//		Secuencia statementsAComparar = (Secuencia)Parser.parse(cadenaAComparar).value;
+//		assertNotNull(statementsAComparar);
+//		
+//		
+//		//Para que funcione el optimization debería bajarme lo que subió Jorge que estaba trabajando en lo ultimo
+//		Estado state = new Estado();
+//		Secuencia secuenciaOptimizada = (Secuencia)(statementsAComparar.optimization(state));
+//		assertNotNull(secuenciaOptimizada);
+//		
+//		
+//		int ultimoValor = statementsAComparar.statements.length-1;
+//		assertNotNull(ultimoValor);
 //
-//	=============
-//	=============
-//	key :$a (tipo:boolean inicializada:true)
-//	key :$b (tipo:entero inicializada:true)
-	
-//	// variables = [$a, $b]
-//	// maxStack =  1
-//	ldloc 0
-//	brsfalse IL_0
-//	IL_0:nop
-//	ret
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-//{ crearVariable $a tipo boolean. crearVariable $b tipo boolean. poner esVerdadero en $a. poner esFalso en $b. si $a y $b entonces nada. }
+//		DeclaracionIniciar variableAChequear = new DeclaracionIniciar(NUMERAL_A_TESTEAR,Tipo.ENTERO,VARIABLE_A_TESTEAR);
+//		DeclaracionIniciar variableAChequearSegunda = new DeclaracionIniciar(NUMERAL_A_TESTEAR_SEGUNDA,Tipo.ENTERO,VARIABLE_A_TESTEAR_SEGUNDA);
+//		assertNotNull(variableAChequear);
+//		assertNotNull(variableAChequearSegunda);
 //
+//		String cadena = "poner 8 en entero $variable3.";
+//		DeclaracionIniciar cuerpoCondicion = (DeclaracionIniciar)Parser.parse(cadena).value;
+//		assertNotNull(cuerpoCondicion);
+//
+//		CompararMenor condicion = new CompararMenor(variableAChequear.expresion,variableAChequearSegunda.expresion);
+//		SiEntonces siEntonces = new SiEntonces(condicion, cuerpoCondicion);
+//		assertNotNull(condicion);
+//		assertNotNull(siEntonces);
+//
+//		// Esta condicion debería dar true
+//		assertTrue(siEntonces.equals(statementsAComparar.statements[ultimoValor]));
+//	}
+	
+	@Test
+	public void testCrearVariablesYAsignarlas() throws Exception {
+//		SI:$1 exp:$2 ENTONCES:$3 stmt:$4 SINO:$5 stmt:$6 
+		
+		System.out.println("{crearVariable $variable tipo boolean. crearVariable $variable2 tipo boolean. poner esVerdadero en $variable. poner esFalso en $variable2. si $variable y $variable2 entonces poner 3 en entero $c sino nada.}");
+		
+		String cadenaAComparar = "{crearVariable $variable tipo boolean. crearVariable $variable2 tipo boolean. poner esVerdadero en $variable. poner esFalso en $variable2. si $variable y $variable2 entonces poner 3 en entero $c sino nada.}";
+		Secuencia statementsAComparar = (Secuencia)Parser.parse(cadenaAComparar).value;
+		assertNotNull(statementsAComparar);
+		
+		
+		Declaracion declaracionVariable = new Declaracion(VARIABLE_A_TESTEAR, Tipo.BOOLEAN);
+		Declaracion declaracionVariable2 = new Declaracion(VARIABLE_A_TESTEAR_SEGUNDA,Tipo.BOOLEAN);
+		assertNotNull(declaracionVariable);
+		assertNotNull(declaracionVariable2);
+		
+		Asignacion asignacionVariable = new Asignacion(declaracionVariable.variable, BOOLEAN_VERDADERO_A_TESTEAR);
+		Asignacion asignacionVariable2 = new Asignacion(declaracionVariable2.variable,BOOLEAN_FALSO_A_TESTEAR);
+		
+		assertNotNull(asignacionVariable);
+		assertNotNull(asignacionVariable2);
+		
+//		
+//		public Asignacion(String id, Expresion expression) {
+//			this.id = id;
+//			this.expression = expression;
+//		}
+		
+		
+//		public Declaracion(String variable, Tipo tipo) {
+//			this.variable = variable;
+//			this.tipo = tipo;
+//		}
+		
+		DeclaracionIniciar variableAChequear = new DeclaracionIniciar(NUMERAL_A_TESTEAR,Tipo.ENTERO,VARIABLE_A_TESTEAR);
+		DeclaracionIniciar variableAChequearSegunda = new DeclaracionIniciar(NUMERAL_A_TESTEAR_SEGUNDA,Tipo.ENTERO,VARIABLE_A_TESTEAR_SEGUNDA);
+		assertNotNull(variableAChequear);
+		assertNotNull(variableAChequearSegunda);
+
+		String cadena = "poner 8 en entero $variable3.";
+		DeclaracionIniciar cuerpoCondicion = (DeclaracionIniciar)Parser.parse(cadena).value;
+		assertNotNull(cuerpoCondicion);
+
+		CompararMenor condicion = new CompararMenor(variableAChequear.expresion,variableAChequearSegunda.expresion);
+		SiEntonces siEntonces = new SiEntonces(condicion, cuerpoCondicion);
+		assertNotNull(condicion);
+		assertNotNull(siEntonces);
+
+		assertFalse(siEntonces.equals(statementsAComparar.statements));
+	}
+	
+	
+	
 //{ crearLista $l1 tipo entero cantidad 3. poner 4 en $l1 posicion 1. poner 3 en $l1 posicion 2. poner 8 en $l1 posicion 3. }
-//
+
+	
+	
 //{ crearLista $l1 tipo entero cantidad 3. poner 4 en $l1 posicion 0. poner 3 en $l1 posicion 1. poner 8 en $l1 posicion 2. }
-//
-//{ crearLista $l1 tipo entero cantidad 3. poner 4 en $l1 posicion -0. poner 3 en $l1 posicion -1. poner 8 en $l1 posicion -2. }
+	
+	
+//{ crearLista $l1 tipo entero cantidad 3. poner 4 en $l1 posicion -0. poner 3 en $l1 posicion -1. poner 8 en $l1 posicion -2.}
+
 }

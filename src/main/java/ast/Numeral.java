@@ -65,7 +65,15 @@ public class Numeral extends Expresion {
 		Numeral other = (Numeral)obj;
 		return (this.number == null ? other.number == null : this.number.equals(other.number));
 	}
-
+	
+//	@Override public boolean equals(Object obj) {
+//		if (this == obj) return true;
+//		if (obj == null || getClass() != obj.getClass()) return false;
+//		ValorVerdad other = (ValorVerdad)obj;
+//		return (this.value == null ? other.value == null : this.value.equals(other.value));
+//	}
+	
+	
 	/*public static Numeral generate(Random random, int min, int max) {
 		Double number; 
 		number = Math.round(random.nextDouble() * 1000) / 100.0;

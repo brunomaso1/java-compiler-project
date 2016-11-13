@@ -26,14 +26,6 @@ public class SiEntonces extends Sentencia {
 		return "Si "+ condition.unparse() +" entonces { "+ thenBody.unparse() +" }";
 	}
 
-	/*@Override public Estado evaluate(Estado state) {
-		Boolean resCond = (Boolean) condition.evaluate(state);
-		if (resCond){
-			state = thenBody.evaluate(state);
-		}
-		return state;
-	}*/
-
 	@Override public Set<String> freeVariables(Set<String> vars) {
 		vars = condition.freeVariables(vars); return thenBody.freeVariables(vars);
 	}
