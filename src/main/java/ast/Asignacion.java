@@ -31,7 +31,6 @@ public class Asignacion extends Sentencia {
 
 	@Override public Set<String> freeVariables(Set<String> vars) {
 		vars = expression.freeVariables(vars); 
-		vars.add(id); 
 		return vars;
 	}
 

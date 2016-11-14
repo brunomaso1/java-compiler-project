@@ -66,6 +66,7 @@ public class DeclaracionIniciar extends Sentencia{
 	
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
 		ctx.variables.add(id);
+		ctx.variablesTipo.add(new ParComp(id,tipo.toString().toLowerCase()));
 		
 		ctx= expresion.compileIL(ctx);
 

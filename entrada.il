@@ -61,17 +61,10 @@
   {
     .entrypoint
     // Code size       39 (0x27)
-    .maxstack  2
-    .locals init ()
+    .maxstack  #maxStack
+    #replaceLocal
 
-	// variables = []
-// maxStack =  2
-ldc.i4 2
-ldc.i4 3
-add 
-call void [mscorlib]System.Console::WriteLine(int32) 
-nop 
-
+	#replaceCode
 			 
     IL_001f:  nop
     IL_0020:  call       valuetype [mscorlib]System.ConsoleKeyInfo [mscorlib]System.Console::ReadKey()

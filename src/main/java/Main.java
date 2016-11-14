@@ -6,11 +6,14 @@ import parser.*;
 import behaviour.*;
 
 public class Main {
+		
 	public static void main(String[] args) throws Exception {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder source = new StringBuilder();
 		
-		String intro = new String("Bienvenidos al compilador de EASY_LANGUAGE!\n"+"Por favor, ingrese sus funciones.");
+		ChequearEstado estadoChequeo = new ChequearEstado();
+		
+		/*String intro = new String("Bienvenidos al compilador de EASY_LANGUAGE!\n"+"Por favor, ingrese sus funciones.");
 		System.out.println(intro);
 		System.out.print("> ");
 		
@@ -39,8 +42,8 @@ public class Main {
 			
 			System.out.println(e.toString());
 			System.out.println(e.getMessage());
-		}
-			
+		}*/
+		
 		BufferedReader inStmt = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sourceStmt = new StringBuilder();
 		
@@ -57,6 +60,7 @@ public class Main {
 			Sentencia prog2 = (Sentencia)(Parser.parse(sourceStmt.toString()).value);
 						
 			estadoChequeo = prog2.check(estadoChequeo);
+			Mostrar.globalEstado = estadoChequeo;
 			estadoChequeo.print();
 			
 			if (Errores.exceptionList.isEmpty()){

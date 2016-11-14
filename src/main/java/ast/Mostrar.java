@@ -8,6 +8,7 @@ import behaviour.CompilationContextIL;
 */
 public class Mostrar extends Sentencia {
 	public final Expresion exp;
+	public static ChequearEstado globalEstado = new ChequearEstado();
 
 	public Mostrar(Expresion exp) {
 		this.exp = exp;
@@ -58,8 +59,12 @@ public class Mostrar extends Sentencia {
 
 	@Override
 	public CompilationContextIL compileIL(CompilationContextIL ctx) {
+		String aux = (String)(exp.check(globalEstado));
 		ctx = exp.compileIL(ctx);
-		ctx.codeIL.append("call System.Console.WriteLine \n");
+		if(aux.equals("entero"))
+			ctx.codeIL.append("call void [mscorlib]System.Console::WriteLine(int32) \n");
+		if(aux.equals("texto"))
+			ctx.codeIL.append("call void [mscorlib]System.Console::WriteLine(string) \n");
 		ctx.codeIL.append("nop \n");
 		return ctx;
 	}
