@@ -32,7 +32,7 @@ public class SiEntonces extends Sentencia {
 		ctx = condition.compileIL(ctx);
 		
 		String etiqueta = ctx.newLabel();
-		ctx.codeIL.append("brsfalse " +etiqueta+ "\n");
+		ctx.codeIL.append("brfalse " +etiqueta+ "\n");
 		
 		ctx = thenBody.compileIL(ctx);
 		ctx.codeIL.append(etiqueta + ":nop" + "\n");

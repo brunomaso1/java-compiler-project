@@ -45,6 +45,7 @@ public class CompilationContextIL {
 		CompilationContextIL ctx = new CompilationContextIL(prog);
 		ctx.codeIL.append("// variables = "+ ctx.variables +"\n");
 		ctx.codeIL.append("// maxStack =  "+ ctx.maxStack +"\n");
+		ctx.codeIL.append("nop \n");
 		
 		/*TODO Agregar el código IL necesario para definir el assembly, la clase
 		 * principal, método main e impresión del estado resultante de la 

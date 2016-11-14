@@ -61,6 +61,7 @@ public class Main {
 						
 			estadoChequeo = prog2.check(estadoChequeo);
 			Mostrar.globalEstado = estadoChequeo;
+			CompararIgual.globalEstado = estadoChequeo;
 			estadoChequeo.print();
 			
 			if (Errores.exceptionList.isEmpty()){

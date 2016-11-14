@@ -62,15 +62,30 @@
     .entrypoint
     // Code size       39 (0x27)
     .maxstack  2
-    .locals init ()
+    .locals init (int32 V_0)
 
-	// variables = []
+	// variables = [$a]
 // maxStack =  2
+nop 
 ldc.i4 2
-ldc.i4 3
-add 
+stloc 0
+br.s IL_1
+IL_0: 
+ldloc 0
 call void [mscorlib]System.Console::WriteLine(int32) 
 nop 
+ldloc 0
+ldc.i4 1
+sub 
+stloc 0
+IL_1: 
+ldloc 0
+ldc.i4 0
+cgt 
+brtrue.s IL_0
+nop 
+ldloc 0 
+call       void [mscorlib]System.Console::WriteLine(int32) 
 
 			 
     IL_001f:  nop

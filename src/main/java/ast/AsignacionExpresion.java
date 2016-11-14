@@ -73,7 +73,7 @@ public class AsignacionExpresion extends Expresion {
 		Asignacion a = (Asignacion) this.assigment;
 		ctx= a.compileIL(ctx);
 		Integer index = ctx.variables.indexOf(a.id);
-		ctx.codeIL.append("ldloc. " + index + "\n");
+		ctx.codeIL.append("ldloc " + index + "\n");
 		return ctx;
 	}
 	
