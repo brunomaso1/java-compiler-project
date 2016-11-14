@@ -60,7 +60,6 @@ public class DeclaracionIniciar extends Sentencia{
 	
 	@Override public Set<String> freeVariables(Set<String> vars) {
 		vars = expresion.freeVariables(vars); 
-		vars.add(id);
 		return vars;
 	}
 	
@@ -69,7 +68,7 @@ public class DeclaracionIniciar extends Sentencia{
 		ctx.variablesTipo.add(new ParComp(id,tipo.toString().toLowerCase()));
 		ctx= expresion.compileIL(ctx);
 		Integer index = ctx.variables.indexOf(id);
-		ctx.codeIL.append("stloc " + index + "\n");
+		ctx.codeIL.append("stloc " + index + " // "+id+"\n");
 		return ctx;
 	}
 	

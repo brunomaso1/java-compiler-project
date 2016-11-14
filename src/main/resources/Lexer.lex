@@ -119,7 +119,7 @@ import java.io.*;
 	{ return new Symbol(CANTIDAD, yyline, yycolumn, yytext()); }
 "posicion"
 	{ return new Symbol(POSICION, yyline, yycolumn, yytext()); }
-"obtener posicion"
+"obtenerPosicion"
 	{ return new Symbol(OBTENER_POSICION, yyline, yycolumn, yytext()); }
 "en"
 	{ return new Symbol(EN, yyline, yycolumn, yytext()); }

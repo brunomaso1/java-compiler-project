@@ -23,7 +23,7 @@ public class ObtenerLista extends Expresion {
 	}*/
 
 	@Override public Set<String> freeVariables(Set<String> vars) {
-		vars.add(id); return vars;
+		return vars;
 	}
 
 	@Override public int maxStackIL() {
@@ -31,16 +31,18 @@ public class ObtenerLista extends Expresion {
 	}
 
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
-		if(ctx.parametros.contains(id)){
-			Integer index = ctx.parametros.indexOf(id);
-			ctx.codeIL.append("ldarg " +  index + "\n");
-			return ctx;
-		}	
-		if(!ctx.variables.contains(id)){
-			ctx.variables.add(id);
-		}	
+		//ldloc.0     // a
+		//IL_0015:  ldc.i4.2    
+		//IL_0016:  ldelem.i4   
+		
 		Integer index = ctx.variables.indexOf(id);
-		ctx.codeIL.append("ldloc " +  index + "\n");
+		ctx.codeIL.append("ldloc " +  index + " // "+id+"\n");
+		
+		ctx = posicion.compileIL(ctx);
+		//ctx.codeIL.append("ldelem " +  index + "\n");
+		ctx.codeIL.append("ldelem.i4" + " // "+id+"\n");
+		
+		
 		return ctx;
 	}
 	

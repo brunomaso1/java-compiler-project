@@ -38,11 +38,11 @@ public class Variable extends Expresion {
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
 		if(ctx.parametros.contains(id)){
 			Integer index = ctx.parametros.indexOf(id);
-			ctx.codeIL.append("ldarg " +  index + "\n");
+			ctx.codeIL.append("ldarg " +  index + " // "+id+"\n");
 			return ctx;
 		}	
 		Integer index = ctx.variables.indexOf(id);
-		ctx.codeIL.append("ldloc " +  index + "\n");
+		ctx.codeIL.append("ldloc " +  index + " // "+id+"\n");
 		return ctx;
 	}
 	

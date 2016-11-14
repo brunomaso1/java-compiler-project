@@ -30,7 +30,7 @@ public class Parametro extends Expresion {
 	}*/
 
 	@Override public Set<String> freeVariables(Set<String> vars) {
-		vars.add(id); return vars;
+		return vars;
 	}
 
 	@Override public int maxStackIL() {
