@@ -14,7 +14,7 @@ import behaviour.*;
  */
 public class Variable extends Expresion {
 	public final String id;
-
+	
 	public Variable(String id) {
 		this.id = id;
 	}
@@ -28,7 +28,7 @@ public class Variable extends Expresion {
 	}*/
 
 	@Override public Set<String> freeVariables(Set<String> vars) {
-		vars.add(id); return vars;
+		return vars;
 	}
 
 	@Override public int maxStackIL() {
@@ -40,9 +40,6 @@ public class Variable extends Expresion {
 			Integer index = ctx.parametros.indexOf(id);
 			ctx.codeIL.append("ldarg " +  index + "\n");
 			return ctx;
-		}	
-		if(!ctx.variables.contains(id)){
-			ctx.variables.add(id);
 		}	
 		Integer index = ctx.variables.indexOf(id);
 		ctx.codeIL.append("ldloc " +  index + "\n");

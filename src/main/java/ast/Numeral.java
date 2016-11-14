@@ -37,7 +37,7 @@ public class Numeral extends Expresion {
 	}
 
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
-		ctx.codeIL.append("ldc.i4 " + this.number + "\n");
+		ctx.codeIL.append("ldc.i4 " + this.number.intValue() + "\n");
 		return ctx;
 	}
 	

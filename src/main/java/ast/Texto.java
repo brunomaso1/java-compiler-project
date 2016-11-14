@@ -45,8 +45,8 @@ public class Texto extends Expresion{
 	
 	@Override
 	public CompilationContextIL compileIL(CompilationContextIL ctx) {
-		// TODO Auto-generated method stub
-		return null;
+		ctx.codeIL.append("ldstr \"" + this.str + "\"\n");
+		return ctx;
 	}
 
 	@Override

@@ -55,12 +55,12 @@ public class Declaracion extends Sentencia{
 	}
 	
 	@Override public Set<String> freeVariables(Set<String> vars) {
-		vars.add(variable); 
 		return vars;
 	}
 	
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
 		ctx.variables.add(variable);
+		ctx.variablesTipo.add(new ParComp(variable,tipo.toString().toLowerCase()));
 		return ctx;
 	}
 	
