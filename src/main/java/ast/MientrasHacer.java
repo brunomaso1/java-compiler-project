@@ -35,9 +35,9 @@ public class MientrasHacer extends Sentencia {
 		String etiqueta2 = ctx.newLabel();
 		
 		ctx.codeIL.append("br.s " +etiqueta2+ "\n");
-		ctx.codeIL.append(etiqueta+ ": " +"\n");
+		ctx.codeIL.append("\n"+etiqueta+ ": " +"\n");
 		ctx = body.compileIL(ctx);
-		ctx.codeIL.append(etiqueta2+ ": " +"\n");
+		ctx.codeIL.append("\n"+etiqueta2+ ": " +"\n");
 		ctx = condition.compileIL(ctx);
 		ctx.codeIL.append("brtrue.s "+ etiqueta + "\n");
 		ctx.codeIL.append("nop "+ "\n");

@@ -31,7 +31,7 @@ public class SiEntoncesSino extends Sentencia {
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
 		ctx = condition.compileIL(ctx);
 		String etiqueta = ctx.newLabel();
-		ctx.codeIL.append("brsfalse.s " +etiqueta+ "\n");
+		ctx.codeIL.append("brfalse.s " +etiqueta+ "\n");
 		ctx = thenBody.compileIL(ctx);
 		String etiqueta2 = ctx.newLabel(); 
 		ctx.codeIL.append("br.s " + etiqueta2 + "\n");

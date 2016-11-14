@@ -61,16 +61,75 @@
   {
     .entrypoint
     // Code size       39 (0x27)
-    .maxstack  2
-    .locals init ()
+    .maxstack  4
+    .locals init (int32[] V_0,int32 V_1,int32 V_2)
 
 	// variables = []
-// maxStack =  2
-ldc.i4 2
-ldc.i4 3
+// maxStack =  3
+ldc.i4 10
+newarr     [mscorlib]System.Int32  // $lista
+stloc 0 // $lista
+ldc.i4 0
+stloc 1 // $i
+ldc.i4 15
+stloc 2 // $b
+br.s IL_1
+
+IL_0: 
+ldloc 0 // $lista
+ldloc 1 // $i
+ldloc 1 // $i
+ldc.i4 1
 add 
-call void [mscorlib]System.Console::WriteLine(int32) 
+stelem.i4  // $lista
+ldloc 1 // $i
+ldc.i4 1
+add 
+stloc 1 // $i
+
+IL_1: 
+ldloc 1 // $i
+ldc.i4 10
+clt 
+brtrue.s IL_0
 nop 
+ldc.i4 0
+stloc 1 // $i
+br.s IL_3
+
+IL_2: 
+ldloc 0 // $lista
+ldloc 1 // $i
+ldelem.i4 // $lista
+call       void [mscorlib]System.Console::WriteLine(int32) // Obtener Posicion $i $lista
+nop 
+ldloc 1 // $i
+ldc.i4 1
+add 
+stloc 1 // $i
+
+IL_3: 
+ldloc 1 // $i
+ldc.i4 10
+clt 
+brtrue.s IL_2
+nop 
+ldstr "b="
+call       void [mscorlib]System.Console::WriteLine(string)// String(b=)
+nop 
+ldstr "b="
+call       void [mscorlib]System.Console::WriteLine(string)// String(b=)
+nop 
+ldloc 2 // $b
+call       void [mscorlib]System.Console::WriteLine(int32) // Variable($b)
+nop 
+ldstr "=============="
+call       void [mscorlib]System.Console::WriteLine(string)// String(==============)
+nop 
+ldloc 1 
+call       void [mscorlib]System.Console::WriteLine(int32) 
+ldloc 2 
+call       void [mscorlib]System.Console::WriteLine(int32) 
 
 			 
     IL_001f:  nop

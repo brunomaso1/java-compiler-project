@@ -25,7 +25,7 @@ public class PonerLista extends Sentencia {
 	}*/
 
 	@Override public Set<String> freeVariables(Set<String> vars) {
-		vars.add(id); return vars;
+		return vars;
 	}
 
 	@Override public int maxStackIL() {
@@ -33,7 +33,16 @@ public class PonerLista extends Sentencia {
 	}
 
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
-//		ctx.var
+		
+		Integer index = ctx.variables.indexOf(id);
+		ctx.codeIL.append("ldloc " +  index + " // "+id+"\n");
+		
+		ctx = posicion.compileIL(ctx);
+		ctx = expresion.compileIL(ctx);
+		//ctx.codeIL.append("stelem " +  index + "\n");
+		ctx.codeIL.append("stelem.i4 " + " // "+id+"\n");
+
+		//		ctx.var
 //		
 //		if(ctx.parametros.contains(id)){
 //			Integer index = ctx.parametros.indexOf(id);

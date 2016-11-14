@@ -42,7 +42,7 @@ public class Asignacion extends Sentencia {
 		ctx= expression.compileIL(ctx);
 
 		Integer index = ctx.variables.indexOf(id);
-		ctx.codeIL.append("stloc " + index + "\n");
+		ctx.codeIL.append("stloc " + index + " // "+id+"\n");
 		return ctx;
 	}
 	

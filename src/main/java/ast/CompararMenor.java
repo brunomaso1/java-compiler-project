@@ -49,9 +49,7 @@ public class CompararMenor extends Expresion {
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
 		ctx = left.compileIL(ctx);
 		ctx = right.compileIL(ctx);
-		ctx.codeIL.append("cgt " + "\n");
-		ctx.codeIL.append("ldc.i4.0 " + "\n");
-		ctx.codeIL.append("ceq " + "\n");
+		ctx.codeIL.append("clt " + "\n");
 		
 		return ctx;
 	}

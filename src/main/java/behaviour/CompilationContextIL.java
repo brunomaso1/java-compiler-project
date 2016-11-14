@@ -45,6 +45,7 @@ public class CompilationContextIL {
 		CompilationContextIL ctx = new CompilationContextIL(prog);
 		ctx.codeIL.append("// variables = "+ ctx.variables +"\n");
 		ctx.codeIL.append("// maxStack =  "+ ctx.maxStack +"\n");
+		//ctx.codeIL.append("nop \n");
 		
 		/*TODO Agregar el código IL necesario para definir el assembly, la clase
 		 * principal, método main e impresión del estado resultante de la 
@@ -62,11 +63,12 @@ public class CompilationContextIL {
 		
 		for (ParComp variable : ctx.variablesTipo) {
 			int index = ctx.variablesTipo.indexOf(variable);
-			ctx.codeIL.append("ldloc " + index + " \n");
 			if (variable.getTipo().equals("entero")){
+				ctx.codeIL.append("ldloc " + index + " \n");
 				ctx.codeIL.append("call       void [mscorlib]System.Console::WriteLine(int32) \n");			
 			}else{
 				if (variable.getTipo().equals("texto")){
+					ctx.codeIL.append("ldloc " + index + " \n");
 					ctx.codeIL.append("call       void [mscorlib]System.Console::WriteLine(string) \n");			
 				}else{
 					/*if (variable.getTipo().equals("boolean")){
@@ -89,6 +91,20 @@ public class CompilationContextIL {
 		    	}else{
 		    		if (aux.getTipo().equals("boolean")){
 			    		local += "bool V_" + i;	
+			    	}else{
+			        	if (aux.getTipo().equals("listaentero")){
+				    		local += "int32[] V_" + i;	
+				    	}else{
+				    		if (aux.getTipo().equals("listatexto")){
+					    		local += "string[] V_" + i;	
+					    	}else{
+					    		if (aux.getTipo().equals("listaboolean")){
+						    		local += "bool[] V_" + i;	
+						    	}else{
+						    		
+						    	}
+					    	}
+				    	}
 			    	}
 		    	}
 	    	}

@@ -62,9 +62,9 @@ public class Mostrar extends Sentencia {
 		String aux = (String)(exp.check(globalEstado));
 		ctx = exp.compileIL(ctx);
 		if(aux.equals("entero"))
-			ctx.codeIL.append("call void [mscorlib]System.Console::WriteLine(int32) \n");
+			ctx.codeIL.append("call       void [mscorlib]System.Console::WriteLine(int32) "+"// "+exp.toString()+"\n");
 		if(aux.equals("texto"))
-			ctx.codeIL.append("call void [mscorlib]System.Console::WriteLine(string) \n");
+			ctx.codeIL.append("call       void [mscorlib]System.Console::WriteLine(string)"+"// "+exp.toString()+"\n");
 		ctx.codeIL.append("nop \n");
 		return ctx;
 	}

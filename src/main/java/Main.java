@@ -8,6 +8,8 @@ import behaviour.*;
 public class Main {
 		
 	public static void main(String[] args) throws Exception {
+		//TODO Agregar concatener StringS!!!!!!
+		
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder source = new StringBuilder();
 		
@@ -61,6 +63,7 @@ public class Main {
 						
 			estadoChequeo = prog2.check(estadoChequeo);
 			Mostrar.globalEstado = estadoChequeo;
+			CompararIgual.globalEstado = estadoChequeo;
 			estadoChequeo.print();
 			
 			if (Errores.exceptionList.isEmpty()){
@@ -76,6 +79,12 @@ public class Main {
 			
 			System.out.println(e.toString());
 			System.out.println(e.getMessage());
-		}
+		}	
+		
+		/*try{
+        	Runtime.getRuntime().exec("cmd /c start generarExe.bat");
+        }catch(Exception e){
+        	System.out.println(e);
+        }*/
 	}
 }

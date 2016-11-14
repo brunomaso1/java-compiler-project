@@ -61,7 +61,6 @@ public class Definida extends Expresion {
 	
 	@Override
 	public Set<String> freeVariables(Set<String> vars) {
-		vars.add(var); 
 		return vars;
 	}
 	

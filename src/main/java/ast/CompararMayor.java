@@ -44,7 +44,7 @@ public class CompararMayor extends Expresion {
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
 		ctx = left.compileIL(ctx);
 		ctx = right.compileIL(ctx);
-		ctx.codeIL.append("clt " + "\n");
+		ctx.codeIL.append("cgt " + "\n");
 		
 		return ctx;
 	}

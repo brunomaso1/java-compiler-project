@@ -14,6 +14,7 @@ import behaviour.*;
 public class CompararIgual extends Expresion {
 	public final Expresion left;
 	public final Expresion right;
+	public static ChequearEstado globalEstado = new ChequearEstado();
 
 	public CompararIgual(Expresion left, Expresion right) {
 		this.left = left;
@@ -38,9 +39,18 @@ public class CompararIgual extends Expresion {
 
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
 		//TODO ojo que cuando compara string == string cambia el IL.
+		String aux = (String)(left.check(globalEstado));
+		
+		
 		ctx = left.compileIL(ctx);
 		ctx = right.compileIL(ctx);
-		ctx.codeIL.append("ceq \n");
+		if(aux.equals("entero") || aux.equals("boolean")){
+			ctx.codeIL.append("ceq \n");
+		}else{
+			if(aux.equals("texto")){
+				ctx.codeIL.append("call bool [mscorlib]System.String::op_Equality(string, string) \n");
+			}
+		}
 		return ctx;
 	}
 	

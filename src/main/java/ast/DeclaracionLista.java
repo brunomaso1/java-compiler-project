@@ -21,29 +21,22 @@ public class DeclaracionLista extends Sentencia {
 	}
 
 	@Override public Set<String> freeVariables(Set<String> vars) {
-		vars.add(id); return vars;
+		return vars;
 	}
 
 	@Override public int maxStackIL() {
-		return cantidad.maxStackIL();
+		return 3;//cantidad.maxStackIL();
 	}
 
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
-		if(ctx.parametros.contains(id)){
-			Integer index = ctx.parametros.indexOf(id);
-			ctx.codeIL.append("ldarg " +  index + "\n");
-			return ctx;
-		}	
-		if(ctx.parametros.contains(id)){
-			Integer index = ctx.parametros.indexOf(id);
-			ctx.codeIL.append("ldarg " +  index + "\n");
-			return ctx;
-		}	
-		if(!ctx.variables.contains(id)){
-			ctx.variables.add(id);
-		}	
+		ctx.variables.add(id);
+		ctx.variablesTipo.add(new ParComp(id,"lista"+tipo.toString().toLowerCase()));
+		
+		
+		ctx = cantidad.compileIL(ctx);
+		ctx.codeIL.append("newarr     [mscorlib]System.Int32 "+" // "+id+"\n");
 		Integer index = ctx.variables.indexOf(id);
-		ctx.codeIL.append("ldloc " +  index + "\n");
+		ctx.codeIL.append("stloc " +  index + " // "+id+"\n");
 		return ctx;
 	}
 	

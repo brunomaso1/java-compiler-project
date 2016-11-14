@@ -119,7 +119,7 @@ import java.io.*;
 	{ return new Symbol(CANTIDAD, yyline, yycolumn, yytext()); }
 "posicion"
 	{ return new Symbol(POSICION, yyline, yycolumn, yytext()); }
-"obtener posicion"
+"obtenerPosicion"
 	{ return new Symbol(OBTENER_POSICION, yyline, yycolumn, yytext()); }
 "en"
 	{ return new Symbol(EN, yyline, yycolumn, yytext()); }
@@ -138,7 +138,7 @@ import java.io.*;
 	{ String $1 = yytext(); String $0;
 	  $0 = $1;
 	  return new Symbol(IDFUNC, yyline, yycolumn, $0); }
-(\"([^\"\\n]|\\[^\n])*\")
+(\"([^\"\\\n]|\\[^\n])*\")
 	{ String $1 = yytext(); String $0 = String.valueOf($1); $0 = $0.substring(1,$0.length()-1);
 	  return new Symbol(STRING, yyline, yycolumn, $0); }
 [ \t\r\n\f\v]+
