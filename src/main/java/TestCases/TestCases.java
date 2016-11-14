@@ -14,6 +14,8 @@ public class TestCases {
 	private static String VARIABLE_A_TESTEAR_SEGUNDA = "$variable2";
 	private static Expresion NUMERAL_A_TESTEAR = new Numeral(5.0);
 	private static Expresion NUMERAL_A_TESTEAR_SEGUNDA = new Numeral(6.0);
+	private static Expresion TEXTO_A_TESTEAR = new Texto("hola");
+	private static Expresion TEXTO_A_TESTEAR_SEGUNDA = new Texto("hola");
 	private static Expresion BOOLEAN_VERDADERO_A_TESTEAR = new ValorVerdad(true);
 	private static Expresion BOOLEAN_FALSO_A_TESTEAR = new ValorVerdad(false);
 	
@@ -49,6 +51,8 @@ public class TestCases {
 		assertNotNull(unaDeclaracion);
 		assertFalse(unaDeclaracion.equals(resultado));
 	}
+	
+
 	
 	@Test
 	public void testDeclaracionTiposDistintos() throws Exception {
