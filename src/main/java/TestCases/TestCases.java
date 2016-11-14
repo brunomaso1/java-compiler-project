@@ -346,7 +346,6 @@ public class TestCases {
 		Par parAValidar5 = estadoAChequear.devolverValor("$variable5");
 		Par parAValidar6 = estadoAChequear.devolverValor("$variable6");
 		Par parAValidar7 = estadoAChequear.devolverValor("$variable7");
-//		Par parAValidar8 = estadoChequearMientras.devolverValor("");
 		
 		
 		
@@ -357,7 +356,6 @@ public class TestCases {
 		assertNotNull(parAValidar5);
 		assertNotNull(parAValidar6);
 		assertNotNull(parAValidar7);
-//		assertNotNull(parAValidar8);
 		
 		assertTrue(parAValidar.getTipo().equals(variable.tipo.toString().toLowerCase()));
 		assertTrue(parAValidar2.getTipo().equals(variableDos.tipo.toString().toLowerCase()));
@@ -366,11 +364,4 @@ public class TestCases {
 		assertTrue(parAValidar5.getTipo().equals(variableCinco.tipo.toString().toLowerCase()));
 		assertTrue(parAValidar6.getTipo().equals(variableSeis.tipo.toString().toLowerCase()));
 	}
-	
-	
-// optimization de 2+3 hacer que me de un numeral de 5 siempre.
-//{ crearLista $l1 tipo entero cantidad 3. poner 4 en $l1 posicion 1. poner 3 en $l1 posicion 2. poner 8 en $l1 posicion 3. }	
-//{ crearLista $l1 tipo entero cantidad 3. poner 4 en $l1 posicion 0. poner 3 en $l1 posicion 1. poner 8 en $l1 posicion 2. }
-//{ crearLista $l1 tipo entero cantidad 3. poner 4 en $l1 posicion -0. poner 3 en $l1 posicion -1. poner 8 en $l1 posicion -2.}
-
 }

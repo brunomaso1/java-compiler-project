@@ -47,12 +47,25 @@ public class LlamarFuncion extends Sentencia {
 	}
 
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
-		//ctx= expression.compileIL(ctx);
-
-		//Integer index = ctx.variables.indexOf(id);
-		//ctx.codeIL.append("stloc." + index + "\n");
+		ctx.codeIL.append("ldarg.0"+"\n");	
+		for (Expresion expresion : parametros) {
+			if(expresion instanceof Numeral){
+				ctx.codeIL.append("ldc.i4.s "+ ((Numeral)expresion).number.intValue() +"\n");
+			}else{
+				ctx= expresion.compileIL(ctx);	
+			}			
+		}
+		ctx.codeIL.append("call UserQuery."+ id+ "\n");
+		
+		Integer index = ctx.variables.indexOf(resultado.id);
+		ctx.codeIL.append("stloc." + index + "\n");
+		
 		return ctx;
+		
+		
 	}
+	
+	
 	@Override public LlamarFuncion optimization(Estado state){		
 		Expresion[] aux = new Expresion[parametros.length]; 
 		
@@ -87,23 +100,6 @@ public class LlamarFuncion extends Sentencia {
 		LlamarFuncion other = (LlamarFuncion)obj;
 		return (this.id == null ? other.id == null : this.id.equals(other.id)) && Arrays.equals(this.parametros, other.parametros) && (this.resultado.equals(other.resultado));
 	}
-
-	/*public static LlamarFuncion generate(Random random, int min, int max) {
-		String id; 
-		id = ""+"abcdefghijklmnopqrstuvwxyz".charAt(random.nextInt(26));
-		Expresion[] parametros;
-		parametros = new Expresion[random.nextInt(Math.max(0, max)+1)];
-		for (int i = 0; i < parametros.length; i++) {
-			parametros[i] = Expresion.generate(random, min-1, max-1);
-		}
-		
-		Variable resultado;
-		String idVar; 
-		idVar = ""+"abcdefghijklmnopqrstuvwxyz".charAt(random.nextInt(26));
-		resultado = new Variable(idVar);
-		
-		return new LlamarFuncion(id,parametros,resultado);	
-	}*/
 	
 	@Override public ChequearEstado check(ChequearEstado checkstate){
 		ParFunc parFunc = checkstate.devolverValorFunc(id);

@@ -37,10 +37,6 @@ public class Funcion extends Definicion {
 		return text;
 	}
 
-	/*@Override public Estado evaluate(Estado state) {
-		return state;
-	}*/
-
 	@Override public Set<String> freeVariables(Set<String> vars) {
 		for (Parametro parametro : parametros) vars = parametro.freeVariables(vars);
 		vars = cuerpo.freeVariables(vars);

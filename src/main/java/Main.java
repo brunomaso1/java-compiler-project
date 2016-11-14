@@ -15,7 +15,7 @@ public class Main {
 		
 		ChequearEstado estadoChequeo = new ChequearEstado();
 		
-		/*String intro = new String("Bienvenidos al compilador de EASY_LANGUAGE!\n"+"Por favor, ingrese sus funciones.");
+		String intro = new String("Bienvenidos al compilador de EASY_LANGUAGE!\n"+"Por favor, ingrese sus funciones.");
 		System.out.println(intro);
 		System.out.print("> ");
 		
@@ -23,7 +23,6 @@ public class Main {
 			source.append(line).append("\n");
 		} 
 			
-		ChequearEstado estadoChequeo = new ChequearEstado();
 		try {
 					
 			Definicion prog = (Definicion)(Parser.parse(source.toString()).value);
@@ -37,14 +36,11 @@ public class Main {
 			}else{
 				Errores.imprimirErrores();
 			}
-			//PrintWriter out = new PrintWriter("src\\main\\result\\compilador.il");
-			//out.print(il);
-			//out.close();
 		}catch (Exception e) {
 			
 			System.out.println(e.toString());
 			System.out.println(e.getMessage());
-		}*/
+		}
 		
 		BufferedReader inStmt = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sourceStmt = new StringBuilder();
