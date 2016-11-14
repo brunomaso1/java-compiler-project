@@ -6,13 +6,7 @@ import behaviour.*;
 
 import java.io.*;
 
-/**
- * Representacion de la condicion logica Si->Entonces.
- *
- * @author Grupo_9
- * @version 0.0.1
- * @date 30 oct. 2016
- */
+
 public class SiEntonces extends Sentencia {
 	public final Expresion condition;
 	public final Sentencia thenBody;
@@ -80,15 +74,7 @@ public class SiEntonces extends Sentencia {
 		SiEntonces other = (SiEntonces)obj;
 		return (this.condition == null ? other.condition == null : this.condition.equals(other.condition))
 			&& (this.thenBody == null ? other.thenBody == null : this.thenBody.equals(other.thenBody));
-			//&& (this.elseBody == null ? other.elseBody == null : this.elseBody.equals(other.elseBody));
 	}
-
-	/*public static SiEntonces generate(Random random, int min, int max) {
-		Expresion condition; Sentencia thenBody;
-		condition = Expresion.generate(random, min-1, max-1);
-		thenBody = Sentencia.generate(random, min-1, max-1);
-		return new SiEntonces(condition, thenBody);
-	}*/
 
 	@Override public ChequearEstado check(ChequearEstado checkstate){
 		if (condition.check(checkstate).equals("boolean")){

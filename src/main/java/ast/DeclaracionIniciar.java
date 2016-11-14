@@ -66,9 +66,7 @@ public class DeclaracionIniciar extends Sentencia{
 	
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
 		ctx.variables.add(id);
-		
 		ctx= expresion.compileIL(ctx);
-
 		Integer index = ctx.variables.indexOf(id);
 		ctx.codeIL.append("stloc " + index + "\n");
 		return ctx;

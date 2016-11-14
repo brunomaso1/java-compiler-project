@@ -6,13 +6,7 @@ import behaviour.*;
 
 import java.io.*;
 
-/**
- * Representacion de los bucles.
- *
- * @author Grupo_9
- * @version 0.0.1
- * @date 30 oct. 2016
- */
+
 public class MientrasHacer extends Sentencia {
 	public final Expresion condition;
 	public final Sentencia body;
@@ -25,13 +19,6 @@ public class MientrasHacer extends Sentencia {
 	@Override public String unparse() {
 		return "Mientras "+ condition.unparse() +" hacer { "+ body.unparse() +" }";
 	}
-
-	/*@Override public Estado evaluate(Estado state) {
-		while((Boolean) condition.evaluate(state)){
-			state = body.evaluate(state);
-		}
-		return state;
-	}*/	
 
 	@Override public Set<String> freeVariables(Set<String> vars) {
 		vars = condition.freeVariables(vars); return body.freeVariables(vars);
@@ -59,21 +46,39 @@ public class MientrasHacer extends Sentencia {
 	
 	@Override public Sentencia optimization(Estado state) {
 		Expresion con = condition.optimization(state);
+		Estado copiaEstadoAntes = state;
 		Sentencia bodyWhile = body.optimization(state);
+		Estado copiaBodyWhile = state;
 		
 		if(con instanceof ValorVerdad){
 			if(!((ValorVerdad)con).value){
 				return new Secuencia(new Sentencia[0]);
+			}else{
+				ArrayList<String> clavesBodyWhile = copiaEstadoAntes.devolverClaves();
+				Estado resultado = new Estado();
+				String var;
+				for (int i = 0; i< clavesBodyWhile.size();i++) {
+					var = clavesBodyWhile.get(i);
+					if (copiaEstadoAntes.get(var) == copiaBodyWhile.get(var)) {
+						resultado.set(var, copiaEstadoAntes.get(var));
+					}
+				}
+				state = resultado;
+				return new MientrasHacer(con, bodyWhile);
+			}	
+		}else{
+			ArrayList<String> clavesBodyWhile = copiaEstadoAntes.devolverClaves();
+			Estado resultado = new Estado();
+			String var;
+			for (int i = 0; i< clavesBodyWhile.size();i++) {
+				var = clavesBodyWhile.get(i);
+				if (copiaEstadoAntes.get(var) == copiaBodyWhile.get(var)) {
+					resultado.set(var, copiaEstadoAntes.get(var));
+				}
 			}
+			state = resultado;
+			return new MientrasHacer(con, bodyWhile);
 		}
-		//return new MientrasHacer(con,bodyWhile); 
-		//TODO revisar mientras hacer
-		/*Estado newStateVacio = new Estado();
-		bExpCondition = condition.optimization(newStateVacio);
-		Sentencia stmtBodyOpt = body.optimization(newStateVacio);
-		state.estado.clear();//Porque no sabemos cuales constantes se invalidaron dentro del cuerpo del while.
-		*/
-		return new MientrasHacer(con, bodyWhile);
 	}
 
 	@Override public String toString() {
@@ -94,22 +99,13 @@ public class MientrasHacer extends Sentencia {
 		return (this.condition == null ? other.condition == null : this.condition.equals(other.condition))
 			&& (this.body == null ? other.body == null : this.body.equals(other.body));
 	}
-
-	/*public static MientrasHacer generate(Random random, int min, int max) {
-		Expresion condition; Sentencia body; 
-		condition = Expresion.generate(random, min-1, max-1);
-		body = Sentencia.generate(random, min-1, max-1);
-		return new MientrasHacer(condition, body);
-	}*/
 	
 	@Override public ChequearEstado check(ChequearEstado checkstate){
 		if (condition.check(checkstate).equals("boolean")){
 			return body.check(checkstate);
 		}else{
-			Errores.exceptionList.add(new Errores("Mientras \"" + condition.toString() + "\" condicion no booleana."));
-			
+			Errores.exceptionList.add(new Errores("Mientras \"" + condition.toString() + "\" condicion no booleana."));	
 		}
-			
 		return checkstate;
 	}
 }

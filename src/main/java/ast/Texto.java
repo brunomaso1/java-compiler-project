@@ -32,17 +32,6 @@ public class Texto extends Expresion{
 		Texto other = (Texto)obj;
 		return (this.str == null ? other.str == null : this.str.equals(other.str));
 	}
-
-	/*public static Texto generate(Random random, int min, int max) {
-		String str; 
-		str = "String generado aleatoreamente.";
-		return new Texto(str);
-	}*/
-
-	/*@Override
-	public Object evaluate(Estado state) {
-		return new String(str);
-	}*/
 	
 	@Override
 	public Object check(ChequearEstado checkstate) {

@@ -20,10 +20,6 @@ public class DeclaracionLista extends Sentencia {
 		return "lista "+tipo.toString()+" "+id+"["+cantidad+"]";
 	}
 
-	/*@Override public Estado evaluate(Estado state) {
-		return null;//state.get(id);
-	}*/
-
 	@Override public Set<String> freeVariables(Set<String> vars) {
 		vars.add(id); return vars;
 	}
@@ -38,9 +34,6 @@ public class DeclaracionLista extends Sentencia {
 			ctx.codeIL.append("ldarg " +  index + "\n");
 			return ctx;
 		}	
-		
-		
-		
 		if(ctx.parametros.contains(id)){
 			Integer index = ctx.parametros.indexOf(id);
 			ctx.codeIL.append("ldarg " +  index + "\n");
@@ -56,28 +49,19 @@ public class DeclaracionLista extends Sentencia {
 	
 	@Override public Sentencia optimization(Estado state){
 		Expresion optCant = cantidad.optimization(state);
-		
-		//TODO agregar a lista de funciones en state???
 		if (optCant instanceof Numeral){
 			if (((Numeral)optCant).number > 0){
 				Double aux = ((Numeral)optCant).number;
 				int aux2 = Integer.parseInt(aux.toString());
 				Object[] objetos = new Object[aux2];
-				
 				ParLista parLista = new ParLista(objetos,tipo);				
 				state.setLista(id, parLista);
-				
 			}else{
-				
 				Errores.exceptionList.add(new Errores("Declaracion Lista cantidad \"" + optCant.toString() + "\" debe ser mayor que 0."));			
 			}
-	
 		}else{
-			
 			Errores.exceptionList.add(new Errores("Declaracion Lista cantidad \"" + optCant.toString() + "\" deber ser numerica."));
-			
 		}
-	
 		return new DeclaracionLista(id, tipo, optCant);
 	}
 
@@ -97,12 +81,6 @@ public class DeclaracionLista extends Sentencia {
 		Variable other = (Variable)obj;
 		return (this.id == null ? other.id == null : this.id.equals(other.id));
 	}
-
-	/*public static DeclaracionLista generate(Random random, int min, int max) {
-		//String id; 
-		//id = ""+"abcdefghijklmnopqrstuvwxyz".charAt(random.nextInt(26));
-		return null;//new Variable(id);
-	}*/
 	
 	@Override public ChequearEstado check(ChequearEstado checkstate){
 		if (!(cantidad.check(checkstate).equals("entero"))) {
