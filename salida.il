@@ -61,7 +61,7 @@
   {
     .entrypoint
     // Code size       39 (0x27)
-    .maxstack  3
+    .maxstack  4
     .locals init (int32[] V_0,int32 V_1,int32 V_2)
 
 	// variables = []
