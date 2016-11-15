@@ -15,7 +15,7 @@ public class Main {
 		
 		ChequearEstado estadoChequeo = new ChequearEstado();
 		
-		String intro = new String("Bienvenidos al compilador de EASY_LANGUAGE!\n"+"Por favor, ingrese sus funciones.");
+		/*String intro = new String("Bienvenidos al compilador de EASY_LANGUAGE!\n"+"Por favor, ingrese sus funciones.");
 		System.out.println(intro);
 		System.out.print("> ");
 		
@@ -40,7 +40,7 @@ public class Main {
 			
 			System.out.println(e.toString());
 			System.out.println(e.getMessage());
-		}
+		}*/
 		
 		BufferedReader inStmt = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sourceStmt = new StringBuilder();

@@ -4,13 +4,7 @@ import java.util.*;
 
 import behaviour.*;
 
-/**
- * Representacion de las asignaciones de valores a variables.
- *
- * @author Grupo_9
- * @version 0.0.1
- * @date 30 oct. 2016
- */
+
 public class LlamarFuncion extends Sentencia {
 	public final String id;
 	public final Expresion[] parametros;
@@ -34,10 +28,6 @@ public class LlamarFuncion extends Sentencia {
 		return text;
 	}
 
-	/*@Override public Estado evaluate(Estado state) {
-		return state;
-	}*/
-
 	@Override public Set<String> freeVariables(Set<String> vars) {
 		return vars;
 	}
@@ -55,14 +45,10 @@ public class LlamarFuncion extends Sentencia {
 				ctx= expresion.compileIL(ctx);	
 			}			
 		}
-		ctx.codeIL.append("call UserQuery."+ id+ "\n");
-		
+		ctx.codeIL.append("call UserQuery."+ id+ "\n");		
 		Integer index = ctx.variables.indexOf(resultado.id);
 		ctx.codeIL.append("stloc." + index + "\n");
-		
-		return ctx;
-		
-		
+		return ctx;	
 	}
 	
 	

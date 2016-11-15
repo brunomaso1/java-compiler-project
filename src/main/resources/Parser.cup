@@ -59,6 +59,7 @@ terminal SIGNO_Y;
 terminal SIGNO_MENOR_IGUAL;
 terminal SIGNO_MAYOR;
 terminal SIGNO_MENOR;
+terminal CONCATENAR;
 
 non terminal List<Sentencia> repeat$stmt;
 non terminal List<Parametro> repeat$param;
@@ -97,6 +98,7 @@ precedence left SIGNO_MENOR_IGUAL;
 precedence left SIGNO_MAYOR_IGUAL;
 precedence left SIGNO_MENOR;
 precedence left SIGNO_MAYOR;
+precedence left CONCATENAR;
 
 start with prog;
 
@@ -199,6 +201,8 @@ exp ::=
 		{: RESULT = new Definida($3); :}	
 	|	OBTENER_POSICION:$1 exp:$2 ID:$3
 		{: RESULT = new ObtenerLista($3,$2); :}
+	| exp:$1 CONCATENAR:$2 exp:$3 
+		{: RESULT = new Concatenar($1,$3); :}
 ;
 
 repeat$stmt ::=

@@ -4,13 +4,6 @@ import java.util.*;
 
 import behaviour.CompilationContextIL;
 
-/**
- * Representacion de las asignaciones de valores a variables.
- *
- * @author Grupo_9
- * @version 0.0.1
- * @date 30 oct. 2016
- */
 public class Asignacion extends Sentencia {
 	public final String id;
 	public final Expresion expression;
