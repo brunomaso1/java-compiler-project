@@ -1,4 +1,3 @@
-
 import java.io.*;
 
 import ast.*;
@@ -8,9 +7,7 @@ import behaviour.*;
 public class Main {
 		
 	public static void main(String[] args) throws Exception {
-		//TODO Agregar concatener StringS!!!!!! (mauri, masoller).
-		//TODO Definir más de una función -> llamar n veces el readkey(). 
-			   //NO hacer con un SequenciaDefinicion, por tema de checkestate.
+		//TODO Agregar concatener StringS!!!!!!
 		
 		String funcionesIL = "";
 		

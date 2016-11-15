@@ -71,6 +71,8 @@ import java.io.*;
 	{ return new Symbol(SIGNO_IGUAL, yyline, yycolumn, yytext()); }
 "poner"
 	{ return new Symbol(PONER, yyline, yycolumn, yytext()); }
+"concatenar"
+	{ return new Symbol(CONCATENAR, yyline, yycolumn, yytext()); }
 "en"
 	{ return new Symbol(EN, yyline, yycolumn, yytext()); }
 "hacer"

@@ -4,13 +4,7 @@ import java.util.*;
 
 import behaviour.*;
 
-/**
- * Representacion de las asignaciones de valores a variables.
- *
- * @author Grupo_9
- * @version 0.0.1
- * @date 30 oct. 2016
- */
+
 public class LlamarFuncion extends Sentencia {
 	public final String id;
 	public final Expresion[] parametros;
