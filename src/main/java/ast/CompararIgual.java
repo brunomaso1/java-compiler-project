@@ -39,6 +39,8 @@ public class CompararIgual extends Expresion {
 
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
 		//TODO ojo que cuando compara string == string cambia el IL.
+		//resuelto.
+		
 		String aux = (String)(left.check(globalEstado));
 		
 		

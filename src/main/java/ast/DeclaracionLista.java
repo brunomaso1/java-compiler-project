@@ -9,7 +9,7 @@ public class DeclaracionLista extends Sentencia {
 	public final String id;
 	public final Tipo tipo;
 	public final Expresion cantidad;
-
+	
 	public DeclaracionLista(String id, Tipo tipo, Expresion cantidad) {
 		this.id = id;
 		this.tipo = tipo;
@@ -34,7 +34,17 @@ public class DeclaracionLista extends Sentencia {
 		
 		
 		ctx = cantidad.compileIL(ctx);
-		ctx.codeIL.append("newarr     [mscorlib]System.Int32 "+" // "+id+"\n");
+		if(tipo.toString().toLowerCase().equals("entero")){
+			ctx.codeIL.append("newarr     [mscorlib]System.Int32 "+" // "+id+"\n");
+		}else{
+			if(tipo.toString().toLowerCase().equals("texto")){
+				ctx.codeIL.append("newarr     [mscorlib]System.String "+" // "+id+"\n");
+			}else{
+				if(tipo.toString().toLowerCase().equals("boolean")){
+					ctx.codeIL.append("newarr     [mscorlib]System.Boolean "+" // "+id+"\n");
+				}
+			}
+		}
 		Integer index = ctx.variables.indexOf(id);
 		ctx.codeIL.append("stloc " +  index + " // "+id+"\n");
 		return ctx;

@@ -15,7 +15,9 @@ public class LlamarFuncion extends Sentencia {
 	public final String id;
 	public final Expresion[] parametros;
 	public final Variable resultado;
-
+	
+	public static ChequearEstado globalEstado = new ChequearEstado();
+	
 	public LlamarFuncion(String id, Expresion[] parametros, Variable resultado) {
 		this.id = id;
 		this.parametros = parametros;
@@ -47,15 +49,54 @@ public class LlamarFuncion extends Sentencia {
 	}
 
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
-		ctx.codeIL.append("ldarg.0"+"\n");	
+		//ctx.codeIL.append("ldarg.0"+"\n");	
 		for (Expresion expresion : parametros) {
-			if(expresion instanceof Numeral){
-				ctx.codeIL.append("ldc.i4.s "+ ((Numeral)expresion).number.intValue() +"\n");
-			}else{
+			//if(expresion instanceof Numeral){
+				
+				
+			//	ctx.codeIL.append("ldc.i4.s "+ ((Numeral)expresion).number.intValue() +"\n");
+			//}else{
 				ctx= expresion.compileIL(ctx);	
-			}			
+			//}			
 		}
-		ctx.codeIL.append("call UserQuery."+ id+ "\n");
+		
+		//String callFunc = "call		int32 easyLanguage.Program::Suma(int32,int32)";
+		String callFunc = "call		#tipoRetorno# easyLanguage.Program::#nombreFuncion#(#tipoParametros#)";
+		
+		String tipoRetorno = "";
+		String aux = (String)(resultado.check(globalEstado));
+		if(aux.equals("entero"))
+			tipoRetorno = "int32";
+		if(aux.equals("texto"))
+			tipoRetorno = "String";
+		if(aux.equals("boolean"))
+			tipoRetorno = "Boolean";
+		
+		callFunc = callFunc.replace("#tipoRetorno#", tipoRetorno);
+		
+		callFunc = callFunc.replace("#nombreFuncion#", id.replace("%", ""));
+		
+		String tipoParametros = "";
+		
+		for (Expresion expresion : parametros) {
+			String auxParam = (String)(expresion.check(globalEstado));
+			if(auxParam.equals("entero"))
+				tipoParametros += "int32,";
+			if(auxParam.equals("texto"))
+				tipoRetorno += "String,";
+			if(auxParam.equals("boolean"))
+				tipoRetorno += "Boolean,";	
+		}
+		if(tipoParametros.length()>0){
+			tipoParametros = tipoParametros.substring(0,tipoParametros.length()-1);
+		}
+			
+		
+		callFunc = callFunc.replace("#tipoParametros#", tipoParametros);
+		
+		
+		
+		ctx.codeIL.append(callFunc+ "\n");
 		
 		Integer index = ctx.variables.indexOf(resultado.id);
 		ctx.codeIL.append("stloc." + index + "\n");

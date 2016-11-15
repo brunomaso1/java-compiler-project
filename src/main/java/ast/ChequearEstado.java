@@ -20,7 +20,10 @@ public class ChequearEstado {
 	public ParFunc devolverValorFunc(String funcName) {
 		return funciones.get(funcName);
 	}
-	public void borrar() {
+	/*public HashMap<String, Par> getState() {
+		return state;
+	}*/
+	public void borrar(){
 		state.clear();
 	}
 	public void remover(String nombre) {
@@ -32,6 +35,21 @@ public class ChequearEstado {
 	public void agregarFunc(String nombre, ParFunc par) {
 		funciones.put(nombre, par);
 	}
+	
+	public HashMap<String, ParFunc> getFunciones() {
+		return funciones;
+	}
+	public void setFunciones(HashMap<String, ParFunc> funciones) {
+		this.funciones = funciones;
+	}
+	public boolean tieneVariables() {
+		if (state.size()>0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 	public ArrayList<String> devolverClaves() {
 	   ArrayList<String> l = new ArrayList<String>(state.keySet());
 	   return l;

@@ -8,7 +8,11 @@ import behaviour.*;
 public class Main {
 		
 	public static void main(String[] args) throws Exception {
-		//TODO Agregar concatener StringS!!!!!!
+		//TODO Agregar concatener StringS!!!!!! (mauri, masoller).
+		//TODO Definir más de una función -> llamar n veces el readkey(). 
+			   //NO hacer con un SequenciaDefinicion, por tema de checkestate.
+		
+		String funcionesIL = "";
 		
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder source = new StringBuilder();
@@ -28,11 +32,20 @@ public class Main {
 			Definicion prog = (Definicion)(Parser.parse(source.toString()).value);
 						
 			estadoChequeo = prog.check(estadoChequeo);
+			Mostrar.globalEstado = estadoChequeo;
+			CompararIgual.globalEstado = estadoChequeo;
+			LlamarFuncion.globalEstado = estadoChequeo;
+			
 			estadoChequeo.print();
 			
 			if (Errores.exceptionList.isEmpty()){
-				String il = CompilationContextIL.compileIL(prog);
-				System.out.println(il);
+				funcionesIL = CompilationContextIL.compileIL(prog);
+				System.out.println("==========" );
+
+				System.out.println(funcionesIL);
+				
+				System.out.println("==========");
+
 			}else{
 				Errores.imprimirErrores();
 			}
@@ -41,6 +54,8 @@ public class Main {
 			System.out.println(e.toString());
 			System.out.println(e.getMessage());
 		}
+		
+		estadoChequeo.borrar();
 		
 		BufferedReader inStmt = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sourceStmt = new StringBuilder();
@@ -60,10 +75,13 @@ public class Main {
 			estadoChequeo = prog2.check(estadoChequeo);
 			Mostrar.globalEstado = estadoChequeo;
 			CompararIgual.globalEstado = estadoChequeo;
+			LlamarFuncion.globalEstado = estadoChequeo;
+			
+			
 			estadoChequeo.print();
 			
 			if (Errores.exceptionList.isEmpty()){
-				String il = CompilationContextIL.compileIL(prog2);
+				String il = CompilationContextIL.compileIL(prog2,funcionesIL);
 				System.out.println(il);
 			}else{
 				Errores.imprimirErrores();

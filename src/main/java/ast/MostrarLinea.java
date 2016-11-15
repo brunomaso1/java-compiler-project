@@ -6,20 +6,20 @@ import behaviour.CompilationContextIL;
 
 /** Función Imprimir.
 */
-public class Mostrar extends Sentencia {
+public class MostrarLinea extends Sentencia {
 	public final Expresion exp;
 	public static ChequearEstado globalEstado = new ChequearEstado();
 
-	public Mostrar(Expresion exp) {
+	public MostrarLinea(Expresion exp) {
 		this.exp = exp;
 	}
 
 	@Override public String unparse() {
-		return "mostrar "+ exp.unparse()+" }";
+		return "mostrarLinea "+ exp.unparse()+" }";
 	}
 
 	@Override public String toString() {
-		return "Mostrar("+ exp +")";
+		return "MostrarLinea("+ exp +")";
 	}
 
 	@Override public int hashCode() {
@@ -31,7 +31,7 @@ public class Mostrar extends Sentencia {
 	@Override public boolean equals(Object obj) {
 		if (this == obj) return true;
 		if (obj == null || getClass() != obj.getClass()) return false;
-		Mostrar other = (Mostrar)obj;
+		MostrarLinea other = (MostrarLinea)obj;
 		return (this.exp == null ? other.exp == null : this.exp.equals(other.exp));
 	}
 
@@ -62,9 +62,9 @@ public class Mostrar extends Sentencia {
 		String aux = (String)(exp.check(globalEstado));
 		ctx = exp.compileIL(ctx);
 		if(aux.equals("entero"))
-			ctx.codeIL.append("call       void [mscorlib]System.Console::Write(int32) "+"// "+exp.toString()+"\n");
+			ctx.codeIL.append("call       void [mscorlib]System.Console::WriteLine(int32) "+"// "+exp.toString()+"\n");
 		if(aux.equals("texto"))
-			ctx.codeIL.append("call       void [mscorlib]System.Console::Write(string)"+"// "+exp.toString()+"\n");
+			ctx.codeIL.append("call       void [mscorlib]System.Console::WriteLine(string)"+"// "+exp.toString()+"\n");
 		ctx.codeIL.append("nop \n");
 		return ctx;
 	}
@@ -73,14 +73,14 @@ public class Mostrar extends Sentencia {
 	public Sentencia optimization(Estado state) {
 		Expresion aux = exp.optimization(state);
 		
-		return new Mostrar(aux);
+		return new MostrarLinea(aux);
 	}	
 	
 	@Override public ChequearEstado check(ChequearEstado checkstate){
 		
 		if (!((exp.check(checkstate).equals("entero")) || (exp.check(checkstate).equals("texto")))){
 		
-			Errores.exceptionList.add(new Errores("Mostrar \"" + exp.toString()+ "\" no es texto ni numerico."));
+			Errores.exceptionList.add(new Errores("MostrarLinea \"" + exp.toString()+ "\" no es texto ni numerico."));
 		}	
 		return checkstate;
 	}

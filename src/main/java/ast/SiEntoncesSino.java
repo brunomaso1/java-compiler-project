@@ -104,6 +104,7 @@ public class SiEntoncesSino extends Sentencia {
 					resultado.agregar(z, a.devolverValor(z));
 				}
 			}
+			resultado.setFunciones(checkstate.getFunciones());
 			return resultado;					
 		}else{
 			Errores.exceptionList.add(new Errores("SiEntoncesSino Condicion \"" + condition.toString() + "\" no es booleana"));

@@ -75,6 +75,7 @@ terminal SIGNO_MAYOR_IGUAL;
 terminal LLAMAR;
 terminal PONER_EN;
 terminal MOSTRAR;
+terminal MOSTRAR_LINEA;
 terminal LARGO;
 terminal DEFINIDA;
 terminal Tipo TIPO;
@@ -143,6 +144,8 @@ stmt ::=
 		{: RESULT = new LlamarFuncion($2,$4.toArray(new Expresion[$4.size()]),new Variable($6)); :}		
 	|	MOSTRAR:$1 PARENTESIS_IZQUIERDO:$2 exp:$3 PARENTESIS_DERECHO:$4 PUNTO:$5
 		{: RESULT = new Mostrar($3); :}
+	|	MOSTRAR_LINEA:$1 PARENTESIS_IZQUIERDO:$2 exp:$3 PARENTESIS_DERECHO:$4 PUNTO:$5
+		{: RESULT = new MostrarLinea($3); :}
 	|	CREAR_VARIABLE:$1 ID:$2 SIM_TIPO:$3 TIPO:$4 PUNTO:$5
 		{: RESULT = new Declaracion($2,$4); :}
 	|	CREAR_LISTA:$1 ID:$2 SIM_TIPO:$3 TIPO:$4 CANTIDAD:$5 exp:$6 PUNTO:$7
