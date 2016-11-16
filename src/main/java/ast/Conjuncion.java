@@ -1,12 +1,13 @@
+/**
+ * Universidad Catolica - Compiladores - Obligatorio.
+ */
 package ast;
 
 import java.util.*;
-
 import behaviour.*;
 
 /**
  * Representacion de conjunciones booleanas.
- *
  * @author Grupo_9
  * @version 0.0.1
  * @date 30 oct. 2016
@@ -15,6 +16,11 @@ public class Conjuncion extends Expresion {
 	public final Expresion left;
 	public final Expresion right;
 
+	/**
+	 * Constructor de la clase.
+	 * @param left
+	 * @param right
+	 */
 	public Conjuncion(Expresion left, Expresion right) {
 		this.left = left;
 		this.right = right;
@@ -23,16 +29,6 @@ public class Conjuncion extends Expresion {
 	@Override public String unparse() {
 		return "("+ left.unparse() +" & "+ right.unparse() +")";
 	}
-
-	/*@Override
-	public Object evaluate(Estado state) {
-		if ((left.evaluate(state) instanceof Boolean) & (right.evaluate(state) instanceof Boolean))
-			return new Boolean((Boolean)left.evaluate(state) && (Boolean)right.evaluate(state));
-		else {
-			System.out.print("Estas haciendo una conjuncion mal. Nuemro1 -> " + left.evaluate(state) + " Numero2 -> " + right.evaluate(state));
-			return null;
-		}
-	}*/
 
 	@Override public Set<String> freeVariables(Set<String> vars) {
 		return right.freeVariables(left.freeVariables(vars));
@@ -49,6 +45,11 @@ public class Conjuncion extends Expresion {
 		return ctx;
 	}
 	
+	/**
+	 * Optimizaciones:
+	 * - Simplificaciones algebraicas.
+	 * - Pliegue de constantes.
+	 */
 	@Override public Expresion optimization(Estado state){
 		Expresion izq = left.optimization(state);
 		Expresion der = right.optimization(state);
@@ -86,13 +87,6 @@ public class Conjuncion extends Expresion {
 		return (this.left == null ? other.left == null : this.left.equals(other.left))
 			&& (this.right == null ? other.right == null : this.right.equals(other.right));
 	}
-
-	/*public static Conjuncion generate(Random random, int min, int max) {
-		Expresion left; Expresion right; 
-		left = Expresion.generate(random, min-1, max-1);
-		right = Expresion.generate(random, min-1, max-1);
-		return new Conjuncion(left, right);
-	}*/
 	
 	@Override
 	public Object check(ChequearEstado checkstate) {

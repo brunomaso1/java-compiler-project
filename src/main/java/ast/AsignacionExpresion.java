@@ -1,14 +1,24 @@
+/**
+ * Universidad Catolica - Compiladores - Obligatorio.
+ */
 package ast;
 
 import java.util.*;
-
 import behaviour.CompilationContextIL;
 
-/** Representación de las asignaciones de valores a variables.
-*/
+/**
+ * Representacion de las asignaciones dentro de las expresiones.
+ * @author Grupo_9
+ * @version 0.0.1
+ * @date 16 nov. 2016
+ */
 public class AsignacionExpresion extends Expresion {
 	public final Sentencia assigment;
 
+	/**
+	 * Constructor de la clase.
+	 * @param assigment
+	 */
 	public AsignacionExpresion(Sentencia assigment) {
 		this.assigment = assigment;
 	}
@@ -33,30 +43,14 @@ public class AsignacionExpresion extends Expresion {
 		AsignacionExpresion other = (AsignacionExpresion)obj;
 		return (this.assigment == null ? other.assigment == null : this.assigment.equals(other.assigment));
 	}
-
-	/*public static AsignacionExpresion generate(Random random, int min, int max) {
-		Sentencia assigment; 
-		assigment = Sentencia.generate(random, min-1, max-1);
-		return new AsignacionExpresion(assigment);
-	}*/
 	
-	/*@Override public Estado evaluate(Estado state){
-		state = assigment.evaluate(state);
-		return state;
-	}*/
-	
-	@Override public Object check(ChequearEstado checkstate){
-			
+	@Override public Object check(ChequearEstado checkstate){	
 		checkstate = assigment.check(checkstate);
-		
 		Asignacion asignacion = (Asignacion)assigment;
-		
-		String id = asignacion.getId();
-		
+		String id = asignacion.id;
 		Par par = checkstate.devolverValor(id); 
 		
 		return par.getTipo();
-		
 	}	
 	
 	@Override public Set<String> freeVariables(Set<String> vars) {
@@ -81,7 +75,4 @@ public class AsignacionExpresion extends Expresion {
 		Asignacion ret = (Asignacion) assigment.optimization(state);
 		return new AsignacionExpresion(ret);
 	}
-	
-	
-
 }

@@ -1,13 +1,26 @@
+/**
+ * Universidad Catolica - Compiladores - Obligatorio.
+ */
 package ast;
 
 import java.util.*;
-
 import behaviour.*;
 
+/**
+ * Representacion de las concatenaciones. Son funciones del lenguaje.
+ * @author Grupo_9
+ * @version 0.0.1
+ * @date 16 nov. 2016
+ */
 public class Concatenar extends Expresion {
 	public final Expresion left;
 	public final Expresion right;
 
+	/**
+	 * Constructor de la clase.
+	 * @param left
+	 * @param right
+	 */
 	public Concatenar(Expresion left, Expresion right) {
 		this.left = left;
 		this.right = right;
@@ -28,15 +41,50 @@ public class Concatenar extends Expresion {
 		return Math.max(left.maxStackIL(), right.maxStackIL() + 1);
 	}
 
+	/**
+	 * FALTA PROBAR QUE CASO FUNCIONA.
+	 */
 	@Override
 	public CompilationContextIL compileIL(CompilationContextIL ctx) {
-		// ctx = left.compileIL(ctx);
-		// ctx = right.compileIL(ctx);
-		// ctx.codeIL.append("add \n");
-		// return ctx;
-		return null;
+		// // // CASO 1
+		/*// Si las expresiones son String:
+		ctx = this.left.compileIL(ctx);
+		ctx = this.right.compileIL(ctx);
+		ctx.codeIL.append("call string [mscorlib]System.String::Concat(string, string) \n");
+		
+		// Si la expresion izquierda es un numero:
+		ctx = this.left.compileIL(ctx);
+		ctx.codeIL.append("box [mscorlib]System.Int32 \n");
+		ctx = this.right.compileIL(ctx);
+		ctx.codeIL.append("call string [mscorlib]System.String::Concat(object, object) \n");
+		
+		// Si la expresion derecha es un numero:
+		ctx = this.right.compileIL(ctx);
+		ctx.codeIL.append("box [mscorlib]System.Int32 \n");
+		ctx = this.left.compileIL(ctx);
+		ctx.codeIL.append("call string [mscorlib]System.String::Concat(object, object) \n");
+		
+		// Si ambas son numeros:
+		ctx = this.left.compileIL(ctx);
+		ctx.codeIL.append("box [mscorlib]System.Int32 \n");
+		ctx = this.right.compileIL(ctx);
+		ctx.codeIL.append("box [mscorlib]System.Int32 \n");
+		ctx.codeIL.append("call string [mscorlib]System.String::Concat(object, object) \n");
+		
+		// // // CASO 2
+		// Probar esta parte del codigo, si funciona esto no hay que hacer todo lo de arriba:
+		ctx = this.left.compileIL(ctx);
+		ctx = this.right.compileIL(ctx);
+		ctx.codeIL.append("call string [mscorlib]System.String::Concat(object, object) \n");*/
+		
+		return ctx;
 	}
 
+	/**
+	 * Optimizaciones:
+	 * - Pliegue de constantes.
+	 * - Simplificaciones algebraicas.
+	 */
 	@Override
 	public Expresion optimization(Estado state) {
 		Expresion izq = left.optimization(state);

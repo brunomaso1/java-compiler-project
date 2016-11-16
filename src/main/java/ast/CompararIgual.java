@@ -1,12 +1,13 @@
+/**
+ * Universidad Catolica - Compiladores - Obligatorio.
+ */
 package ast;
 
 import java.util.*;
-
 import behaviour.*;
 
 /**
  * Representacion de las comparaciones por igual.
- *
  * @author Grupo_9
  * @version 0.0.1
  * @date 30 oct. 2016
@@ -16,6 +17,11 @@ public class CompararIgual extends Expresion {
 	public final Expresion right;
 	public static ChequearEstado globalEstado = new ChequearEstado();
 
+	/**
+	 * Constructor de la clase.
+	 * @param left
+	 * @param right
+	 */
 	public CompararIgual(Expresion left, Expresion right) {
 		this.left = left;
 		this.right = right;
@@ -24,10 +30,6 @@ public class CompararIgual extends Expresion {
 	@Override public String unparse() {
 		return "("+ left.unparse() +" == "+ right.unparse() +")";
 	}
-
-	/*@Override public Boolean evaluate(Estado state) {
-		return left.evaluate(state) == right.evaluate(state);
-	}*/
 
 	@Override public Set<String> freeVariables(Set<String> vars) {
 		return right.freeVariables(left.freeVariables(vars));
@@ -38,11 +40,7 @@ public class CompararIgual extends Expresion {
 	}
 
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
-		//TODO ojo que cuando compara string == string cambia el IL.
-		//resuelto.
-		
 		String aux = (String)(left.check(globalEstado));
-		
 		
 		ctx = left.compileIL(ctx);
 		ctx = right.compileIL(ctx);
@@ -56,6 +54,11 @@ public class CompararIgual extends Expresion {
 		return ctx;
 	}
 	
+	/**
+	 * Optimizaciones:
+	 * - Pliegue de constantes.
+	 * - Simplificaciones algebraicas.
+	 */
 	@Override public Expresion optimization(Estado state){
 		Expresion opt1 = left.optimization(state);
 		Expresion opt2 = right.optimization(state);
@@ -113,21 +116,11 @@ public class CompararIgual extends Expresion {
 		return (this.left == null ? other.left == null : this.left.equals(other.left))
 			&& (this.right == null ? other.right == null : this.right.equals(other.right));
 	}
-
-	/*public static CompararIgual generate(Random random, int min, int max) {
-		Expresion left; Expresion right; 
-		left = Expresion.generate(random, min-1, max-1);
-		right = Expresion.generate(random, min-1, max-1);
-		return new CompararIgual(left, right);
-	}*/
 	
 	@Override public Object check(ChequearEstado checkstate) {
 		if ((left.check(checkstate).equals("texto") & right.check(checkstate).equals("texto"))
 		||	(left.check(checkstate).equals("boolean") & right.check(checkstate).equals("boolean"))
-		||	(left.check(checkstate).equals("entero") & right.check(checkstate).equals("entero"))
-		)
-		
-		
+		||	(left.check(checkstate).equals("entero") & right.check(checkstate).equals("entero")))		
 		{
 			return new String("boolean");
 		} else {

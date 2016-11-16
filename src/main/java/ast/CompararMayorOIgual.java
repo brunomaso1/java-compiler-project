@@ -1,12 +1,13 @@
+/**
+ * Universidad Catolica - Compiladores - Obligatorio.
+ */
 package ast;
 
 import java.util.*;
-
 import behaviour.*;
 
 /**
  * Representacion de las comparaciones por mayor o igual.
- *
  * @author Grupo_9
  * @version 0.0.1
  * @date 30 oct. 2016
@@ -15,6 +16,11 @@ public class CompararMayorOIgual extends Expresion {
 	public final Expresion left;
 	public final Expresion right;
 
+	/**
+	 * Constructor de la clase.
+	 * @param left
+	 * @param right
+	 */
 	public CompararMayorOIgual(Expresion left, Expresion right) {
 		this.left = left;
 		this.right = right;
@@ -24,15 +30,6 @@ public class CompararMayorOIgual extends Expresion {
 		return "("+ left.unparse() +" >= "+ right.unparse() +")";
 	}
 
-	/*@Override public Boolean evaluate(Estado state) {
-		if ((left.evaluate(state) instanceof Double) & (right.evaluate(state) instanceof Double))
-			return new Boolean(((Double)left.evaluate(state) >= (Double)right.evaluate(state))?true:false);
-		else {
-			System.out.print("Estas comparando mal. Numero1 -> " + left.evaluate(state) + " Numero2 -> " + right.evaluate(state));
-			return null;
-		}
-	}*/
-
 	@Override public Set<String> freeVariables(Set<String> vars) {
 		return right.freeVariables(left.freeVariables(vars));
 	}
@@ -41,10 +38,6 @@ public class CompararMayorOIgual extends Expresion {
 		return Math.max(left.maxStackIL(), right.maxStackIL() + 1);
 	}
 
-	/**
-	 * FALTA ARREGLAR.
-	 * Falta la comparacion por igual... Habria que especificar como el contrario del menor.
-	 */
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
 		ctx = left.compileIL(ctx);
 		ctx = right.compileIL(ctx);
@@ -55,6 +48,11 @@ public class CompararMayorOIgual extends Expresion {
 		return ctx;
 	}
 	
+	/**
+	 * Optimizaciones:
+	 * - Pliegue de constantes.
+	 * - Simplificacion de variables.
+	 */
 	@Override public Expresion optimization(Estado state){
 		Expresion opt1 = left.optimization(state);
 		Expresion opt2 = right.optimization(state);
@@ -95,13 +93,6 @@ public class CompararMayorOIgual extends Expresion {
 		return (this.left == null ? other.left == null : this.left.equals(other.left))
 			&& (this.right == null ? other.right == null : this.right.equals(other.right));
 	}
-
-	/*public static CompararMayorOIgual generate(Random random, int min, int max) {
-		Expresion left; Expresion right; 
-		left = Expresion.generate(random, min-1, max-1);
-		right = Expresion.generate(random, min-1, max-1);
-		return new CompararMayorOIgual(left, right);
-	}*/
 	
 	@Override
 	public Object check(ChequearEstado checkstate) {

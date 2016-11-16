@@ -1,13 +1,26 @@
+/**
+ * Universidad Catolica - Compiladores - Obligatorio.
+ */
 package ast;
 
 import java.util.*;
-
 import behaviour.CompilationContextIL;
 
+/**
+ * Esta clase representa las asignaciones.
+ * @author Grupo_9
+ * @version 0.0.1
+ * @date 16 nov. 2016
+ */
 public class Asignacion extends Sentencia {
 	public final String id;
 	public final Expresion expression;
-
+	
+	/**
+	 * Constructor de la clase.
+	 * @param id
+	 * @param expression
+	 */
 	public Asignacion(String id, Expresion expression) {
 		this.id = id;
 		this.expression = expression;
@@ -16,11 +29,6 @@ public class Asignacion extends Sentencia {
 	@Override public String unparse() {
 		return id +" = "+ expression.unparse() +"; ";
 	}
-
-	/*@Override public Estado evaluate(Estado state) {
-		state.set(id, expression.evaluate(state)); 
-		return state;
-	}*/
 
 	@Override public Set<String> freeVariables(Set<String> vars) {
 		vars = expression.freeVariables(vars); 
@@ -39,6 +47,10 @@ public class Asignacion extends Sentencia {
 		return ctx;
 	}
 	
+	/**
+	 * Optimizaciones:
+	 * - Pliegue de constantes.
+	 */
 	@Override public Sentencia optimization(Estado state){				
 		Expresion der = expression.optimization(state);
 		if(der instanceof Numeral){
@@ -83,19 +95,4 @@ public class Asignacion extends Sentencia {
 		return checkstate;
 
 	}
-
-	public String getId() {
-		return id;
-	}
-
-	public Expresion getExpression() {
-		return expression;
-	}
-
-	/*public static Asignacion generate(Random random, int min, int max) {
-		String id; Expresion expression; 
-		id = ""+"abcdefghijklmnopqrstuvwxyz".charAt(random.nextInt(26));
-		expression = Expresion.generate(random, min-1, max-1);
-		return new Asignacion(id, expression);
-	}*/
 }
