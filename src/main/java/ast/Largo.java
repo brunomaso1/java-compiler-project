@@ -1,6 +1,3 @@
-/**
- * Universidad Catolica - Compiladores - Obligatorio.
- */
 package ast;
 
 import java.util.*;
@@ -67,8 +64,15 @@ public class Largo extends Expresion {
 
 	@Override
 	public CompilationContextIL compileIL(CompilationContextIL ctx) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		ctx = exp.compileIL(ctx); //Me tendria que dejar en la pila el valor de la exp
+
+		ctx.codeIL.append("call       instance string [mscorlib]System.Int32::ToString() \n");
+		ctx.codeIL.append("callvirt   instance int32 [mscorlib]System.String::get_Length() \n");
+		ctx.codeIL.append("call       void [mscorlib]System.Console::WriteLine(int32)\n");
+		
+		return ctx;
+		
 	}
 
 	@Override
