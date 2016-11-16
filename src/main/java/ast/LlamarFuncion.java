@@ -45,16 +45,8 @@ public class LlamarFuncion extends Sentencia {
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
 		//ctx.codeIL.append("ldarg.0"+"\n");	
 		for (Expresion expresion : parametros) {
-			//if(expresion instanceof Numeral){
-				
-				
-			//	ctx.codeIL.append("ldc.i4.s "+ ((Numeral)expresion).number.intValue() +"\n");
-			//}else{
-				ctx= expresion.compileIL(ctx);	
-			//}			
+			ctx= expresion.compileIL(ctx);	
 		}
-		
-		//String callFunc = "call		int32 easyLanguage.Program::Suma(int32,int32)";
 		String callFunc = "call		#tipoRetorno# easyLanguage.Program::#nombreFuncion#(#tipoParametros#)";
 		
 		String tipoRetorno = "";
@@ -85,19 +77,14 @@ public class LlamarFuncion extends Sentencia {
 			tipoParametros = tipoParametros.substring(0,tipoParametros.length()-1);
 		}
 			
-		
 		callFunc = callFunc.replace("#tipoParametros#", tipoParametros);
-		
-		
-		
+				
 		ctx.codeIL.append(callFunc+ "\n");
 		
 		Integer index = ctx.variables.indexOf(resultado.id);
 		ctx.codeIL.append("stloc." + index + "\n");
 		
-		return ctx;
-		
-		
+		return ctx;		
 	}
 	
 	
