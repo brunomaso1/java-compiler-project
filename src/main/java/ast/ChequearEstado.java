@@ -3,16 +3,16 @@
  */
 package ast;
 
-import java.util.*;
-
-import behaviour.*;
-
-import java.awt.List;
-import java.lang.reflect.Array; // Este arreglo se utiliza para guardar en el indice 0 el tipo y en el 1 si esta iniciada la variable o no.
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Chequea el estado.
+ * @author Grupo_9
+ * @version 0.0.1
+ * @date 16 nov. 2016
+ */
 public class ChequearEstado {
 	private HashMap <String, ParFunc> funciones = new HashMap<String, ParFunc>();
 	private HashMap <String, Par> state = new HashMap<String, Par>();
@@ -23,18 +23,19 @@ public class ChequearEstado {
 	public ParFunc devolverValorFunc(String funcName) {
 		return funciones.get(funcName);
 	}
-	/*public HashMap<String, Par> getState() {
-		return state;
-	}*/
+	
 	public void borrar(){
 		state.clear();
 	}
+	
 	public void remover(String nombre) {
 		state.remove(nombre);
 	}
+	
 	public void agregar(String nombre, Par tipo) {
 		state.put(nombre, tipo);
 	}
+	
 	public void agregarFunc(String nombre, ParFunc par) {
 		funciones.put(nombre, par);
 	}
@@ -45,6 +46,7 @@ public class ChequearEstado {
 	public void setFunciones(HashMap<String, ParFunc> funciones) {
 		this.funciones = funciones;
 	}
+	
 	public boolean tieneVariables() {
 		if (state.size()>0){
 			return true;
@@ -83,5 +85,4 @@ public class ChequearEstado {
 		
 		return true;
 	}	
-	
 }

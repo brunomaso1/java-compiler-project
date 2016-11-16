@@ -4,13 +4,23 @@
 package ast;
 
 import java.util.*;
-
 import behaviour.*;
 
+/**
+ * Representacion de las concatenaciones. Son funciones del lenguaje.
+ * @author Grupo_9
+ * @version 0.0.1
+ * @date 16 nov. 2016
+ */
 public class Concatenar extends Expresion {
 	public final Expresion left;
 	public final Expresion right;
 
+	/**
+	 * Constructor de la clase.
+	 * @param left
+	 * @param right
+	 */
 	public Concatenar(Expresion left, Expresion right) {
 		this.left = left;
 		this.right = right;
@@ -31,8 +41,12 @@ public class Concatenar extends Expresion {
 		return Math.max(left.maxStackIL(), right.maxStackIL() + 1);
 	}
 
+	/**
+	 * FALTA PROBAR QUE CASO FUNCIONA.
+	 */
 	@Override
 	public CompilationContextIL compileIL(CompilationContextIL ctx) {
+		// // // CASO 1
 		/*// Si las expresiones son String:
 		ctx = this.left.compileIL(ctx);
 		ctx = this.right.compileIL(ctx);
@@ -57,6 +71,7 @@ public class Concatenar extends Expresion {
 		ctx.codeIL.append("box [mscorlib]System.Int32 \n");
 		ctx.codeIL.append("call string [mscorlib]System.String::Concat(object, object) \n");
 		
+		// // // CASO 2
 		// Probar esta parte del codigo, si funciona esto no hay que hacer todo lo de arriba:
 		ctx = this.left.compileIL(ctx);
 		ctx = this.right.compileIL(ctx);
@@ -65,6 +80,11 @@ public class Concatenar extends Expresion {
 		return ctx;
 	}
 
+	/**
+	 * Optimizaciones:
+	 * - Pliegue de constantes.
+	 * - Simplificaciones algebraicas.
+	 */
 	@Override
 	public Expresion optimization(Estado state) {
 		Expresion izq = left.optimization(state);

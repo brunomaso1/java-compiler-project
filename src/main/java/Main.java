@@ -9,9 +9,7 @@ import behaviour.*;
 
 public class Main {
 		
-	public static void main(String[] args) throws Exception {
-		//TODO Agregar concatener StringS!!!!!!
-		
+	public static void main(String[] args) throws Exception {		
 		String funcionesIL = "";
 		
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
@@ -69,14 +67,12 @@ public class Main {
 		} 	
 		
 		try {
-			
 			Sentencia prog2 = (Sentencia)(Parser.parse(sourceStmt.toString()).value);
 						
 			estadoChequeo = prog2.check(estadoChequeo);
 			Mostrar.globalEstado = estadoChequeo;
 			CompararIgual.globalEstado = estadoChequeo;
 			LlamarFuncion.globalEstado = estadoChequeo;
-			
 			
 			estadoChequeo.print();
 			
