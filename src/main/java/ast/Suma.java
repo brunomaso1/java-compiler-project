@@ -1,3 +1,6 @@
+/**
+ * Universidad Catolica - Compiladores - Obligatorio.
+ */
 package ast;
 
 import java.util.*;
@@ -28,7 +31,6 @@ public class Suma extends Expresion {
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
 		ctx = left.compileIL(ctx);
 		ctx = right.compileIL(ctx);
-		ctx.codeIL.append("add \n");
 		return ctx;
 	}
 	

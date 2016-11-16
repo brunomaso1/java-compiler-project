@@ -1,3 +1,6 @@
+/**
+ * Universidad Catolica - Compiladores - Obligatorio.
+ */
 package ast;
 
 public class TiposEnumerados {

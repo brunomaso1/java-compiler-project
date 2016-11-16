@@ -1,3 +1,6 @@
+/**
+ * Universidad Catolica - Compiladores - Obligatorio.
+ */
 package ast;
 
 import java.util.*;
@@ -30,11 +33,36 @@ public class Concatenar extends Expresion {
 
 	@Override
 	public CompilationContextIL compileIL(CompilationContextIL ctx) {
-		// ctx = left.compileIL(ctx);
-		// ctx = right.compileIL(ctx);
-		// ctx.codeIL.append("add \n");
-		// return ctx;
-		return null;
+		/*// Si las expresiones son String:
+		ctx = this.left.compileIL(ctx);
+		ctx = this.right.compileIL(ctx);
+		ctx.codeIL.append("call string [mscorlib]System.String::Concat(string, string) \n");
+		
+		// Si la expresion izquierda es un numero:
+		ctx = this.left.compileIL(ctx);
+		ctx.codeIL.append("box [mscorlib]System.Int32 \n");
+		ctx = this.right.compileIL(ctx);
+		ctx.codeIL.append("call string [mscorlib]System.String::Concat(object, object) \n");
+		
+		// Si la expresion derecha es un numero:
+		ctx = this.right.compileIL(ctx);
+		ctx.codeIL.append("box [mscorlib]System.Int32 \n");
+		ctx = this.left.compileIL(ctx);
+		ctx.codeIL.append("call string [mscorlib]System.String::Concat(object, object) \n");
+		
+		// Si ambas son numeros:
+		ctx = this.left.compileIL(ctx);
+		ctx.codeIL.append("box [mscorlib]System.Int32 \n");
+		ctx = this.right.compileIL(ctx);
+		ctx.codeIL.append("box [mscorlib]System.Int32 \n");
+		ctx.codeIL.append("call string [mscorlib]System.String::Concat(object, object) \n");
+		
+		// Probar esta parte del codigo, si funciona esto no hay que hacer todo lo de arriba:
+		ctx = this.left.compileIL(ctx);
+		ctx = this.right.compileIL(ctx);
+		ctx.codeIL.append("call string [mscorlib]System.String::Concat(object, object) \n");*/
+		
+		return ctx;
 	}
 
 	@Override
