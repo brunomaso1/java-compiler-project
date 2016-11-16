@@ -64,19 +64,29 @@
     .maxstack  2
     .locals init (int32 V_0)
 
+	ldstr "======================================================="
+	call       void [mscorlib]System.Console::WriteLine(string)// String(=======================================================)
+	nop 
+	ldstr "		easyLanguage - Bienvenido."
+	call       void [mscorlib]System.Console::WriteLine(string)// String(			easyLanguage - Bienvenido.				   )
+	nop 
+	ldstr "======================================================="
+	call       void [mscorlib]System.Console::WriteLine(string)// String(=======================================================)
+	ldstr ""
+	call       void [mscorlib]System.Console::WriteLine(string)// String("")
+	nop 
+	
+	
 	// variables = []
 // maxStack =  2
-ldc.i4 7
+ldstr "hola"
+callvirt   instance int32 [mscorlib]System.String::get_Length() 
 stloc 0 // $a
+ldstr "largo de a :"
 ldloc 0 // $a
-call       void [mscorlib]System.Console::Write(int32) // Variable($a)
-nop 
-ldc.i4 4
-ldc.i4 5
-call		int32 easyLanguage.Program::suma(int32,int32)
-stloc.0
-ldloc 0 // $a
-call       void [mscorlib]System.Console::Write(int32) // Variable($a)
+box [mscorlib]System.Int32 
+call		string [mscorlib]System.String::Concat(object, object) 
+call       void [mscorlib]System.Console::Write(string)// Concatenar(String(largo de a :), Variable($a))
 nop 
 
 			 
@@ -86,26 +96,7 @@ nop
     IL_0026:  ret
   } // end of method Program::Main
   
-  		.method public hidebysig static int32  suma ( int32 a,int32 b ) cil managed 
- { 
-.maxstack 2 
-.locals init (int32 V_0) 
-IL_0:
-nop
-ldarg 0 // $a
-ldarg 1 // $b
-add 
-stloc 0 // $c
-ldloc 0 // $c
-call       void [mscorlib]System.Console::Write(int32) // Variable($c)
-nop 
-br.s IL_1
-IL_1: ldloc 0
-ret
-
-} // end of method Program::suma 
-
-
+  
 
   .method public hidebysig specialname rtspecialname 
           instance void  .ctor() cil managed

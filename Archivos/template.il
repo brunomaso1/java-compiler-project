@@ -61,10 +61,23 @@
   {
     .entrypoint
     // Code size       39 (0x27)
-    .maxstack  #maxStack
-    #replaceLocal
+    .maxstack  #maxStack#
+    #Locals#
 
-	#replaceCode
+	ldstr "======================================================="
+	call       void [mscorlib]System.Console::WriteLine(string)// String(=======================================================)
+	nop 
+	ldstr "		easyLanguage - Bienvenido."
+	call       void [mscorlib]System.Console::WriteLine(string)// String(			easyLanguage - Bienvenido.				   )
+	nop 
+	ldstr "======================================================="
+	call       void [mscorlib]System.Console::WriteLine(string)// String(=======================================================)
+	ldstr ""
+	call       void [mscorlib]System.Console::WriteLine(string)// String("")
+	nop 
+	
+	
+	#Code#
 			 
     IL_001f:  nop
     IL_0020:  call       valuetype [mscorlib]System.ConsoleKeyInfo [mscorlib]System.Console::ReadKey()
@@ -72,7 +85,7 @@
     IL_0026:  ret
   } // end of method Program::Main
   
-  #replaceFunction
+  #FunctionsCode#
 
   .method public hidebysig specialname rtspecialname 
           instance void  .ctor() cil managed

@@ -41,10 +41,10 @@ public class Largo extends Expresion {
 	}*/
 	
 	@Override public Object check(ChequearEstado checkstate){
-		if(exp.check(checkstate).equals("texto")||exp.check(checkstate).equals("listatexto")||exp.check(checkstate).equals("listaentero")||exp.check(checkstate).equals("listaboolean")){
+		if(exp.check(checkstate).equals("texto")){
 			return new String("entero");
 		}else{
-			Errores.exceptionList.add(new Errores("Largo \"" + exp.toString() + "\" expresion no es texto ni lista."));
+			Errores.exceptionList.add(new Errores("Largo \"" + exp.toString() + "\" expresion no es texto."));
 		}
 		return checkstate;
 	}
@@ -66,10 +66,7 @@ public class Largo extends Expresion {
 	public CompilationContextIL compileIL(CompilationContextIL ctx) {
 		
 		ctx = exp.compileIL(ctx); //Me tendria que dejar en la pila el valor de la exp
-
-		ctx.codeIL.append("call       instance string [mscorlib]System.Int32::ToString() \n");
 		ctx.codeIL.append("callvirt   instance int32 [mscorlib]System.String::get_Length() \n");
-		ctx.codeIL.append("call       void [mscorlib]System.Console::WriteLine(int32)\n");
 		
 		return ctx;
 		

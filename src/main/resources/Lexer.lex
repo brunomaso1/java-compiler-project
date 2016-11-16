@@ -105,8 +105,6 @@ import java.io.*;
 	{ return new Symbol(PONER_EN, yyline, yycolumn, yytext()); }
 "largo"
 	{ return new Symbol(LARGO, yyline, yycolumn, yytext()); }
-"definida"
-	{ return new Symbol(DEFINIDA, yyline, yycolumn, yytext()); }
 "entero"
 	{ return new Symbol(TIPO, yyline, yycolumn, Tipo.ENTERO); }
 "texto"

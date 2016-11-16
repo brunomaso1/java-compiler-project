@@ -78,7 +78,6 @@ terminal PONER_EN;
 terminal MOSTRAR;
 terminal MOSTRAR_LINEA;
 terminal LARGO;
-terminal DEFINIDA;
 terminal Tipo TIPO;
 terminal CREAR_VARIABLE;
 terminal CREAR_LISTA;
@@ -200,8 +199,6 @@ exp ::=
 		{: RESULT = new Disyuncion($1, $3); :}
 	|	LARGO:$1 PARENTESIS_IZQUIERDO:$2 exp:$3 PARENTESIS_DERECHO:$4
 		{: RESULT = new Largo($3); :}
-	|	DEFINIDA:$1 PARENTESIS_IZQUIERDO:$2 ID:$3 PARENTESIS_DERECHO:$4
-		{: RESULT = new Definida($3); :}	
 	|	OBTENER_POSICION:$1 exp:$2 ID:$3
 		{: RESULT = new ObtenerLista($3,$2); :}
 	| exp:$1 CONCATENAR:$2 exp:$3 
