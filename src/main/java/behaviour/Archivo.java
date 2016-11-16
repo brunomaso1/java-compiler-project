@@ -8,15 +8,15 @@ public class Archivo {
 	      BufferedReader bufferedReader = null;
 	      String file = "";
 	      try {
-	         archivo = new File ("Archivos\\Template.il");
+	         archivo = new File ("Archivos\\template.il");
 	         fileReader = new FileReader (archivo);
 	         bufferedReader = new BufferedReader(fileReader);
 	         String line;
 	         while((line=bufferedReader.readLine())!=null){
-	        	 line = line.replace("#maxStack", maxStack);
-	        	 line = line.replace("#Locals", locals);
-	        	 line = line.replace("#Code", code);
-	        	 line = line.replace("#FunctionsCode", codeFunctions);
+	        	 line = line.replace("#maxStack#", maxStack);
+	        	 line = line.replace("#Locals#", locals);
+	        	 line = line.replace("#Code#", code);
+	        	 line = line.replace("#FunctionsCode#", codeFunctions);
 	        	 System.out.println(line);
 	        	 file += line + "\n"; 
 	         }

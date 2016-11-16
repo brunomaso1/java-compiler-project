@@ -4,6 +4,7 @@
 package ast;
 
 import java.util.*;
+
 import behaviour.*;
 
 /**
@@ -15,7 +16,8 @@ import behaviour.*;
 public class Concatenar extends Expresion {
 	public final Expresion left;
 	public final Expresion right;
-
+	
+	public static ChequearEstado globalEstado = new ChequearEstado();
 	/**
 	 * Constructor de la clase.
 	 * @param left
@@ -28,7 +30,7 @@ public class Concatenar extends Expresion {
 
 	@Override
 	public String unparse() {
-		return "(" + left.unparse() + " , " + right.unparse() + ")";
+		return "concatenar(" + left.unparse() + " , " + right.unparse() + ")";
 	}
 
 	@Override
@@ -46,37 +48,26 @@ public class Concatenar extends Expresion {
 	 */
 	@Override
 	public CompilationContextIL compileIL(CompilationContextIL ctx) {
-		// // // CASO 1
-		/*// Si las expresiones son String:
-		ctx = this.left.compileIL(ctx);
-		ctx = this.right.compileIL(ctx);
-		ctx.codeIL.append("call string [mscorlib]System.String::Concat(string, string) \n");
+		String izq = (String)(left.check(globalEstado));
+		String der = (String)(right.check(globalEstado));
+		Boolean entro = false;
 		
-		// Si la expresion izquierda es un numero:
 		ctx = this.left.compileIL(ctx);
-		ctx.codeIL.append("box [mscorlib]System.Int32 \n");
+		if(izq.equals("entero")){
+			entro = true;
+			ctx.codeIL.append("box [mscorlib]System.Int32 \n");
+		}
 		ctx = this.right.compileIL(ctx);
-		ctx.codeIL.append("call string [mscorlib]System.String::Concat(object, object) \n");
-		
-		// Si la expresion derecha es un numero:
-		ctx = this.right.compileIL(ctx);
-		ctx.codeIL.append("box [mscorlib]System.Int32 \n");
-		ctx = this.left.compileIL(ctx);
-		ctx.codeIL.append("call string [mscorlib]System.String::Concat(object, object) \n");
-		
-		// Si ambas son numeros:
-		ctx = this.left.compileIL(ctx);
-		ctx.codeIL.append("box [mscorlib]System.Int32 \n");
-		ctx = this.right.compileIL(ctx);
-		ctx.codeIL.append("box [mscorlib]System.Int32 \n");
-		ctx.codeIL.append("call string [mscorlib]System.String::Concat(object, object) \n");
-		
-		// // // CASO 2
-		// Probar esta parte del codigo, si funciona esto no hay que hacer todo lo de arriba:
-		ctx = this.left.compileIL(ctx);
-		ctx = this.right.compileIL(ctx);
-		ctx.codeIL.append("call string [mscorlib]System.String::Concat(object, object) \n");*/
-		
+		if(der.equals("entero")){
+			entro = true;
+			ctx.codeIL.append("box [mscorlib]System.Int32 \n");
+		}
+		if(entro){
+			ctx.codeIL.append("call		string [mscorlib]System.String::Concat(object, object) \n");
+		}else{
+			ctx.codeIL.append("call 	string [mscorlib]System.String::Concat(string, string) \n");
+		}
+	
 		return ctx;
 	}
 

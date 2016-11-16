@@ -33,6 +33,7 @@ public class Main {
 			Mostrar.globalEstado = estadoChequeo;
 			CompararIgual.globalEstado = estadoChequeo;
 			LlamarFuncion.globalEstado = estadoChequeo;
+			Concatenar.globalEstado = estadoChequeo;
 			
 			estadoChequeo.print();
 			
@@ -73,6 +74,7 @@ public class Main {
 			Mostrar.globalEstado = estadoChequeo;
 			CompararIgual.globalEstado = estadoChequeo;
 			LlamarFuncion.globalEstado = estadoChequeo;
+			Concatenar.globalEstado = estadoChequeo;
 			
 			estadoChequeo.print();
 			
