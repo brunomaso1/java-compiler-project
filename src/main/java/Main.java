@@ -26,27 +26,29 @@ public class Main {
 		} 
 			
 		try {
-					
-			Definicion prog = (Definicion)(Parser.parse(source.toString()).value);
-						
-			estadoChequeo = prog.check(estadoChequeo);
-			Mostrar.globalEstado = estadoChequeo;
-			CompararIgual.globalEstado = estadoChequeo;
-			LlamarFuncion.globalEstado = estadoChequeo;
-			Concatenar.globalEstado = estadoChequeo;
-			
-			estadoChequeo.print();
-			
-			if (Errores.exceptionList.isEmpty()){
-				funcionesIL = CompilationContextIL.compileIL(prog);
-				System.out.println("==========" );
-
-				System.out.println(funcionesIL);
+			if(source.length()>0){		
+				Definicion prog = (Definicion)(Parser.parse(source.toString()).value);
+							
+				estadoChequeo = prog.check(estadoChequeo);
+				Mostrar.globalEstado = estadoChequeo;
+				MostrarLinea.globalEstado = estadoChequeo;
+				CompararIgual.globalEstado = estadoChequeo;
+				LlamarFuncion.globalEstado = estadoChequeo;
+				Concatenar.globalEstado = estadoChequeo;
 				
-				System.out.println("==========");
-
-			}else{
-				Errores.imprimirErrores();
+				//estadoChequeo.print();
+				
+				if (Errores.exceptionList.isEmpty()){
+					funcionesIL = CompilationContextIL.compileIL(prog);
+					System.out.println("==========" );
+	
+					System.out.println(funcionesIL);
+					
+					System.out.println("==========");
+	
+				}else{
+					Errores.imprimirErrores();
+				}
 			}
 		}catch (Exception e) {
 			
@@ -72,11 +74,12 @@ public class Main {
 						
 			estadoChequeo = prog2.check(estadoChequeo);
 			Mostrar.globalEstado = estadoChequeo;
+			MostrarLinea.globalEstado = estadoChequeo;
 			CompararIgual.globalEstado = estadoChequeo;
 			LlamarFuncion.globalEstado = estadoChequeo;
 			Concatenar.globalEstado = estadoChequeo;
 			
-			estadoChequeo.print();
+			//estadoChequeo.print();
 			
 			if (Errores.exceptionList.isEmpty()){
 				String il = CompilationContextIL.compileIL(prog2,funcionesIL);
