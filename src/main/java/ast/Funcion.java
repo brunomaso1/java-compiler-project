@@ -52,8 +52,8 @@ public class Funcion extends Definicion {
 		for (Parametro parametro : parametros){ 
 			result = Math.max(result, parametro.maxStackIL());
 		}
-		//result = Math.max(result, cuerpo.maxStackIL());
-		//result = Math.max(result, resultado.maxStackIL());
+		result = Math.max(result, cuerpo.maxStackIL());
+		result = Math.max(result, resultado.maxStackIL());
 		return result;
 	}
 
@@ -66,6 +66,8 @@ public class Funcion extends Definicion {
 			"} // end of method Program::#nombreFuncion#";*/
 	
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {
+			int maxSt = 0;
+		
 			if(!ctx.funciones.contains(id)){
 				ctx.funciones.add(id);
 			}else{

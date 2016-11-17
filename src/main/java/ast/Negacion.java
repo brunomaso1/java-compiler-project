@@ -41,7 +41,7 @@ public class Negacion extends Expresion {
 	}
 
 	@Override public int maxStackIL() {
-		return condition.maxStackIL();
+		return condition.maxStackIL()+1;
 	}
 
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {

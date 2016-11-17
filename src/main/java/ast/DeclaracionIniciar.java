@@ -88,7 +88,7 @@ public class DeclaracionIniciar extends Sentencia{
 	}
 	
 	@Override public int maxStackIL() {
-		return Math.max(expresion.maxStackIL(),1);
+		return expresion.maxStackIL()+1;
 	}
 	
 }

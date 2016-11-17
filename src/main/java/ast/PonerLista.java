@@ -32,7 +32,7 @@ public class PonerLista extends Sentencia {
 	}
 
 	@Override public int maxStackIL() {
-		return expresion.maxStackIL();
+		return expresion.maxStackIL()+3;
 	}
 
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {

@@ -28,7 +28,7 @@ public class DeclaracionLista extends Sentencia {
 	}
 
 	@Override public int maxStackIL() {
-		return 3;//cantidad.maxStackIL();
+		return 4;
 	}
 
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {

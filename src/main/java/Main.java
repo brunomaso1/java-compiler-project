@@ -40,11 +40,11 @@ public class Main {
 				
 				if (Errores.exceptionList.isEmpty()){
 					funcionesIL = CompilationContextIL.compileIL(prog);
-					System.out.println("==========" );
+					//System.out.println("==========" );
 	
-					System.out.println(funcionesIL);
+					//System.out.println(funcionesIL);
 					
-					System.out.println("==========");
+					//System.out.println("==========");
 	
 				}else{
 					Errores.imprimirErrores();
@@ -83,7 +83,7 @@ public class Main {
 			
 			if (Errores.exceptionList.isEmpty()){
 				String il = CompilationContextIL.compileIL(prog2,funcionesIL);
-				System.out.println(il);
+				//System.out.println(il);
 			}else{
 				Errores.imprimirErrores();
 			}

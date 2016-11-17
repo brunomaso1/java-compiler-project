@@ -30,7 +30,7 @@ public class ObtenerLista extends Expresion {
 	}
 
 	@Override public int maxStackIL() {
-		return posicion.maxStackIL();
+		return 4;
 	}
 
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {

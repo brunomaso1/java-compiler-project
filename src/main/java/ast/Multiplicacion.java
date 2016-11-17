@@ -43,7 +43,7 @@ public class Multiplicacion extends Expresion {
 	}
 
 	@Override public int maxStackIL() {
-		return Math.max(left.maxStackIL(), right.maxStackIL() + 1);
+		return Math.max(left.maxStackIL(), right.maxStackIL())+ 1;
 	}
 
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {

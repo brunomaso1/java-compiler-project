@@ -17,7 +17,6 @@ public class Archivo {
 	        	 line = line.replace("#Locals#", locals);
 	        	 line = line.replace("#Code#", code);
 	        	 line = line.replace("#FunctionsCode#", codeFunctions);
-	        	 System.out.println(line);
 	        	 file += line + "\n"; 
 	         }
 	         

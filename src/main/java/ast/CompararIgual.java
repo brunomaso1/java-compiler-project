@@ -4,6 +4,7 @@
 package ast;
 
 import java.util.*;
+
 import behaviour.*;
 
 /**
@@ -36,7 +37,7 @@ public class CompararIgual extends Expresion {
 	}
 
 	@Override public int maxStackIL() {
-		return Math.max(left.maxStackIL(), right.maxStackIL() + 1);
+		return Math.max(left.maxStackIL(), right.maxStackIL())+ 1;
 	}
 
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {

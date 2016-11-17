@@ -61,7 +61,7 @@
   {
     .entrypoint
     // Code size       39 (0x27)
-    .maxstack  2
+    .maxstack  3
     .locals init (int32 V_0)
 
 	ldstr "======================================================="
@@ -78,15 +78,14 @@
 	
 	
 	// variables = []
-// maxStack =  2
-ldstr "hola"
-callvirt   instance int32 [mscorlib]System.String::get_Length() 
+// maxStack =  3
+ldc.i4 0
 stloc 0 // $a
-ldstr "largo de a :"
+ldc.i4 6
+call		int32 easyLanguage.Program::fibonacci(int32)
+stloc.0
 ldloc 0 // $a
-box [mscorlib]System.Int32 
-call		string [mscorlib]System.String::Concat(object, object) 
-call       void [mscorlib]System.Console::Write(string)// Concatenar(String(largo de a :), Variable($a))
+call       void [mscorlib]System.Console::Write(int32) // Variable($a)
 nop 
 
 			 
@@ -96,7 +95,46 @@ nop
     IL_0026:  ret
   } // end of method Program::Main
   
-  
+  		.method public hidebysig static int32  fibonacci ( int32 a ) cil managed 
+ { 
+.maxstack 3 
+.locals init (int32 V_0,int32 V_1,int32 V_2) 
+IL_0:
+nop
+ldarg 0 // $a
+ldc.i4 1
+ceq 
+ldarg 0 // $a
+ldc.i4 0
+ceq 
+or 
+brfalse.s IL_1
+ldarg 0 // $a
+stloc 0 // $c
+br.s IL_2
+IL_1:
+ldarg 0 // $a
+ldc.i4 1
+sub 
+call		int32 easyLanguage.Program::fibonacci(int32)
+stloc.1
+ldarg 0 // $a
+ldc.i4 2
+sub 
+call		int32 easyLanguage.Program::fibonacci(int32)
+stloc.2
+ldloc 1 // $aux
+ldloc 2 // $aux2
+add 
+stloc 0 // $c
+IL_2:nop
+br.s IL_3
+IL_3: ldloc 0
+ret
+
+} // end of method Program::fibonacci 
+
+
 
   .method public hidebysig specialname rtspecialname 
           instance void  .ctor() cil managed

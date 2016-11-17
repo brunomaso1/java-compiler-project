@@ -42,7 +42,7 @@ public class LlamarFuncion extends Sentencia {
 	}
 
 	@Override public int maxStackIL() {
-		return 1;
+		return parametros.length + 2;
 	}
 
 	@Override public CompilationContextIL compileIL(CompilationContextIL ctx) {

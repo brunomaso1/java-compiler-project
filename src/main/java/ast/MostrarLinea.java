@@ -57,7 +57,7 @@ public class MostrarLinea extends Sentencia {
 
 	@Override
 	public int maxStackIL() {
-		return exp.maxStackIL();
+		return exp.maxStackIL()+1;
 	}
 
 	@Override

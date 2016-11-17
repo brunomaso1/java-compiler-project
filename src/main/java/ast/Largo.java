@@ -59,7 +59,7 @@ public class Largo extends Expresion {
 	
 	@Override
 	public int maxStackIL() {
-		return exp.maxStackIL();
+		return exp.maxStackIL()+1;
 	}
 
 	@Override
