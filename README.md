@@ -1,11 +1,10 @@
-# UNIVERSIDAD CATOLICA
-## COMPILADORES
-### Descripcion
+# JAVA COMPILER
+## Descripcion
 Este repositorio contiene el codigo y lo referente al obligatorio de compiladores.
 Es un compilador para el lenguaje EasyLanguage (lenguaje orientado a niños).
 Propuesta de proyecto -> <a href="Propuesta_de_proyecto.md">Link</a>
 <p>
-### Parser
+## Parser
 Falta implementar el parser entero.
 <ul>
 	<li>Llamar funcion</li>
