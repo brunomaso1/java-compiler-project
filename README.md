@@ -1,4 +1,5 @@
 # JAVA COMPILER
+[![deprecated](https://img.shields.io/badge/stablility-deprecated-yellow)](https://img.shields.io/badge/stablility-deprecated-yellow)
 ## Descripcion
 Este repositorio contiene el codigo y lo referente al obligatorio de compiladores.
 Es un compilador para el lenguaje EasyLanguage (lenguaje orientado a niños).
